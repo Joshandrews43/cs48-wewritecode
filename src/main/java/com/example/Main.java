@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example;
+package com.cs48.wewritecode;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -34,6 +34,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.cs48.wewritecode.Scraper;
+
 @Controller
 @SpringBootApplication
 public class Main {
@@ -45,11 +47,35 @@ public class Main {
   private DataSource dataSource;
 
   public static void main(String[] args) throws Exception {
+    System.out.println("printing");
+
     SpringApplication.run(Main.class, args);
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+    System.out.println("printing");
+
+    Scraper scraper = new Scraper();
+
   }
 
   @RequestMapping("/")
   String index() {
+    System.out.println("test");
     return "index";
   }
 
