@@ -1,40 +1,26 @@
-# java-getting-started
+# cs48-wewritecode
+CS48 Spring 2019 Public Repository
 
-A barebones Java app, which can easily be deployed to Heroku.
+Team Members:
 
-This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
+Irene Evans
+Josh Andrews
+Alan Roddick
+Jay Patwardhan
+Grant Clark
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Project Summary:
+    One-sentence description:
+    Project overview:
 
-## Running Locally
+Installation:
+    Prerequisites:
+    Installation Steps:
 
-Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
+Functionality and Known Issues:
 
-```sh
-$ git clone https://github.com/heroku/cs48-scheduler-backend.git
-$ cd cs48-scheduler-backend
-$ mvn install
-$ heroku local:start
-```
+License:
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
-```
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-## Documentation
-
-For more information about using Java on Heroku, see these Dev Center articles:
-
-- [Java on Heroku](https://devcenter.heroku.com/categories/java)
+Apache License 2.0
+https://choosealicense.com/licenses/apache-2.0/#
+[LICENCE](LICENSE)
