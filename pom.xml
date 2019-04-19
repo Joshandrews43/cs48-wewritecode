@@ -63,7 +63,7 @@
           <artifactId>gson</artifactId>
       </dependency>
 
-      <!-- TODO: Review below dependencies for unused dependencies -->
+      <!-- Spring / Server-necessary Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>

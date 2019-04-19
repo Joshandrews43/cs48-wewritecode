@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -24,20 +25,43 @@ import java.io.IOException;
  * @since   2019-04-17
  */
 public class Miner {
+
     private static WebDriver driver;
-    private static String url = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
-    private static String chromeDriverLocation = "~/Desktop/chromedriver";
 
-    private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
+    private static final String URL = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
+    private static final String CHROME_DRIVER_PROPERTY = "webdriver.drivers.driver";
 
+    private ClassLoader temp = Miner.class.getClassLoader();
+
+    private static final String PATH_TO_CHROME_DRIVER =
+            System.getProperty("user.dir")+"/src/main/resources/drivers/chromedriver";
+    //        Miner.class.getClassLoader().getResource("/drivers/chromedriver").getPath();
+    // Change the below IDs if the html ids ever change.
+    private static final String SUBJECT_ID = "ctl00_pageContent_courseList";
+    private static final String QUARTER_ID = "ctl00_pageContent_quarterList";
+    private static final String COURSE_LEVEL_ID = "ctl00_pageContent_dropDownCourseLevels";
+    private static final String SEARCH_ID = "ctl00_pageContent_searchButton";
+
+
+
+    // Initialization and closing methods for the GOLDMiner utility.
+    // Call init before using any of the below methods.
+    // Call close after GOLDMiner is finished scraping.
 
     /**
      * Initialize any private fields needed for GOLDMiner to operate.
-     * MUST call before using GOLDMiner.
+     * Establishes connection to {@code URL}, so use the setUrl method before calling if you wish to connect to a
+     * non-default URL.
+     * MUST call before using get methods of GOLDMiner.
      */
     public static void init() {
+        // Necessary property setting for ChromeDriver.
+        System.setProperty(CHROME_DRIVER_PROPERTY, PATH_TO_CHROME_DRIVER);
+
         driver = new ChromeDriver();
-        System.setProperty(CHROME_DRIVER_PROPERTY, chromeDriverLocation);
+
+        // Gets the html of the site requested.
+        driver.get(URL);
     }
 
     /**
@@ -48,43 +72,21 @@ public class Miner {
         driver.close();
     }
 
-    /**
-     * Sets the url for the GOLDMiner to scrape from.
-     *
-     * @param courseUrl Course website URL.
-     *                  If not called, the url will default to:
-     *                  "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx"
-     */
-    public static void setUrl(String courseUrl) {
-        url = courseUrl;
-    }
 
-    /**
-     * Sets the location of the Chrome Driver executable.
-     *
-     * @param location Path to executable.
-     *                 If not called, the location will default to: "~/Desktop/chromedriver"
-     */
-    public static void setChromeDriverLocation(String location) {
-        chromeDriverLocation = location;
-    }
+
+    // Scraping Methods
 
     /**
      * Parses the course website for all current listed courses.
      *
-     * @param subjectID String representation of the html id used to reference the subject area list.
-     * @return JSONObject containing all the subjects listed on the course website.
+     * @return JSONArray containing all the subjects listed on the course website.
      */
-    public static JSONObject getSubjects(String subjectID) {
+    public static JSONArray getSubjects() {
         String subject, fullName, symbol;
 
-        JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
-        // Gets the html of the site requested.
-        driver.get(url);
-
-        for (WebElement option : new Select(driver.findElement(By.id(subjectID))).getOptions()) {
+        for (WebElement option : new Select(driver.findElement(By.id(SUBJECT_ID))).getOptions()) {
             subject = option.getText();
             fullName = subject.substring(0, subject.indexOf('-')-1).trim();
             symbol = subject.substring(subject.indexOf("-")+1).trim();
@@ -95,50 +97,99 @@ public class Miner {
 
             jsonArray.add(jsonSubject);
         }
-        jsonObject.put("subjects", jsonArray);
 
-        return jsonObject;
+        return jsonArray;
     }
 
     /**
-     * Parses the course website for all current listed courses into a JSONObject.
+     * Parses the course website for all current listed quarters.
      *
-     * @return JSONObject containing all the subjects listed on the course website.
+     * @return JSONArray containing all the quarters listed on the course website.
      */
-    public static JSONObject getSubjects() {
-        return getSubjects("ctl00_pageContent_courseList");
+    public static JSONArray getQuarters() {
+        String quarter, season, year;
+        JSONArray quartersArray = new JSONArray();
+
+        for (WebElement option : new Select(driver.findElement(By.id(QUARTER_ID))).getOptions()) {
+            JSONObject quarterObj = new JSONObject();
+
+            quarter = option.getText().trim();
+            season = quarter.substring(0, quarter.indexOf(' '));
+            year = quarter.substring(quarter.indexOf(' '));
+
+            quarterObj.put("season", season);
+            quarterObj.put("year", year);
+
+            quartersArray.add(quarterObj);
+        }
+
+        return quartersArray;
     }
 
     /**
-     * Parses the course website for all current listed quarters into a JSONObject.
+     * Returns a JSON object containing the current listed course levels.
      *
-     * @param quarterID String representation of the html id used to reference the quarter list.
-     * @return JSONObject containing all the quarters listed on the course website.
+     * @return JSONObject containing all the course levels listed on the course website.
      */
-    public static JSONObject getQuarters(String quarterID) {
+    public static JSONObject getCourseLevels() {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
-        // Gets the html of the site requested.
-        driver.get(url);
-
-        for (WebElement option : new Select(driver.findElement(By.id(quarterID))).getOptions()) {
+        for (WebElement option : new Select(driver.findElement(By.id(COURSE_LEVEL_ID))).getOptions()) {
             jsonArray.add(option.getText().trim());
         }
 
-        jsonObject.put("quarters", jsonArray);
+        jsonObject.put("courseLevels", jsonArray);
+
+        return jsonObject;
+    }
+
+    public static JSONObject getAllCourses(String quarter) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray coursesArray = new JSONArray();
+
+        // Search Button
+        WebElement search = driver.findElement(By.id(SEARCH_ID));
+
+        // Quarter Selection
+        Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
+        quarterMenu.selectByVisibleText(quarter.toUpperCase());
+
+        // Course Level Selection (select "All")
+        Select courseLevelMenu = new Select(driver.findElement(By.id(COURSE_LEVEL_ID)));
+        courseLevelMenu.selectByVisibleText("All");
+
+        // Subject List Menu
+        Select subjectMenu = new Select(driver.findElement(By.id(SUBJECT_ID)));
+
+        // Iterate over each option in the subjectMenu
+        for (int i = 0; i < subjectMenu.getOptions().size(); i++) {
+            // Navigate to one of the subjects, and click search
+            subjectMenu.selectByIndex(i); // selects one of the subjects
+            WebElement subject = subjectMenu.getOptions().get(i);
+            String subjectName = subject.getText();
+            String symbol = subjectName.substring(subjectName.indexOf("-")+1).trim();
+            search.click();
+
+            // Get the data from the individual subject area.
+            getCoursesBySubjectArea(symbol);
+
+        }
 
         return jsonObject;
     }
 
     /**
-     * Parses the course website for all current listed quarters into a JSONObject.
      *
-     * @return JSONObject containing all the quarters listed on the course website.
+     * @param subjectArea short symbol representing the subject area.
+     * @return
      */
-    public static JSONObject getQuarters() {
-        return getQuarters("ctl00_pageContent_quarterList");
+    public static JSONObject getCoursesBySubjectArea(String subjectArea) {
+        JSONObject jsonObject = new JSONObject();
+
+        return jsonObject;
     }
+
 
     /**
      * Formats a JSON object nicely into a file output.
@@ -146,7 +197,7 @@ public class Miner {
      * @param filename Target file name (existing or new) for the output.
      * @return True if it was able to write to the file, false if an IOException occurred.
      */
-    public static boolean toJsonFile(JSONObject jsonObject, String filename) {
+    public static boolean toJsonFile(JSONObject jsonObject, File filename) {
         // Creates a new instance of Gson with "pretty printing" enabled.
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
