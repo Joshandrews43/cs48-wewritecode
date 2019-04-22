@@ -1,4 +1,4 @@
-package com.wewritecode.server;
+package com.server;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

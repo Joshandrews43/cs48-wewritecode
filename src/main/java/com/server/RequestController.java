@@ -1,4 +1,4 @@
-package com.wewritecode.server;
+package com.server;
 
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
