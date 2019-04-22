@@ -1,0 +1,17 @@
+{
+  "quarters":
+  [
+    {
+      "season": "Spring",
+      "year": 2019,
+      "lastUpdated": 1000
+    }
+  ],
+  "subjects":
+  [
+    {
+      "symbol": "String",
+      "name": "String"
+    }
+  ]
+}
