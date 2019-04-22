@@ -1,13 +1,9 @@
 package com.wewritecode.server;
 
 import com.google.gson.JsonObject;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class RequestController {
