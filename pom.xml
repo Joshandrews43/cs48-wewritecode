@@ -50,11 +50,11 @@
           <artifactId>selenium-java</artifactId>
       </dependency>
 
-      <!-- Json-Simple (allows for converting/creating JSON objects) -->
+      <!-- Json (allows for converting/creating JSON objects) -->
       <dependency>
-          <groupId>json_simple</groupId>
-          <artifactId>json_simple</artifactId>
-          <version>1.1</version>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20180813</version>
       </dependency>
 
       <!-- Gson (used for "pretty formatting" of JSON objects to strings for testing) -->
