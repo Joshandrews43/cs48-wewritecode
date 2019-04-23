@@ -18,29 +18,33 @@ public class RequestController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/get")
-    public JsonObject getQuarter(@RequestBody JsonObject quarter) {
-        JsonObject obj = new JsonObject();
+    public JsonObject updateQuarters(@RequestBody JsonObject quarters) {
+
         try {
+            System.out.println("Update request for: Spring 2019");
+            JsonObject obj = new JsonObject();
             JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "general.json"));
             JsonParser parser = new JsonParser();
             Object object = parser.parse(reader);
             obj = (JsonObject) object;
             obj = (JsonObject) obj.get("quarters");
+
+
+            if (obj.get("Spring 2019").getAsInt() > quarters.get("Spring 2019").getAsInt()) {
+                    reader = new JsonReader(new FileReader(DATA_DIR + "spring2019.json"));
+                    parser = new JsonParser();
+                    object = parser.parse(reader);
+                    obj = (JsonObject) object;
+                    System.out.println("Outdated. Sending updated data");
+                    return obj;
+
+            }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+            return new JsonObject();
         }
-
-        if (obj.get("Spring 2019").getAsInt() > quarter.get("lastUpdated").getAsInt()) {
-            try {
-                JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "Spring2019.json"));
-                JsonParser parser = new JsonParser();
-                Object object = parser.parse(reader);
-                obj = (JsonObject) object;
-                return obj;
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found");
-            }
-        }
+        System.out.println("Quarter is up to date");
         return new JsonObject();
     }
+
 }

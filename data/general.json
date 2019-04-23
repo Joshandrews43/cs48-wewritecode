@@ -1,7 +1,15 @@
 {
-  "quarters": {
-    "Spring 2019": 10000
-  },
+  "quarters":
+  [
+    {
+      "quarter": "spring2019",
+      "lastUpdated": 10000
+    },
+    {
+      "quarter": "winter2019",
+      "lastUpdated": 10000
+    }
+  ],
   "subjects":
   [
     {
