@@ -1,12 +1,7 @@
 {
-  "quarters":
-  [
-    {
-      "season": "Spring",
-      "year": 2019,
-      "lastUpdated": 10000
-    }
-  ],
+  "quarters": {
+    "Spring 2019": 10000
+  },
   "subjects":
   [
     {

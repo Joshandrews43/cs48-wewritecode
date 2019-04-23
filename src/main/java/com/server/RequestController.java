@@ -25,16 +25,12 @@ public class RequestController {
             JsonParser parser = new JsonParser();
             Object object = parser.parse(reader);
             obj = (JsonObject) object;
+            obj = (JsonObject) obj.get("quarters");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
-        System.out.println(quarter.toString());
-        System.out.println(obj.toString());
-        System.out.println(obj.get("quarters"));
-        JsonArray test = (JsonArray) obj.get("quarters");
-        JsonObject spring = (JsonObject) test.get(0);
-        System.out.println(spring.get("lastUpdated"));
-        if (spring.get("lastUpdated").getAsInt() > quarter.get("lastUpdated").getAsInt()) {
+
+        if (obj.get("Spring 2019").getAsInt() > quarter.get("lastUpdated").getAsInt()) {
             try {
                 JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "Spring2019.json"));
                 JsonParser parser = new JsonParser();
