@@ -19,6 +19,7 @@ public class RequestControllerUpdated {
 
     @RequestMapping(method= RequestMethod.POST, value="/getUpdated")
     public JsonObject updateQuarters(@RequestBody JsonObject quartersRequest) {
+        System.out.println("Quarters update request:\n");
         JsonObject response = new JsonObject();
         try {
             JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "general.json"));
@@ -35,10 +36,23 @@ public class RequestControllerUpdated {
             for (int i = 0; i < clientQuarters.size(); i++) {
                 clientQuarter = (JsonObject) clientQuarters.get(i);
                 serverQuarter = (JsonObject) serverQuarters.get(i);
-                System.out.println("Update request for: " + clientQuarter.get("quarter"));
-                if (serverQuarter.get("lastUpdated").getAsInt() > clientQuarter.get("lastUpdated").getAsInt())
+                System.out.println("Update request for: " + clientQuarter.get("quarter").getAsString());
+                if (serverQuarter.get("lastUpdated").getAsInt() > clientQuarter.get("lastUpdated").getAsInt()) {
+                    System.out.println(clientQuarter.get("quarter").getAsString() + " is outdated.");
                     response.add(serverQuarter.get("quarter").getAsString(), (JsonElement) getQuarter(serverQuarter));
+                } else {
+                    System.out.println(clientQuarter.get("quarter").getAsString() + " is up to date");
+                }
             }
+
+            if (serverQuarters.size() != clientQuarters.size()) {
+                for (int i = clientQuarters.size(); i < serverQuarters.size(); i++) {
+                    serverQuarter = (JsonObject) serverQuarters.get(i);
+                    System.out.println(serverQuarter.get("quarter").getAsString() + " not found on client.");
+                    response.add(serverQuarter.get("quarter").getAsString(), (JsonElement) getQuarter(serverQuarter));
+                }
+            }
+
         } catch (FileNotFoundException e) {
             System.out.println("general.json file not found");
             return new JsonObject();
@@ -51,13 +65,13 @@ public class RequestControllerUpdated {
     public JsonObject getQuarter(JsonObject quarter) {
         try {
             String quarterName = quarter.get("quarter").getAsString();
-            quarterName.replaceAll("\\s+", "");
-            quarterName.toLowerCase();
+            quarterName = quarterName.replaceAll("\\s+", "");
+            quarterName = quarterName.toLowerCase();
             JsonReader reader = new JsonReader(new FileReader(DATA_DIR + quarterName + ".json"));
             JsonParser parser = new JsonParser();
             Object object = parser.parse(reader);
             JsonObject obj = (JsonObject) object;
-            System.out.println("Updating " + quarter.get("quarter"));
+            System.out.println("Updating " + quarter.get("quarter").getAsString());
             return obj;
 
 
