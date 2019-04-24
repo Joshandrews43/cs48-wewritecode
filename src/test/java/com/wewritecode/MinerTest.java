@@ -18,11 +18,14 @@ import static org.junit.Assert.assertTrue;
  */
 public class MinerTest {
 
+    // Component Under Test (CUT)
+    private static Miner cut;
+
     private static final String JSON_RESOURCE_DIR = System.getProperty("user.dir")+"/src/test/resources/jsons/";
 
-    @BeforeClass
+    @Before
     public static void setup() {
-        Miner.init();
+        cut = new Miner();
     }
 
     @Test
@@ -58,13 +61,36 @@ public class MinerTest {
     @Test
     public void getAllSubjectsTest() {
         long startTime = System.currentTimeMillis();
-        JSONObject allSubjects = Miner.getAllSubjects("Winter 2019");
+        JSONObject allSubjects = Miner.getAllSubjects("Spring 2019");
         long endTime = System.currentTimeMillis();
 
-        File quarterFile = new File(JSON_RESOURCE_DIR + "winter2019.json");
+        File quarterFile = new File(JSON_RESOURCE_DIR + "spring2019.json");
 
         System.out.println("Time in seconds: " + ((endTime - startTime) / 1000));
         assertTrue(Miner.toJsonFile(allSubjects, quarterFile));
+    }
+
+    @Test
+    public void getAllCurrentData(){
+        long startTime = System.currentTimeMillis();
+        JSONArray allQuarters = Miner.getOnlyQuarters();
+        for (int i = 0; i < 3; i++) {
+            JSONObject jObj = (JSONObject) allQuarters.get(i);
+            String season = (String) jObj.get("season");
+            String year = (String) jObj.get("year");
+            String quarterStr = season + " " + year;
+            JSONObject quarter = Miner.getAllSubjects(quarterStr);
+            File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
+            assertTrue(Miner.toJsonFile(quarter, quarterFile));
+        }
+        long endTime = System.currentTimeMillis();
+        long elapsed = endTime - startTime;
+
+        System.out.println(String.format("%d min, %d sec",
+                TimeUnit.MILLISECONDS.toMinutes(elapsed),
+                TimeUnit.MILLISECONDS.toSeconds(elapsed)
+                        - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsed))
+        ));
     }
 
     @Test
@@ -88,10 +114,5 @@ public class MinerTest {
                 TimeUnit.MILLISECONDS.toSeconds(elapsed)
                         - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsed))
         ));
-    }
-
-    @AfterClass
-    public static void teardown() {
-        Miner.close();
     }
 }

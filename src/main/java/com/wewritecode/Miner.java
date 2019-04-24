@@ -23,6 +23,7 @@ import java.util.List;
  * @version 1.0
  * @since   2019-04-17
  */
+// TODO: Implement Miner to be a non-static class to enable multi-threading
 public class Miner {
 
     private static WebDriver driver;
@@ -41,18 +42,14 @@ public class Miner {
             "//*[@id=\"aspnetForm\"]/table/tbody/tr[3]/td/div/center/table/tbody";
 
 
-
-    // Initialization and closing methods for the GOLDMiner utility.
-    // Call init before using any of the below methods.
-    // Call close after GOLDMiner is finished scraping.
-
     /**
-     * Initialize any private fields needed for GOLDMiner to operate.
-     * Establishes connection to {@code URL}, so use the setUrl method before calling if you wish to connect to a
-     * non-default URL.
-     * MUST call before using get methods of GOLDMiner.
+     * Constructs a new Miner object.
+     * Uses ChromeDriver to begin scraping the data.
+     *
+     * Change field: {@code PATH_TO_CHROME_DRIVER} if the ChromeDriver executable is located in a different
+     * directory or location.
      */
-    public static void init() {
+    public Miner() {
         // Necessary property setting for ChromeDriver.
         System.setProperty(CHROME_DRIVER_PROPERTY, PATH_TO_CHROME_DRIVER);
 
@@ -63,11 +60,15 @@ public class Miner {
     }
 
     /**
-     * Closes the Chrome Driver.
-     * (Should/Must) call after using GOLDMiner.
+     * Overrides {@code finalize} to allow for closing the opened ChromeDriver application
+     * before Java garbage collection.
+     *
+     * @throws Throwable the {@code Exception} raised by this method
      */
-    public static void close() {
+    @Override
+    protected void finalize() throws Throwable {
         driver.close();
+        super.finalize();
     }
 
 
@@ -215,8 +216,9 @@ public class Miner {
             List<WebElement> lectureInfo = session.findElements(By.cssSelector(".Header.Clickable"));
 
             String courseID = session.findElement(By.id("CourseTitle")).getText().trim();
+            String title = session.findElement(By.xpath("//*[contains(@id,'_HyperLinkPrimaryCourse')]")).getText().trim();
             courseObj.put("courseID", courseID);
-            courseObj.put("title", lectureInfo.get(2).getText());
+            courseObj.put("title", title);
             courseObj.put("fullTitle", getFullTitle(session));
             courseObj.put("description", getDescription(session));
             courseObj.put("college", getCollege(session));
@@ -410,12 +412,19 @@ public class Miner {
     }
 
     private static JSONObject getEnrollment(WebElement element) {
+        int current, max;
         JSONObject enrollmentObj = new JSONObject();
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
         String enrollment = allInfo.get(46).getText().trim();
-
-        int current = Integer.parseInt(enrollment.substring(0, enrollment.indexOf("/")).trim());
-        int max = Integer.parseInt(enrollment.substring(enrollment.indexOf("/") + 2));
+        try {
+            current = Integer.parseInt(enrollment.substring(0, enrollment.indexOf("/")).trim());
+            max = Integer.parseInt(enrollment.substring(enrollment.indexOf("/") + 2));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("ERROR at element: " + element.findElement(By.id("CourseTitle")).getText().trim());
+            current = 0;
+            max = 0;
+        }
 
         enrollmentObj.put("current", current);
         enrollmentObj.put("max", max);
@@ -423,14 +432,6 @@ public class Miner {
         return enrollmentObj;
     }
 
-
-    /**
-     * Find whether or not a given WebElement is a lecture or a section.
-     *
-     * @param session WebElement that may be a lecture or a section.
-     * @return true - if session is a lecture
-     *         false - if it is a section.
-     */
     private static boolean isLecture(WebElement session) {
         try {
             session.findElement(By.cssSelector(".PrimaryCourse.Header.Clickable"));

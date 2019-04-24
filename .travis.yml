@@ -1,6 +1,6 @@
 matrix:
   include:
     - language: java
-      scripts: 
+      scripts: junit
     - language: javascript
       scripts:
