@@ -61,7 +61,7 @@ public class MinerTest {
     @Test
     public void getAllSubjectsTest() {
         long startTime = System.currentTimeMillis();
-        JSONObject allSubjects = Miner.getAllSubjects("Spring 2019");
+        JSONObject allSubjects = Miner.getAllData("Spring 2019");
         long endTime = System.currentTimeMillis();
 
         File quarterFile = new File(JSON_RESOURCE_DIR + "spring2019.json");
@@ -79,7 +79,7 @@ public class MinerTest {
             String season = (String) jObj.get("season");
             String year = (String) jObj.get("year");
             String quarterStr = season + " " + year;
-            JSONObject quarter = Miner.getAllSubjects(quarterStr);
+            JSONObject quarter = Miner.getAllData(quarterStr);
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
             assertTrue(Miner.toJsonFile(quarter, quarterFile));
         }
@@ -102,7 +102,7 @@ public class MinerTest {
             String season = (String) jObj.get("season");
             String year = (String) jObj.get("year");
             String quarterStr = season + " " + year;
-            JSONObject quarter = Miner.getAllSubjects(quarterStr);
+            JSONObject quarter = Miner.getAllData(quarterStr);
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
             assertTrue(Miner.toJsonFile(quarter, quarterFile));
         }

@@ -23,11 +23,12 @@ import java.util.List;
  * @version 1.0
  * @since   2019-04-17
  */
-// TODO: Implement Miner to be a non-static class to enable multi-threading
+// TODO: Implement and enable multi-threading
 public class Miner {
 
     private static WebDriver driver;
 
+    // Constants used by the Miner class to navigate.
     private static final String URL = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.drivers.driver";
     private static final String PATH_TO_CHROME_DRIVER =
@@ -40,6 +41,8 @@ public class Miner {
 
     private static final String COURSE_TABLE_XPATH =
             "//*[@id=\"aspnetForm\"]/table/tbody/tr[3]/td/div/center/table/tbody";
+    private static final String COURSE_TITLE_XPATH =
+            "//*[contains(@id,'_HyperLinkPrimaryCourse')]";
 
 
     /**
@@ -73,14 +76,14 @@ public class Miner {
 
 
 
-    // Scraping Methods
+    // Public Scraping Methods
 
     /**
      * Parses the course website for all current listed courses.
      *
      * @return JSONArray containing all the subjects listed on the course website.
      */
-    public static JSONArray getOnlySubjects() {
+    public JSONArray getOnlySubjects() {
         String subject, fullName, symbol;
 
         JSONArray jsonArray = new JSONArray();
@@ -105,7 +108,7 @@ public class Miner {
      *
      * @return JSONArray containing all the quarters listed on the course website.
      */
-    public static JSONArray getOnlyQuarters() {
+    public JSONArray getOnlyQuarters() {
         String quarter, season, year;
         JSONArray quartersArray = new JSONArray();
 
@@ -130,7 +133,7 @@ public class Miner {
      *
      * @return JSONObject containing all the course levels listed on the course website.
      */
-    public static JSONObject getOnlyCourseLevels() {
+    public JSONObject getOnlyCourseLevels() {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
@@ -143,11 +146,15 @@ public class Miner {
         return jsonObject;
     }
 
-    public static JSONObject getAllSubjects(String quarter) {
+    /**
+     * Get all the subject/course information from the course website for a given quarter.
+     *
+     * @param quarter the quarter requested represented as a string (i.e. Spring 2019)
+     * @return a JSONObject representing every piece of subject and course information for a given quarter.
+     */
+    public JSONObject getAllData(String quarter) {
         String extendedName, fullName, symbol;
-
         JSONObject subjectsObj = new JSONObject();
-        JSONArray coursesArray = new JSONArray();
 
         // Quarter Selector
         Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
@@ -180,173 +187,128 @@ public class Miner {
             search.click();
 
             // Get the data from the individual subject area.
-            JSONObject subjectObj = getCoursesBySubjectArea(fullName);
+            JSONObject subjectObj = getAllCoursesFromSubject(fullName);
             subjectsObj.put(symbol, subjectObj); // Adds an individual subject to the group of subjects.
         }
 
         return subjectsObj;
     }
 
-    /**
-     * Gets all the courses of a certain subject area, and returns a JSONObject with such information.
-     *
-     * @param subjectName Full subject name, without symbol (i.e. "Anthropology")
-     * @return JSONObject representing the course.
-     */
-    public static JSONObject getCoursesBySubjectArea(String subjectName) {
-        // TODO: Split function into multiple function calls for readability.
+    // TODO: Implement another scraping method that can update an existing object based on what's changed.
+    // However, this may not be needed if the scraping is fast enough, and if we will have to send the entire json
+    // object to the client anyway rather than the changes, it's not needed.
+
+    // getAllData Helper Method
+    private JSONObject getAllCoursesFromSubject(String subjectName) {
         JSONObject subjectObj = new JSONObject();
         subjectObj.put("fullName", subjectName);
 
         JSONArray coursesArray = new JSONArray();
 
+        // HTML element for the table containing the courses.
         WebElement courseTable;
+
+        // If the course table does not exist, NoSuchElementException will be thrown.
+        // This means that for that subject, there is NO course table, and thus no courses.
+        // So we will just simply return a subjectObject containing the subject name and an
+        // empty courses JSONArray.
         try {
             courseTable = driver.findElement(By.xpath(COURSE_TABLE_XPATH));
         } catch (NoSuchElementException e) {
+            subjectObj.put("courses", coursesArray);
             return subjectObj;
         }
 
+        // Session = Lecture or Section
         List<WebElement> sessions = courseTable.findElements(By.className("CourseInfoRow"));
 
-        int currentCount = 0;
-        while (currentCount < sessions.size() - 1) {
-            JSONObject courseObj = new JSONObject();
-            WebElement session = sessions.get(currentCount);
-            List<WebElement> lectureInfo = session.findElements(By.cssSelector(".Header.Clickable"));
+        JSONObject courseObj = new JSONObject();
+        JSONObject lecture = new JSONObject();
 
-            String courseID = session.findElement(By.id("CourseTitle")).getText().trim();
-            String title = session.findElement(By.xpath("//*[contains(@id,'_HyperLinkPrimaryCourse')]")).getText().trim();
-            courseObj.put("courseID", courseID);
-            courseObj.put("title", title);
-            courseObj.put("fullTitle", getFullTitle(session));
-            courseObj.put("description", getDescription(session));
-            courseObj.put("college", getCollege(session));
-            courseObj.put("units", getUnits(session));
-            courseObj.put("gradingOptions", getGradingOptions(session));
+        // Populates the coursesArray with ALL data for that subject.
+        String prevCourseID = "";
+        for (WebElement session : sessions) {
+            String currCourseID = getCourseID(session);
 
-            String prev = courseID;
-            JSONArray lecturesArray = new JSONArray();
+            if (isLecture(session)) {
+                // Indicates if the previous session is the same course as the current session.
+                boolean sameCourse = currCourseID.equals(prevCourseID);
 
-            // Executes as long as the current courseID matches the previous courseID,
-            // and we haven't yet reached the end of the table.
-            // If above is true, then keep adding the next session to either the
-            // lectures or sections list for that course.
-            // Continue until the courseID is not the same as the previous courseID,
-            // indicating we need to create a new course object.
-            JSONObject lectureObj = new JSONObject();
-            JSONArray sectionsArray = new JSONArray();
-            while (courseID.equals(prev) && currentCount < sessions.size() - 1) {
-                if (isLecture(session)) {
-
-                    // If the current lecture object has information in it, add the sections array to it, then
-                    // add the lecture object to the lecture array before creating a new lecture.
-                    if (!lectureObj.isEmpty()) {
-                        lectureObj.put("sections", sectionsArray);
-                        lecturesArray.put(lectureObj);
-                    }
-
-                    lectureObj = new JSONObject();
-                    sectionsArray = new JSONArray();
-
-                    // Get lecture-specific information
-                    lectureObj.put("status", getStatus(session));
-                    lectureObj.put("instructors", getInstructors(session));
-                    lectureObj.put("days", getDays(session));
-                    lectureObj.put("time", getTimes(session));
-                    lectureObj.put("location", getLocation(session));
-                    lectureObj.put("enrollment", getEnrollment(session));
-
-
-                } else {
-                    // Get section-specific information
-                    JSONObject sectionObj = new JSONObject();
-                    sectionObj.put("status", getStatus(session));
-                    sectionObj.put("instructors", getInstructors(session));
-                    sectionObj.put("days", getDays(session));
-                    sectionObj.put("time", getTimes(session));
-                    sectionObj.put("location", getLocation(session));
-                    sectionObj.put("enrollment", getEnrollment(session));
-                    sectionsArray.put(sectionObj);
+                // If the lecture object is not empty, add it to the lecture array.
+                if (!lecture.isEmpty()) {
+                    JSONArray lectureArray = (JSONArray) lecture.get("lectures");
+                    lectureArray.put(lecture);
                 }
 
-                currentCount++;
-                // Get the next lecture or section
-                session = sessions.get(currentCount);
-                // Set the courseID for the next lecture or section
-                courseID = session.findElement(By.id("CourseTitle")).getText().trim();
-            }
+                // If this lecture is not the same lecture as the one that was just done,
+                // put the current courseObj into the coursesArray, and make a new
+                // instance of the courseObj to put the new data into.
+                if (!sameCourse) {
+                    // If the courseObj is empty, we don't want to add it to the courseArray.
+                    if (!courseObj.isEmpty())
+                        coursesArray.put(courseObj);
+                    courseObj = getCourse(session);
+                }
 
-            if (!lectureObj.isEmpty()) {
-                lectureObj.put("sections", sectionsArray);
-                lecturesArray.put(lectureObj);
+                // Replace the previous lecture with a new lecture.
+                lecture = getLecture(session);
+                prevCourseID = (String) lecture.get("courseID");
+            } else {
+                // Executes when the session is a section. Thus, add it to whatever the current lecture object is.
+                JSONObject section = getSection(session);
+                JSONArray sectionsArray = (JSONArray) lecture.get("sections");
+                sectionsArray.put(section);
             }
-            courseObj.put("lectures", lecturesArray);
-
-            // Course has been populated with all information, now add to courses array.
-            coursesArray.put(courseObj);
         }
 
-        // All courses have been added to the courses array, now add to subject object.
-        subjectObj.put("courses", coursesArray);
+        // Last check. The last session that is retrieved can be section, not a lecture. Thus, since the previous
+        // course has only been added to the coursesArray once you come across a new course/lecture, we must make
+        // make sure the last courseObj in the table is added to the coursesArray.
+        if (!courseObj.isEmpty())
+            coursesArray.put(courseObj);
 
         return subjectObj;
     }
 
-    private static String getFullTitle(WebElement element) {
-        WebElement fullTitle = element.findElement(By.xpath("//*[contains(@id,'_labelTitle')]"));
-        return fullTitle.getAttribute("innerHTML").trim();
+
+
+    // Lecture/Section Helper Methods
+
+    private JSONObject getLecture(WebElement lecture) {
+        JSONObject lectureObj = new JSONObject();
+
+        // Get lecture-specific information
+        lectureObj.put("status", getStatus(lecture));
+        lectureObj.put("instructors", getInstructors(lecture));
+        lectureObj.put("days", getDays(lecture));
+        lectureObj.put("time", getTimes(lecture));
+        lectureObj.put("location", getLocation(lecture));
+        lectureObj.put("enrollment", getEnrollment(lecture));
+        lectureObj.put("sections", new JSONArray());
+
+        return lectureObj;
     }
 
-    private static String getDescription(WebElement element) {
-        WebElement description = element.findElement(By.xpath("//*[contains(@id,'_labelDescription')]"));
-        return description.getAttribute("innerHTML").trim();
+    private JSONObject getSection(WebElement section) {
+        JSONObject sectionObj = new JSONObject();
+
+        // Get section-specific information
+        sectionObj.put("status", getStatus(section));
+        sectionObj.put("instructors", getInstructors(section));
+        sectionObj.put("days", getDays(section));
+        sectionObj.put("time", getTimes(section));
+        sectionObj.put("location", getLocation(section));
+        sectionObj.put("enrollment", getEnrollment(section));
+
+        return sectionObj;
     }
 
-    private static String getPrerequisites(WebElement element) {
-        WebElement prereqs = element.findElement(By.xpath("//*[contains(@id,'_labelPreReqComment')]"));
-        return prereqs.getAttribute("innerHTML").trim();
-    }
-
-    private static String getCollege(WebElement element) {
-        WebElement college = element.findElement(By.xpath("//*[contains(@id,'_labelCollege')]"));
-        String collegeStr = college.getAttribute("innerHTML").trim();
-        if (collegeStr.equals("L&amp;S"))
-            collegeStr = "L&S";
-        return collegeStr;
-    }
-
-    private static JSONObject getUnits(WebElement element) {
-        JSONObject unitsObj = new JSONObject();
-        WebElement units = element.findElement(By.xpath("//*[contains(@id,'_labelUnits')]"));
-        String unitsStr = units.getAttribute("innerHTML");
-
-        double minUnits, maxUnits;
-        try {
-            minUnits = Double.parseDouble(unitsStr.substring(0, unitsStr.indexOf("-") - 1));
-            maxUnits = Double.parseDouble(unitsStr.substring(unitsStr.indexOf("-") + 2));
-        } catch (StringIndexOutOfBoundsException e) {
-            minUnits = Double.parseDouble(unitsStr);
-            maxUnits = minUnits;
-        }
-
-        unitsObj.put("min", minUnits);
-        unitsObj.put("max", maxUnits);
-
-        return unitsObj;
-    }
-
-    private static String getGradingOptions(WebElement element) {
-        WebElement options = element.findElement(By.xpath("//*[contains(@id,'_labelQuarter')]"));
-        return options.getAttribute("innerHTML");
-    }
-
-    private static String getStatus(WebElement element) {
+    private String getStatus(WebElement element) {
         String status = element.findElement(By.className("Status")).getText().trim();
         return status;
     }
 
-    private static JSONArray getInstructors(WebElement element) {
+    private JSONArray getInstructors(WebElement element) {
         JSONArray instructorsArray = new JSONArray();
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
         String instructorData = allInfo.get(42).getText();
@@ -357,7 +319,7 @@ public class Miner {
         return instructorsArray;
     }
 
-    private static JSONArray getDays(WebElement element) {
+    private JSONArray getDays(WebElement element) {
         JSONArray daysArray = new JSONArray();
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
         String days = allInfo.get(43).getText().replaceAll("\\s","");
@@ -367,7 +329,7 @@ public class Miner {
         return daysArray;
     }
 
-    private static JSONObject getTimes(WebElement element) {
+    private JSONObject getTimes(WebElement element) {
         JSONObject timesObj = new JSONObject();
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
         String timeData = allInfo.get(44).getText();
@@ -394,24 +356,24 @@ public class Miner {
         return timesObj;
     }
 
-    private static int getHour(String time) {
+    private int getHour(String time) {
         int hour = Integer.parseInt(time.substring(0,time.indexOf(":")));
         if (time.substring(time.length() - 2).toLowerCase().equals("pm") && hour != 12)
             hour += 12;
         return hour;
     }
 
-    private static int getMinute(String time) {
+    private int getMinute(String time) {
         return Integer.parseInt(time.substring(time.indexOf(":") + 1, time.length() - 2).trim());
     }
 
-    private static String getLocation(WebElement element) {
+    private String getLocation(WebElement element) {
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
         String location = allInfo.get(45).getText().trim();
         return location;
     }
 
-    private static JSONObject getEnrollment(WebElement element) {
+    private JSONObject getEnrollment(WebElement element) {
         int current, max;
         JSONObject enrollmentObj = new JSONObject();
         List<WebElement> allInfo = element.findElements(By.tagName("td"));
@@ -432,7 +394,83 @@ public class Miner {
         return enrollmentObj;
     }
 
-    private static boolean isLecture(WebElement session) {
+
+
+    // Course Helper Methods
+
+    private JSONObject getCourse(WebElement session) {
+        JSONObject courseObj = new JSONObject();
+
+        courseObj.put("courseID", getCourseID(session));
+        courseObj.put("title", getCourseTitle(session));
+        courseObj.put("fullTitle", getCourseFullTitle(session));
+        courseObj.put("description", getCourseDescription(session));
+        courseObj.put("prerequisites", getCoursePrerequisites(session));
+        courseObj.put("college", getCourseCollege(session));
+        courseObj.put("units", getCourseUnits(session));
+        courseObj.put("gradingOptions", getCourseGradingOptions(session));
+        courseObj.put("lectures", new JSONArray());
+
+        return courseObj;
+    }
+
+    private String getCourseID(WebElement session) {
+        return session.findElement(By.id("CourseTitle")).getText().trim();
+    }
+
+    private String getCourseTitle(WebElement session) {
+        return session.findElement(By.xpath(COURSE_TITLE_XPATH)).getText().trim();
+    }
+
+    private String getCourseFullTitle(WebElement element) {
+        WebElement fullTitle = element.findElement(By.xpath("//*[contains(@id,'_labelTitle')]"));
+        return fullTitle.getAttribute("innerHTML").trim();
+    }
+
+    private String getCourseDescription(WebElement element) {
+        WebElement description = element.findElement(By.xpath("//*[contains(@id,'_labelDescription')]"));
+        return description.getAttribute("innerHTML").trim();
+    }
+
+    private String getCoursePrerequisites(WebElement element) {
+        WebElement prereqs = element.findElement(By.xpath("//*[contains(@id,'_labelPreReqComment')]"));
+        return prereqs.getAttribute("innerHTML").trim();
+    }
+
+    private String getCourseCollege(WebElement element) {
+        WebElement college = element.findElement(By.xpath("//*[contains(@id,'_labelCollege')]"));
+        String collegeStr = college.getAttribute("innerHTML").trim();
+        if (collegeStr.equals("L&amp;S"))
+            collegeStr = "L&S";
+        return collegeStr;
+    }
+
+    private JSONObject getCourseUnits(WebElement element) {
+        JSONObject unitsObj = new JSONObject();
+        WebElement units = element.findElement(By.xpath("//*[contains(@id,'_labelUnits')]"));
+        String unitsStr = units.getAttribute("innerHTML");
+
+        double minUnits, maxUnits;
+        try {
+            minUnits = Double.parseDouble(unitsStr.substring(0, unitsStr.indexOf("-") - 1));
+            maxUnits = Double.parseDouble(unitsStr.substring(unitsStr.indexOf("-") + 2));
+        } catch (StringIndexOutOfBoundsException e) {
+            minUnits = Double.parseDouble(unitsStr);
+            maxUnits = minUnits;
+        }
+
+        unitsObj.put("min", minUnits);
+        unitsObj.put("max", maxUnits);
+
+        return unitsObj;
+    }
+
+    private String getCourseGradingOptions(WebElement element) {
+        WebElement options = element.findElement(By.xpath("//*[contains(@id,'_labelQuarter')]"));
+        return options.getAttribute("innerHTML");
+    }
+
+    private boolean isLecture(WebElement session) {
         try {
             session.findElement(By.cssSelector(".PrimaryCourse.Header.Clickable"));
             return true;
@@ -440,6 +478,7 @@ public class Miner {
             return false;
         }
     }
+
 
 
     /**
