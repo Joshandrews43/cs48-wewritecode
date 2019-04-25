@@ -13,22 +13,23 @@ import org.openqa.selenium.support.ui.Select;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Miner (a.k.a. GOLDMiner) utility is responsible for scraping a UCSB course website for course information.
- * Methods and fields included are all static, since only one instance of the Miner utility will be used.
+ * The GoldMiner (a.k.a. GOLDMiner) utility is responsible for scraping a UCSB course website for course information.
+ * Methods and fields included are all static, since only one instance of the GoldMiner utility will be used.
  *
  * @author  Grant Clark
- * @version 1.0
- * @since   2019-04-17
+ * @version 1.1
+ * @since   2019-04-24
  */
 // TODO: Implement and enable multi-threading
-public class Miner {
+public class GoldMiner {
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
-    // Constants used by the Miner class to navigate.
+    // Constants used by the GoldMiner class to navigate.
     private static final String URL = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
     private static final String CHROME_DRIVER_PROPERTY = "webdriver.drivers.driver";
     private static final String PATH_TO_CHROME_DRIVER =
@@ -45,14 +46,15 @@ public class Miner {
             "//*[contains(@id,'_HyperLinkPrimaryCourse')]";
 
 
+
     /**
-     * Constructs a new Miner object.
+     * Constructs a new GoldMiner object.
      * Uses ChromeDriver to begin scraping the data.
      *
      * Change field: {@code PATH_TO_CHROME_DRIVER} if the ChromeDriver executable is located in a different
      * directory or location.
      */
-    public Miner() {
+    public GoldMiner() {
         // Necessary property setting for ChromeDriver.
         System.setProperty(CHROME_DRIVER_PROPERTY, PATH_TO_CHROME_DRIVER);
 
@@ -73,6 +75,8 @@ public class Miner {
         driver.close();
         super.finalize();
     }
+
+    public void close() { driver.close(); }
 
 
 
@@ -101,6 +105,14 @@ public class Miner {
         }
 
         return jsonArray;
+    }
+
+    public List<String> getSubjectSymbols() {
+        List<String> symbols = new ArrayList<>();
+        for (WebElement option : new Select(driver.findElement(By.id(SUBJECT_ID))).getOptions()) {
+            symbols.add(option.getAttribute("value"));
+        }
+        return symbols;
     }
 
     /**
@@ -187,7 +199,7 @@ public class Miner {
             search.click();
 
             // Get the data from the individual subject area.
-            JSONObject subjectObj = getAllCoursesFromSubject(fullName);
+            JSONObject subjectObj = getCourses(fullName);
             subjectsObj.put(symbol, subjectObj); // Adds an individual subject to the group of subjects.
         }
 
@@ -198,8 +210,8 @@ public class Miner {
     // However, this may not be needed if the scraping is fast enough, and if we will have to send the entire json
     // object to the client anyway rather than the changes, it's not needed.
 
-    // getAllData Helper Method
-    private JSONObject getAllCoursesFromSubject(String subjectName) {
+    // Helper Method for getAllData
+    private JSONObject getCourses(String subjectName) {
         JSONObject subjectObj = new JSONObject();
         subjectObj.put("fullName", subjectName);
 
@@ -236,7 +248,7 @@ public class Miner {
 
                 // If the lecture object is not empty, add it to the lecture array.
                 if (!lecture.isEmpty()) {
-                    JSONArray lectureArray = (JSONArray) lecture.get("lectures");
+                    JSONArray lectureArray = lecture.getJSONArray("lectures");
                     lectureArray.put(lecture);
                 }
 
@@ -252,11 +264,11 @@ public class Miner {
 
                 // Replace the previous lecture with a new lecture.
                 lecture = getLecture(session);
-                prevCourseID = (String) lecture.get("courseID");
+                prevCourseID = lecture.getString("courseID");
             } else {
                 // Executes when the session is a section. Thus, add it to whatever the current lecture object is.
                 JSONObject section = getSection(session);
-                JSONArray sectionsArray = (JSONArray) lecture.get("sections");
+                JSONArray sectionsArray = lecture.getJSONArray("sections");
                 sectionsArray.put(section);
             }
         }
@@ -268,6 +280,27 @@ public class Miner {
             coursesArray.put(courseObj);
 
         return subjectObj;
+    }
+
+
+    public JSONObject getAllCoursesFromSubject(String symbol, String quarter) {
+        // Quarter Selector
+        Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
+        quarterMenu.selectByVisibleText(quarter.toUpperCase());
+
+        // Course Level Selection (selects "All")
+        Select courseLevelMenu = new Select(driver.findElement(By.id(COURSE_LEVEL_ID)));
+        courseLevelMenu.selectByVisibleText("All");
+
+        // Subject Selector
+        Select subjectMenu = new Select(driver.findElement(By.id(SUBJECT_ID)));
+        subjectMenu.selectByValue(symbol);
+
+        // Search Button
+        WebElement search = driver.findElement(By.id(SEARCH_ID));
+        search.click();
+
+        return getCourses(symbol);
     }
 
 
@@ -483,6 +516,7 @@ public class Miner {
 
     /**
      * Formats a JSON object nicely into a file output.
+     *
      * @param jsonObject Object to convert to string and output into file (formatted nicely).
      * @param filename Target file name (existing or new) for the output.
      * @return True if it was able to write to the file, false if an IOException occurred.
