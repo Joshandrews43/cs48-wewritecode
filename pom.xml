@@ -127,12 +127,6 @@
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <!-- Gson (used for "pretty formatting" of JSON objects to strings for testing) -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
