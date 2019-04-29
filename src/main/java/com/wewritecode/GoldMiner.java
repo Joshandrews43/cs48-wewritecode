@@ -62,13 +62,12 @@ public class GoldMiner {
      */
     public GoldMiner() {
         // Necessary property setting for ChromeDriver.
-        System.setProperty(CHROME_DRIVER_PROPERTY_1, PATH_TO_CHROME_DRIVER);
-        System.setProperty(CHROME_DRIVER_PROPERTY_2, PATH_TO_CHROME_DRIVER);
-
+//        System.setProperty(CHROME_DRIVER_PROPERTY_1, PATH_TO_CHROME_DRIVER);
+//        System.setProperty(CHROME_DRIVER_PROPERTY_2, PATH_TO_CHROME_DRIVER);
 
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
-        options.addArguments("--log-level=3");
+        options.addArguments("--log-level=3", "--no-sandbox");
 
         driver = new ChromeDriver(options);
 
