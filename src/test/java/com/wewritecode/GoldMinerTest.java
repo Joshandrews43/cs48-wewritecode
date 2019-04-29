@@ -63,20 +63,18 @@ public class GoldMinerTest {
     }
 
     @Test
+    @Ignore
     public void getAllSubjectsTest() {
-        long startTime = System.currentTimeMillis();
         JSONObject allSubjects = cut.getAllData("Spring 2019");
-        long endTime = System.currentTimeMillis();
 
         File quarterFile = new File(JSON_RESOURCE_DIR + "spring2019.json");
 
-        System.out.println("Time in seconds: " + ((endTime - startTime) / 1000));
         assertTrue(GoldMiner.toJsonFile(allSubjects, quarterFile));
     }
 
     @Test
+    @Ignore
     public void getAllCurrentData(){
-        long startTime = System.currentTimeMillis();
         JSONArray allQuarters = cut.getOnlyQuarters();
         for (int i = 0; i < 3; i++) {
             JSONObject jObj = allQuarters.getJSONObject(i);
@@ -87,19 +85,11 @@ public class GoldMinerTest {
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
             assertTrue(GoldMiner.toJsonFile(quarter, quarterFile));
         }
-        long endTime = System.currentTimeMillis();
-        long elapsed = endTime - startTime;
-
-        System.out.println(String.format("%d min, %d sec",
-                TimeUnit.MILLISECONDS.toMinutes(elapsed),
-                TimeUnit.MILLISECONDS.toSeconds(elapsed)
-                        - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsed))
-        ));
     }
 
     @Test
+    @Ignore
     public void getAllData() {
-        long startTime = System.currentTimeMillis();
         JSONArray allQuarters = cut.getOnlyQuarters();
         for (Object obj : allQuarters) {
             JSONObject jObj = (JSONObject) obj;
@@ -110,13 +100,5 @@ public class GoldMinerTest {
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
             assertTrue(GoldMiner.toJsonFile(quarter, quarterFile));
         }
-        long endTime = System.currentTimeMillis();
-        long elapsed = endTime - startTime;
-
-        System.out.println(String.format("%d min, %d sec",
-                TimeUnit.MILLISECONDS.toMinutes(elapsed),
-                TimeUnit.MILLISECONDS.toSeconds(elapsed)
-                        - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsed))
-        ));
     }
 }
