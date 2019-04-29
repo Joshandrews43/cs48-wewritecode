@@ -1,6 +1,7 @@
 package com.server;
 
 import com.wewritecode.GoldMineCLI;
+import com.wewritecode.GoldMiner;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,8 +21,14 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+
+        // Get most recent quarter.
+        GoldMiner miner = new GoldMiner();
+        String quarter = miner.getQuartersAsList().get(0);
+        miner.close();
+
         try {
-            GoldMineCLI.run(args);
+            GoldMineCLI.run(quarter);
         } catch (InterruptedException | ExecutionException e) {
             LOGGER.error("Exception thrown in main GoldMineCLI Application");
             LOGGER.error(e.getMessage());

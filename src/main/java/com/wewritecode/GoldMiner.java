@@ -153,6 +153,15 @@ public class GoldMiner {
         return quartersArray;
     }
 
+    public List<String> getQuartersAsList() {
+        List<String> quarters = new ArrayList<>();
+        for (WebElement option : new Select(driver.findElement(By.id(QUARTER_ID))).getOptions()) {
+            String quarter = option.getText().trim();
+            quarters.add(quarter);
+        }
+        return quarters;
+    }
+
     /**
      * Returns a JSON object containing the current listed course levels.
      *
