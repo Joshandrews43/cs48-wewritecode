@@ -1,42 +1,45 @@
 {
   "courses":
-  [
-    {
-      "courseID": "String",
-      "lectures":
-      [
-        {
-          "selected": true,
-          "instructor": "String",
-          "days": "String",
-          "time":
+  {
+    "mandatory": [
+      {
+        "courseID": "String",
+        "optional": false,
+        "lectures":
+        [
           {
-            "start": "String",
-            "end": "String"
-          },
-          "sections":
-          [
+            "instructor": "String",
+            "days": "String",
+            "time":
             {
-              "selected": true,
-              "days": "String",
-              "time":
-              {
-                "start": "String",
-                "end": "String"
-              }
+              "start": "String",
+              "end": "String"
             },
-            {
-              "selected": false,
-              "days": "String",
-              "time":
+            "sections":
+            [
               {
-                "start": "String",
-                "end": "String"
+                "days": "String",
+                "time":
+                {
+                  "start": "String",
+                  "end": "String"
+                }
+              },
+              {
+                "days": "String",
+                "time":
+                {
+                  "start": "String",
+                  "end": "String"
+                }
               }
-            }
-          ]
-        }
-      ]
-    }
-  ]
+            ]
+          }
+        ]
+      }
+    ],
+    "optional": [
+
+    ]
+  }
 }

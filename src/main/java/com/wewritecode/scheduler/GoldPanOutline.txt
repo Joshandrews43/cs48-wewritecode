@@ -2,3 +2,9 @@
 
 Option 1: Genetic Algorithm
     1) Server is sent a JSON object detailing the courses they would like to choose.
+        a. Information needed includes:
+            i. Course IDs for the courses they wish to take.
+            ii. Selections on lectures and sections (default = true)
+            iii. A tag for "optional" to indicate if the class is a must-have (false), or if the class is a class
+                 that could be added if possible (true). (default = false)
+    2)
