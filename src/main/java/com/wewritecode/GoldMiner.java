@@ -38,8 +38,9 @@ public class GoldMiner {
     private static final String URL = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
     private static final String CHROME_DRIVER_PROPERTY_1 = "webdriver.drivers.driver";
     private static final String CHROME_DRIVER_PROPERTY_2 = "webdriver.chrome.driver";
-    private static final String PATH_TO_CHROME_DRIVER =
+    private static final String PATH_TO_CHROME_DRIVER_OLD =
             System.getProperty("user.dir")+"/src/main/resources/drivers/chromedriver";
+    private static final String PATH_TO_CHROME_DRIVER = "/usr/local/bin/chromedriver";
 
     private static final String SUBJECT_ID = "ctl00_pageContent_courseList";
     private static final String QUARTER_ID = "ctl00_pageContent_quarterList";
@@ -62,8 +63,8 @@ public class GoldMiner {
      */
     public GoldMiner() {
         // Necessary property setting for ChromeDriver.
-//        System.setProperty(CHROME_DRIVER_PROPERTY_1, PATH_TO_CHROME_DRIVER);
-//        System.setProperty(CHROME_DRIVER_PROPERTY_2, PATH_TO_CHROME_DRIVER);
+        System.setProperty(CHROME_DRIVER_PROPERTY_1, PATH_TO_CHROME_DRIVER);
+        System.setProperty(CHROME_DRIVER_PROPERTY_2, PATH_TO_CHROME_DRIVER);
 
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);

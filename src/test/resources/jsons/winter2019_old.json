@@ -1,0 +1,30 @@
+{
+  "LIT     ": {
+    "courses": [],
+    "fullName": "LIT     "
+  },
+  "LIT  CS ": {
+    "courses": [],
+    "fullName": "LIT  CS "
+  },
+  "GEN SCS ": {
+    "courses": [],
+    "fullName": "GEN SCS "
+  },
+  "CMPSCCS ": {
+    "courses": [],
+    "fullName": "CMPSCCS "
+  },
+  "GEN S   ": {
+    "courses": [],
+    "fullName": "GEN S   "
+  },
+  "GPS": {
+    "courses": [],
+    "fullName": "GPS"
+  },
+  "ARTST": {
+    "courses": [],
+    "fullName": "ARTST"
+  }
+}

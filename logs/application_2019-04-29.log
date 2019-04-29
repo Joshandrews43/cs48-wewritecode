@@ -1390,3 +1390,293 @@
 2019-04-29 10:04:54,299 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 3 sessions for subject: Hebrew.
 2019-04-29 10:04:55,638 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Hebrew
 2019-04-29 10:04:55,638 [pool-1-thread-2] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 1 sec for: Hebrew
+2019-04-29 11:17:04,887 [restartedMain] INFO  com.wewritecode.GoldMineCLI - Beginning scraping program.
+2019-04-29 11:17:47,592 [restartedMain] INFO  com.wewritecode.GoldMineCLI - Beginning scraping program.
+2019-04-29 11:17:47,595 [restartedMain] INFO  com.wewritecode.GoldMineCLI - Beginning scraping Spring 2018
+2019-04-29 11:17:47,596 [restartedMain] INFO  com.wewritecode.GoldMineController - Starting multi-threaded scrape.
+2019-04-29 11:17:49,900 [restartedMain] INFO  com.wewritecode.GoldMineController - Creating 4 available threads.
+2019-04-29 11:17:51,377 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Anthropology - ANTH.
+2019-04-29 11:17:51,377 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art - ART.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art (Creative Studies) - ART CS.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art History - ARTHI.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art Studio - ARTST.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Asian American Studies - AS AM.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Astronomy - ASTRO.
+2019-04-29 11:17:51,378 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biology - BIOL.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biology (Creative Studies) - BIOL CS.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biomolecular Science and Engineering - BMSE.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Black Studies - BL ST.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemical Engineering - CH E.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemistry (Creative Studies) - CHEM CS.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemistry and Biochemistry - CHEM.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chicano Studies - CH ST.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chinese - CHIN.
+2019-04-29 11:17:51,379 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Classics - CLASS.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Communication - COMM.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Comparative Literature - C LIT.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computer Science - CMPSC.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computer Science (Creative Studies) - CMPSCCS.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computing (Creative Studies) - CMPTG.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computing (Creative Studies) - CMPTGCS.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Counseling, Clinical, School Psychology - CNCSP.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Dance - DANCE.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Dynamical Neuroscience - DYNS.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Earth Science - EARTH.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: East Asian Cultural Studies - EACS.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Ecology, Evolution & Marine Biology - EEMB.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Economics - ECON.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Education - ED.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Electrical Computer Engineering - ECE.
+2019-04-29 11:17:51,380 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Engineering Sciences - ENGR.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: English - ENGL.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Environmental Science & Management - ESM.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Environmental Studies - ENV S.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Exercise & Sport Studies - ESS.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Exercise Sport - ES.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Feminist Studies - FEMST.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Film and Media Studies - FAMST.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: French - FR.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: General Studies (Creative Studies) - GEN S.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: General Studies (Creative Studies) - GEN SCS.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Geography - GEOG.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: German - GER.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Global Peace and Security - GPS.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Global Studies - GLOBL.
+2019-04-29 11:17:51,381 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Graduate Division - GRAD.
+2019-04-29 11:17:51,382 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Greek - GREEK.
+2019-04-29 11:17:51,382 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Hebrew - HEB.
+2019-04-29 11:17:51,382 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: History - HIST.
+2019-04-29 11:17:51,382 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Interdisciplinary - INT.
+2019-04-29 11:17:51,382 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Interdisciplinary (Creative Studies) - INT CS.
+2019-04-29 11:17:51,383 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Italian - ITAL.
+2019-04-29 11:17:51,383 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Japanese - JAPAN.
+2019-04-29 11:17:51,383 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Korean - KOR.
+2019-04-29 11:17:51,384 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Latin - LATIN.
+2019-04-29 11:17:51,384 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Latin American and Iberian Studies - LAIS.
+2019-04-29 11:17:51,384 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Linguistics - LING.
+2019-04-29 11:17:51,384 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Literature (Creative Studies) - LIT.
+2019-04-29 11:17:51,384 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Literature (Creative Studies) - LIT CS.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Marine Science - MARSC.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Materials - MATRL.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mathematics - MATH.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mathematics (Creative Studies) - MATH CS.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mechanical Engineering - ME.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Media Arts and Technology - MAT.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Medieval Studies - ME ST.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Middle East Studies - MES.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Military Science - MS.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Molecular, Cellular & Develop. Biology - MCDB.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music - MUS.
+2019-04-29 11:17:51,386 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music (Creative Studies) - MUS CS.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music Performance Laboratories - MUS A.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Philosophy - PHIL.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Physics - PHYS.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Physics (Creative Studies) - PHYS CS.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Political Science - POL S.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Portuguese - PORT.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Psychology - PSY.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Religious Studies - RG ST.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Renaissance Studies - RENST.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Slavic - SLAV.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Sociology - SOC.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Spanish - SPAN.
+2019-04-29 11:17:51,387 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Speech & Hearing Sciences - SHS.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Statistics & Applied Probability - PSTAT.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Technology Management - TMP.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Theater - THTR.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing - WRIT.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing & Literature (Creative Studies) - W&L.
+2019-04-29 11:17:51,388 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing & Literature (Creative Studies) - W&L CS.
+2019-04-29 11:17:54,514 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art (Creative Studies).
+2019-04-29 11:17:54,562 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 6 sessions for subject: Art (Creative Studies).
+2019-04-29 11:17:55,041 [pool-1-thread-3] ERROR com.wewritecode.GoldMiner - Error thrown at subject area: Art (Creative Studies)
+2019-04-29 11:17:55,093 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art History.
+2019-04-29 11:17:55,178 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Found 77 sessions for subject: Art History.
+2019-04-29 11:17:55,314 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art.
+2019-04-29 11:17:55,421 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 49 sessions for subject: Art.
+2019-04-29 11:17:55,517 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Anthropology.
+2019-04-29 11:17:55,595 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 79 sessions for subject: Anthropology.
+2019-04-29 11:17:57,121 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art Studio.
+2019-04-29 11:17:59,771 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Asian American Studies.
+2019-04-29 11:17:59,819 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 39 sessions for subject: Asian American Studies.
+2019-04-29 11:18:17,110 [pool-1-thread-2] ERROR com.wewritecode.GoldMiner - ERROR at element: ART 123
+2019-04-29 11:18:17,112 [pool-1-thread-2] ERROR com.wewritecode.GoldMiner - Enrollment string was: - / -, but expected "<int> / <int>"
+2019-04-29 11:18:21,738 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Asian American Studies
+2019-04-29 11:18:21,739 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 21 sec for: Asian American Studies
+2019-04-29 11:18:24,156 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Astronomy.
+2019-04-29 11:18:24,188 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 9 sessions for subject: Astronomy.
+2019-04-29 11:18:27,549 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Astronomy
+2019-04-29 11:18:27,549 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 3 sec for: Astronomy
+2019-04-29 11:18:29,682 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Biology.
+2019-04-29 11:18:29,739 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 4 sessions for subject: Biology.
+2019-04-29 11:18:31,813 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Biology
+2019-04-29 11:18:31,813 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 2 sec for: Biology
+2019-04-29 11:18:33,659 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Biology (Creative Studies).
+2019-04-29 11:18:33,690 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 4 sessions for subject: Biology (Creative Studies).
+2019-04-29 11:18:34,033 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Art
+2019-04-29 11:18:34,033 [pool-1-thread-2] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 38 sec for: Art
+2019-04-29 11:18:35,317 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Biology (Creative Studies)
+2019-04-29 11:18:35,317 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 1 sec for: Biology (Creative Studies)
+2019-04-29 11:18:36,070 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Biomolecular Science and Engineering.
+2019-04-29 11:18:36,120 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 21 sessions for subject: Biomolecular Science and Engineering.
+2019-04-29 11:18:37,317 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Black Studies.
+2019-04-29 11:18:37,383 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 39 sessions for subject: Black Studies.
+2019-04-29 11:18:45,998 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Biomolecular Science and Engineering
+2019-04-29 11:18:46,000 [pool-1-thread-2] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 9 sec for: Biomolecular Science and Engineering
+2019-04-29 11:18:47,981 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Chemical Engineering.
+2019-04-29 11:18:48,017 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 28 sessions for subject: Chemical Engineering.
+2019-04-29 11:18:57,134 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Black Studies
+2019-04-29 11:18:57,135 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 19 sec for: Black Studies
+2019-04-29 11:18:57,930 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Art History
+2019-04-29 11:18:57,930 [pool-1-thread-4] INFO  com.wewritecode.MethodTimer - Method: getCourses took 1 min, 2 sec for: Art History
+2019-04-29 11:18:59,204 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Chemistry (Creative Studies).
+2019-04-29 11:18:59,244 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 3 sessions for subject: Chemistry (Creative Studies).
+2019-04-29 11:19:00,596 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Chemistry (Creative Studies)
+2019-04-29 11:19:00,597 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 1 sec for: Chemistry (Creative Studies)
+2019-04-29 11:19:01,050 [pool-1-thread-1] ERROR com.wewritecode.GoldMiner - ERROR at element: ART 123
+2019-04-29 11:19:01,050 [pool-1-thread-1] ERROR com.wewritecode.GoldMiner - Enrollment string was: - / -, but expected "<int> / <int>"
+2019-04-29 11:19:01,050 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Anthropology
+2019-04-29 11:19:01,050 [pool-1-thread-1] INFO  com.wewritecode.MethodTimer - Method: getCourses took 1 min, 5 sec for: Anthropology
+2019-04-29 11:19:01,128 [restartedMain] DEBUG com.wewritecode.GoldMineController - Scraped ANTH courses.
+2019-04-29 11:19:01,128 [restartedMain] DEBUG com.wewritecode.GoldMineController - Scraped ART courses.
+2019-04-29 11:19:01,128 [restartedMain] ERROR com.wewritecode.GoldMineCLI - Exception thrown in main GoldMineCLI Application
+2019-04-29 11:19:01,128 [restartedMain] ERROR com.wewritecode.GoldMineCLI - org.json.JSONException: JSONObject["courseID"] not found.
+2019-04-29 11:19:02,096 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Chemistry and Biochemistry.
+2019-04-29 11:19:02,231 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Found 191 sessions for subject: Chemistry and Biochemistry.
+2019-04-29 11:19:02,859 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Chemical Engineering
+2019-04-29 11:19:02,859 [pool-1-thread-2] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 14 sec for: Chemical Engineering
+2019-04-29 11:19:02,930 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Chicano Studies.
+2019-04-29 11:19:02,987 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 33 sessions for subject: Chicano Studies.
+2019-04-29 11:19:03,391 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Chinese.
+2019-04-29 11:19:03,442 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 36 sessions for subject: Chinese.
+2019-04-29 11:19:05,190 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Classics.
+2019-04-29 11:19:05,236 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 43 sessions for subject: Classics.
+2019-04-29 11:19:19,554 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Chicano Studies
+2019-04-29 11:19:19,555 [pool-1-thread-3] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 16 sec for: Chicano Studies
+2019-04-29 11:19:21,473 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Chinese
+2019-04-29 11:19:21,473 [pool-1-thread-1] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 18 sec for: Chinese
+2019-04-29 11:19:22,189 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Communication.
+2019-04-29 11:19:22,280 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 91 sessions for subject: Communication.
+2019-04-29 11:19:23,743 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Comparative Literature.
+2019-04-29 11:19:23,797 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 46 sessions for subject: Comparative Literature.
+2019-04-29 11:19:26,510 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Classics
+2019-04-29 11:19:26,510 [pool-1-thread-2] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 21 sec for: Classics
+2019-04-29 11:19:28,965 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Computer Science.
+2019-04-29 11:19:29,035 [pool-1-thread-2] DEBUG com.wewritecode.GoldMiner - Found 100 sessions for subject: Computer Science.
+2019-04-29 11:19:52,320 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Comparative Literature
+2019-04-29 11:19:52,321 [pool-1-thread-1] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 28 sec for: Comparative Literature
+2019-04-29 11:19:54,444 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Computer Science (Creative Studies).
+2019-04-29 11:19:56,416 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Computing (Creative Studies).
+2019-04-29 11:19:56,452 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 5 sessions for subject: Computing (Creative Studies).
+2019-04-29 11:19:58,457 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Computing (Creative Studies)
+2019-04-29 11:19:58,458 [pool-1-thread-1] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 2 sec for: Computing (Creative Studies)
+2019-04-29 11:20:00,516 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Computing (Creative Studies).
+2019-04-29 11:20:00,574 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 5 sessions for subject: Computing (Creative Studies).
+2019-04-29 11:20:03,061 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Done getting courses for: Computing (Creative Studies)
+2019-04-29 11:20:03,061 [pool-1-thread-1] INFO  com.wewritecode.MethodTimer - Method: getCourses took 0 min, 2 sec for: Computing (Creative Studies)
+2019-04-29 11:20:05,666 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Counseling, Clinical, School Psychology.
+2019-04-29 11:20:05,751 [pool-1-thread-1] DEBUG com.wewritecode.GoldMiner - Found 52 sessions for subject: Counseling, Clinical, School Psychology.
+2019-04-29 11:20:47,664 [restartedMain] INFO  com.wewritecode.GoldMineCLI - Beginning scraping program.
+2019-04-29 11:20:47,668 [restartedMain] INFO  com.wewritecode.GoldMineCLI - Beginning scraping Spring 2018
+2019-04-29 11:20:47,669 [restartedMain] INFO  com.wewritecode.GoldMineController - Starting multi-threaded scrape.
+2019-04-29 11:20:49,291 [restartedMain] INFO  com.wewritecode.GoldMineController - Creating 4 available threads.
+2019-04-29 11:20:50,595 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Anthropology - ANTH.
+2019-04-29 11:20:50,596 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art - ART.
+2019-04-29 11:20:50,597 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art (Creative Studies) - ART CS.
+2019-04-29 11:20:50,597 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art History - ARTHI.
+2019-04-29 11:20:50,597 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Art Studio - ARTST.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Asian American Studies - AS AM.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Astronomy - ASTRO.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biology - BIOL.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biology (Creative Studies) - BIOL CS.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Biomolecular Science and Engineering - BMSE.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Black Studies - BL ST.
+2019-04-29 11:20:50,598 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemical Engineering - CH E.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemistry (Creative Studies) - CHEM CS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chemistry and Biochemistry - CHEM.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chicano Studies - CH ST.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Chinese - CHIN.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Classics - CLASS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Communication - COMM.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Comparative Literature - C LIT.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computer Science - CMPSC.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computer Science (Creative Studies) - CMPSCCS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computing (Creative Studies) - CMPTG.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Computing (Creative Studies) - CMPTGCS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Counseling, Clinical, School Psychology - CNCSP.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Dance - DANCE.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Dynamical Neuroscience - DYNS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Earth Science - EARTH.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: East Asian Cultural Studies - EACS.
+2019-04-29 11:20:50,599 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Ecology, Evolution & Marine Biology - EEMB.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Economics - ECON.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Education - ED.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Electrical Computer Engineering - ECE.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Engineering Sciences - ENGR.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: English - ENGL.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Environmental Science & Management - ESM.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Environmental Studies - ENV S.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Exercise & Sport Studies - ESS.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Exercise Sport - ES.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Feminist Studies - FEMST.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Film and Media Studies - FAMST.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: French - FR.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: General Studies (Creative Studies) - GEN S.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: General Studies (Creative Studies) - GEN SCS.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Geography - GEOG.
+2019-04-29 11:20:50,600 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: German - GER.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Global Peace and Security - GPS.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Global Studies - GLOBL.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Graduate Division - GRAD.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Greek - GREEK.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Hebrew - HEB.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: History - HIST.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Interdisciplinary - INT.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Interdisciplinary (Creative Studies) - INT CS.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Italian - ITAL.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Japanese - JAPAN.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Korean - KOR.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Latin - LATIN.
+2019-04-29 11:20:50,601 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Latin American and Iberian Studies - LAIS.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Linguistics - LING.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Literature (Creative Studies) - LIT.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Literature (Creative Studies) - LIT CS.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Marine Science - MARSC.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Materials - MATRL.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mathematics - MATH.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mathematics (Creative Studies) - MATH CS.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Mechanical Engineering - ME.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Media Arts and Technology - MAT.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Medieval Studies - ME ST.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Middle East Studies - MES.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Military Science - MS.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Molecular, Cellular & Develop. Biology - MCDB.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music - MUS.
+2019-04-29 11:20:50,602 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music (Creative Studies) - MUS CS.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Music Performance Laboratories - MUS A.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Philosophy - PHIL.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Physics - PHYS.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Physics (Creative Studies) - PHYS CS.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Political Science - POL S.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Portuguese - PORT.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Psychology - PSY.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Religious Studies - RG ST.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Renaissance Studies - RENST.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Slavic - SLAV.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Sociology - SOC.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Spanish - SPAN.
+2019-04-29 11:20:50,603 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Speech & Hearing Sciences - SHS.
+2019-04-29 11:20:50,604 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Statistics & Applied Probability - PSTAT.
+2019-04-29 11:20:50,604 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Technology Management - TMP.
+2019-04-29 11:20:50,605 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Theater - THTR.
+2019-04-29 11:20:50,606 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing - WRIT.
+2019-04-29 11:20:50,606 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing & Literature (Creative Studies) - W&L.
+2019-04-29 11:20:50,606 [restartedMain] DEBUG com.wewritecode.GoldMineController - Creating new task for: Writing & Literature (Creative Studies) - W&L CS.
+2019-04-29 11:20:53,385 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art (Creative Studies).
+2019-04-29 11:20:53,518 [pool-1-thread-3] DEBUG com.wewritecode.GoldMiner - Found 6 sessions for subject: Art (Creative Studies).
+2019-04-29 11:20:54,097 [pool-1-thread-4] DEBUG com.wewritecode.GoldMiner - Getting all courses from: Art History.
+2019-04-29 11:20:54,120 [restartedMain] ERROR com.wewritecode.GoldMineCLI - Exception thrown in main GoldMineCLI Application
+2019-04-29 11:20:54,121 [restartedMain] ERROR com.wewritecode.GoldMineCLI - org.openqa.selenium.WebDriverException: java.net.ConnectException: Failed to connect to localhost/0:0:0:0:0:0:0:1:32980
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'Emergencys-MBP.fios-router.home', ip: 'fe80:0:0:0:14df:e904:e999:282a%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.14.4', java.version: '1.8.0_181'
+Driver info: driver.version: RemoteWebDriver

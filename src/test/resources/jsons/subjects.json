@@ -1,0 +1,372 @@
+{
+  "subjects": [
+    {
+      "symbol": "ANTH",
+      "fullName": "Anthropology"
+    },
+    {
+      "symbol": "ART",
+      "fullName": "Art"
+    },
+    {
+      "symbol": "ART CS",
+      "fullName": "Art (Creative Studies)"
+    },
+    {
+      "symbol": "ARTHI",
+      "fullName": "Art History"
+    },
+    {
+      "symbol": "ARTST",
+      "fullName": "Art Studio"
+    },
+    {
+      "symbol": "AS AM",
+      "fullName": "Asian American Studies"
+    },
+    {
+      "symbol": "ASTRO",
+      "fullName": "Astronomy"
+    },
+    {
+      "symbol": "BIOL",
+      "fullName": "Biology"
+    },
+    {
+      "symbol": "BIOL CS",
+      "fullName": "Biology (Creative Studies)"
+    },
+    {
+      "symbol": "BMSE",
+      "fullName": "Biomolecular Science and Engineering"
+    },
+    {
+      "symbol": "BL ST",
+      "fullName": "Black Studies"
+    },
+    {
+      "symbol": "CH E",
+      "fullName": "Chemical Engineering"
+    },
+    {
+      "symbol": "CHEM CS",
+      "fullName": "Chemistry (Creative Studies)"
+    },
+    {
+      "symbol": "CHEM",
+      "fullName": "Chemistry and Biochemistry"
+    },
+    {
+      "symbol": "CH ST",
+      "fullName": "Chicano Studies"
+    },
+    {
+      "symbol": "CHIN",
+      "fullName": "Chinese"
+    },
+    {
+      "symbol": "CLASS",
+      "fullName": "Classics"
+    },
+    {
+      "symbol": "COMM",
+      "fullName": "Communication"
+    },
+    {
+      "symbol": "C LIT",
+      "fullName": "Comparative Literature"
+    },
+    {
+      "symbol": "CMPSC",
+      "fullName": "Computer Science"
+    },
+    {
+      "symbol": "CMPSCCS",
+      "fullName": "Computer Science (Creative Studies)"
+    },
+    {
+      "symbol": "CMPTG",
+      "fullName": "Computing (Creative Studies)"
+    },
+    {
+      "symbol": "CMPTGCS",
+      "fullName": "Computing (Creative Studies)"
+    },
+    {
+      "symbol": "CNCSP",
+      "fullName": "Counseling, Clinical, School Psychology"
+    },
+    {
+      "symbol": "DANCE",
+      "fullName": "Dance"
+    },
+    {
+      "symbol": "DYNS",
+      "fullName": "Dynamical Neuroscience"
+    },
+    {
+      "symbol": "EARTH",
+      "fullName": "Earth Science"
+    },
+    {
+      "symbol": "EACS",
+      "fullName": "East Asian Cultural Studies"
+    },
+    {
+      "symbol": "EEMB",
+      "fullName": "Ecology, Evolution \u0026 Marine Biology"
+    },
+    {
+      "symbol": "ECON",
+      "fullName": "Economics"
+    },
+    {
+      "symbol": "ED",
+      "fullName": "Education"
+    },
+    {
+      "symbol": "ECE",
+      "fullName": "Electrical Computer Engineering"
+    },
+    {
+      "symbol": "ENGR",
+      "fullName": "Engineering Sciences"
+    },
+    {
+      "symbol": "ENGL",
+      "fullName": "English"
+    },
+    {
+      "symbol": "ESM",
+      "fullName": "Environmental Science \u0026 Management"
+    },
+    {
+      "symbol": "ENV S",
+      "fullName": "Environmental Studies"
+    },
+    {
+      "symbol": "ESS",
+      "fullName": "Exercise \u0026 Sport Studies"
+    },
+    {
+      "symbol": "ES",
+      "fullName": "Exercise Sport"
+    },
+    {
+      "symbol": "FEMST",
+      "fullName": "Feminist Studies"
+    },
+    {
+      "symbol": "FAMST",
+      "fullName": "Film and Media Studies"
+    },
+    {
+      "symbol": "FR",
+      "fullName": "French"
+    },
+    {
+      "symbol": "GEN S",
+      "fullName": "General Studies (Creative Studies)"
+    },
+    {
+      "symbol": "GEN SCS",
+      "fullName": "General Studies (Creative Studies)"
+    },
+    {
+      "symbol": "GEOG",
+      "fullName": "Geography"
+    },
+    {
+      "symbol": "GER",
+      "fullName": "German"
+    },
+    {
+      "symbol": "GPS",
+      "fullName": "Global Peace and Security"
+    },
+    {
+      "symbol": "GLOBL",
+      "fullName": "Global Studies"
+    },
+    {
+      "symbol": "GRAD",
+      "fullName": "Graduate Division"
+    },
+    {
+      "symbol": "GREEK",
+      "fullName": "Greek"
+    },
+    {
+      "symbol": "HEB",
+      "fullName": "Hebrew"
+    },
+    {
+      "symbol": "HIST",
+      "fullName": "History"
+    },
+    {
+      "symbol": "INT",
+      "fullName": "Interdisciplinary"
+    },
+    {
+      "symbol": "INT CS",
+      "fullName": "Interdisciplinary (Creative Studies)"
+    },
+    {
+      "symbol": "ITAL",
+      "fullName": "Italian"
+    },
+    {
+      "symbol": "JAPAN",
+      "fullName": "Japanese"
+    },
+    {
+      "symbol": "KOR",
+      "fullName": "Korean"
+    },
+    {
+      "symbol": "LATIN",
+      "fullName": "Latin"
+    },
+    {
+      "symbol": "LAIS",
+      "fullName": "Latin American and Iberian Studies"
+    },
+    {
+      "symbol": "LING",
+      "fullName": "Linguistics"
+    },
+    {
+      "symbol": "LIT",
+      "fullName": "Literature (Creative Studies)"
+    },
+    {
+      "symbol": "LIT CS",
+      "fullName": "Literature (Creative Studies)"
+    },
+    {
+      "symbol": "MARSC",
+      "fullName": "Marine Science"
+    },
+    {
+      "symbol": "MATRL",
+      "fullName": "Materials"
+    },
+    {
+      "symbol": "MATH",
+      "fullName": "Mathematics"
+    },
+    {
+      "symbol": "MATH CS",
+      "fullName": "Mathematics (Creative Studies)"
+    },
+    {
+      "symbol": "ME",
+      "fullName": "Mechanical Engineering"
+    },
+    {
+      "symbol": "MAT",
+      "fullName": "Media Arts and Technology"
+    },
+    {
+      "symbol": "ME ST",
+      "fullName": "Medieval Studies"
+    },
+    {
+      "symbol": "MES",
+      "fullName": "Middle East Studies"
+    },
+    {
+      "symbol": "MS",
+      "fullName": "Military Science"
+    },
+    {
+      "symbol": "MCDB",
+      "fullName": "Molecular, Cellular \u0026 Develop. Biology"
+    },
+    {
+      "symbol": "MUS",
+      "fullName": "Music"
+    },
+    {
+      "symbol": "MUS CS",
+      "fullName": "Music (Creative Studies)"
+    },
+    {
+      "symbol": "MUS A",
+      "fullName": "Music Performance Laboratories"
+    },
+    {
+      "symbol": "PHIL",
+      "fullName": "Philosophy"
+    },
+    {
+      "symbol": "PHYS",
+      "fullName": "Physics"
+    },
+    {
+      "symbol": "PHYS CS",
+      "fullName": "Physics (Creative Studies)"
+    },
+    {
+      "symbol": "POL S",
+      "fullName": "Political Science"
+    },
+    {
+      "symbol": "PORT",
+      "fullName": "Portuguese"
+    },
+    {
+      "symbol": "PSY",
+      "fullName": "Psychology"
+    },
+    {
+      "symbol": "RG ST",
+      "fullName": "Religious Studies"
+    },
+    {
+      "symbol": "RENST",
+      "fullName": "Renaissance Studies"
+    },
+    {
+      "symbol": "SLAV",
+      "fullName": "Slavic"
+    },
+    {
+      "symbol": "SOC",
+      "fullName": "Sociology"
+    },
+    {
+      "symbol": "SPAN",
+      "fullName": "Spanish"
+    },
+    {
+      "symbol": "SHS",
+      "fullName": "Speech \u0026 Hearing Sciences"
+    },
+    {
+      "symbol": "PSTAT",
+      "fullName": "Statistics \u0026 Applied Probability"
+    },
+    {
+      "symbol": "TMP",
+      "fullName": "Technology Management"
+    },
+    {
+      "symbol": "THTR",
+      "fullName": "Theater"
+    },
+    {
+      "symbol": "WRIT",
+      "fullName": "Writing"
+    },
+    {
+      "symbol": "W\u0026L",
+      "fullName": "Writing \u0026 Literature (Creative Studies)"
+    },
+    {
+      "symbol": "W\u0026L CS",
+      "fullName": "Writing \u0026 Literature (Creative Studies)"
+    }
+  ]
+}
