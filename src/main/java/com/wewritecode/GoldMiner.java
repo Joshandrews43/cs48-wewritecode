@@ -1,13 +1,16 @@
 package com.wewritecode;
 
 import com.google.gson.*;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
@@ -26,6 +29,8 @@ import java.util.List;
  */
 // TODO: Implement and enable multi-threading
 public class GoldMiner {
+
+    private static final Logger LOGGER = Logger.getLogger(GoldMiner.class);
 
     private WebDriver driver;
 
@@ -58,7 +63,11 @@ public class GoldMiner {
         // Necessary property setting for ChromeDriver.
         System.setProperty(CHROME_DRIVER_PROPERTY, PATH_TO_CHROME_DRIVER);
 
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        options.addArguments("--log-level=3");
+
+        driver = new ChromeDriver(options);
 
         // Gets the html of the site requested.
         driver.get(URL);
@@ -72,11 +81,11 @@ public class GoldMiner {
      */
     @Override
     protected void finalize() throws Throwable {
-        driver.close();
+        driver.quit();
         super.finalize();
     }
 
-    public void close() { driver.close(); }
+    public void close() { driver.quit(); }
 
 
 
@@ -107,12 +116,13 @@ public class GoldMiner {
         return jsonArray;
     }
 
-    public List<String> getSubjectSymbols() {
-        List<String> symbols = new ArrayList<>();
+    public List<String> getSubjectsAsList() {
+        List<String> subjects = new ArrayList<>();
         for (WebElement option : new Select(driver.findElement(By.id(SUBJECT_ID))).getOptions()) {
-            symbols.add(option.getAttribute("value"));
+            String subject = option.getText().replaceAll("^ +| +$|( )+", "$1");
+            subjects.add(subject);
         }
-        return symbols;
+        return subjects;
     }
 
     /**
@@ -165,7 +175,9 @@ public class GoldMiner {
      * @return a JSONObject representing every piece of subject and course information for a given quarter.
      */
     public JSONObject getAllData(String quarter) {
-        String extendedName, fullName, symbol;
+        LOGGER.debug("Starting sequential scrape.");
+
+        String extendedName, symbol;
         JSONObject subjectsObj = new JSONObject();
 
         // Quarter Selector
@@ -191,7 +203,6 @@ public class GoldMiner {
             WebElement subject = subjectOptions.get(i);
             subjectMenu.selectByIndex(i);
             extendedName = subject.getText().replaceAll("^ +| +$|( )+", "$1"); // i.e. "Anthropology - ANTH"
-            fullName = extendedName.substring(0, extendedName.indexOf("-")-1); // i.e. "Anthropology"
             symbol = extendedName.substring(extendedName.indexOf("-")+2); // i.e. "ANTH"
 
             // Search Button
@@ -199,7 +210,7 @@ public class GoldMiner {
             search.click();
 
             // Get the data from the individual subject area.
-            JSONObject subjectObj = getCourses(fullName);
+            JSONObject subjectObj = getCourses(symbol);
             subjectsObj.put(symbol, subjectObj); // Adds an individual subject to the group of subjects.
         }
 
@@ -212,6 +223,10 @@ public class GoldMiner {
 
     // Helper Method for getAllData
     private JSONObject getCourses(String subjectName) {
+        MethodTimer timer = new MethodTimer("getCourses", subjectName);
+
+        LOGGER.debug("Getting all courses from: " + subjectName + ".");
+
         JSONObject subjectObj = new JSONObject();
         subjectObj.put("fullName", subjectName);
 
@@ -233,6 +248,7 @@ public class GoldMiner {
 
         // Session = Lecture or Section
         List<WebElement> sessions = courseTable.findElements(By.className("CourseInfoRow"));
+        LOGGER.debug("Found " + sessions.size() + " sessions for subject: " + subjectName + ".");
 
         JSONObject courseObj = new JSONObject();
         JSONObject lecture = new JSONObject();
@@ -248,7 +264,7 @@ public class GoldMiner {
 
                 // If the lecture object is not empty, add it to the lecture array.
                 if (!lecture.isEmpty()) {
-                    JSONArray lectureArray = lecture.getJSONArray("lectures");
+                    JSONArray lectureArray = courseObj.getJSONArray("lectures");
                     lectureArray.put(lecture);
                 }
 
@@ -264,12 +280,18 @@ public class GoldMiner {
 
                 // Replace the previous lecture with a new lecture.
                 lecture = getLecture(session);
-                prevCourseID = lecture.getString("courseID");
+                prevCourseID = courseObj.getString("courseID");
             } else {
                 // Executes when the session is a section. Thus, add it to whatever the current lecture object is.
                 JSONObject section = getSection(session);
-                JSONArray sectionsArray = lecture.getJSONArray("sections");
-                sectionsArray.put(section);
+                try {
+                    JSONArray sectionsArray = lecture.getJSONArray("sections");
+                    sectionsArray.put(section);
+                } catch (JSONException e) {
+                    LOGGER.error("Error thrown at subject area: " + subjectName);
+                    LOGGER.error("Unable to get \"section\" tag for course: " + courseObj.getString("courseID"));
+                    LOGGER.error("Lecture with \"section\" error: " + lecture.toString());
+                }
             }
         }
 
@@ -279,11 +301,17 @@ public class GoldMiner {
         if (!courseObj.isEmpty())
             coursesArray.put(courseObj);
 
+        subjectObj.put("courses", coursesArray);
+
+        LOGGER.debug("Done getting courses for: " + subjectName);
+
+        timer.end();
+
         return subjectObj;
     }
 
 
-    public JSONObject getAllCoursesFromSubject(String symbol, String quarter) {
+    public JSONObject getAllCoursesFromSubject(String subject, String quarter) {
         // Quarter Selector
         Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
         quarterMenu.selectByVisibleText(quarter.toUpperCase());
@@ -294,13 +322,15 @@ public class GoldMiner {
 
         // Subject Selector
         Select subjectMenu = new Select(driver.findElement(By.id(SUBJECT_ID)));
-        subjectMenu.selectByValue(symbol);
+        subjectMenu.selectByVisibleText(subject);
 
         // Search Button
         WebElement search = driver.findElement(By.id(SEARCH_ID));
         search.click();
 
-        return getCourses(symbol);
+        String subjectName = subject.substring(0, subject.indexOf('-')-1);
+
+        return getCourses(subjectName);
     }
 
 
@@ -337,7 +367,13 @@ public class GoldMiner {
     }
 
     private String getStatus(WebElement element) {
-        String status = element.findElement(By.className("Status")).getText().trim();
+        String status;
+        try {
+            status = element.findElement(By.className("Status")).getText().trim();
+        } catch (NoSuchElementException e) {
+            LOGGER.error(e.getMessage());
+            status = "";
+        }
         return status;
     }
 
@@ -409,16 +445,25 @@ public class GoldMiner {
     private JSONObject getEnrollment(WebElement element) {
         int current, max;
         JSONObject enrollmentObj = new JSONObject();
-        List<WebElement> allInfo = element.findElements(By.tagName("td"));
-        String enrollment = allInfo.get(46).getText().trim();
+        int retry = 0;
+
+        String enrollment = "";
+        List<WebElement> allInfo;
+
         try {
+            // Odd behavior of ChromeDriver parsing enrollment <int> / <int> incorrectly.
+            do {
+                allInfo = element.findElements(By.tagName("td"));
+                enrollment = allInfo.get(46).getText();
+            } while (enrollment.equals("- / -") && ++retry < 5);
+
             current = Integer.parseInt(enrollment.substring(0, enrollment.indexOf("/")).trim());
             max = Integer.parseInt(enrollment.substring(enrollment.indexOf("/") + 2));
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            System.out.println("ERROR at element: " + element.findElement(By.id("CourseTitle")).getText().trim());
-            current = 0;
-            max = 0;
+            LOGGER.error("ERROR at element: " + element.findElement(By.id("CourseTitle")).getText().trim());
+            LOGGER.error("Enrollment string was: " + enrollment + ", but expected \"<int> / <int>\"");
+            current = -1;
+            max = -1;
         }
 
         enrollmentObj.put("current", current);

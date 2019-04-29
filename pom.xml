@@ -63,6 +63,18 @@
           <artifactId>gson</artifactId>
       </dependency>
 
+      <!-- Log4J (allows for more detailed logging) -->
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.17</version>
+      </dependency>
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>apache-log4j-extras</artifactId>
+          <version>1.2.17</version>
+      </dependency>
+
       <!-- Spring / Server-necessary Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

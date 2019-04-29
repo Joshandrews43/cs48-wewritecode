@@ -28,6 +28,9 @@ public class GoldMinerTest {
         cut = new GoldMiner();
     }
 
+    @After
+    public void teardown() { cut.close(); }
+
     @Test
     public void getSubjectsTest() {
         System.out.println(Runtime.getRuntime().availableProcessors());
