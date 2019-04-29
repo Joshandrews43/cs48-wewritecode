@@ -16,7 +16,7 @@ public class GoldMineCLI {
     private static final String JSON_RESOURCE_DIR = System.getProperty("user.dir")+"/data/2019/";
     private static final Logger LOGGER = Logger.getLogger(GoldMineCLI.class);
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void run(String[] args) throws ExecutionException, InterruptedException {
         LOGGER.info("Beginning scraping program.");
 
         CommandLineParser clp = new CommandLineParser();

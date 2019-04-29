@@ -1,5 +1,7 @@
 package com.server;
 
+import com.wewritecode.GoldMineCLI;
+import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,12 +11,21 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
 public class Application {
 
+    private static final Logger LOGGER = Logger.getLogger(GoldMineCLI.class);
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+        try {
+            GoldMineCLI.run(args);
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.error("Exception thrown in main GoldMineCLI Application");
+            LOGGER.error(e.getMessage());
+        }
     }
 
     @Bean
