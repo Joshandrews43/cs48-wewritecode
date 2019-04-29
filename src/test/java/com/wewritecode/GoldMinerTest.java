@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.junit.*;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
@@ -40,7 +39,7 @@ public class GoldMinerTest {
         File subjectFile = new File(JSON_RESOURCE_DIR + "subjects.json");
 
         assertTrue("Expected to be able to output subject list to .json file",
-                GoldMiner.toJsonFile(actual, subjectFile));
+                GoldMiner.toJsonFile(actual, subjectFile, true));
     }
 
     @Test
@@ -50,7 +49,7 @@ public class GoldMinerTest {
         actual.put("quarters", quarters);
         File subjectFile = new File(JSON_RESOURCE_DIR + "quarters.json");
         assertTrue("Expected to be able to output quarter list to .json file",
-                GoldMiner.toJsonFile(actual, subjectFile));
+                GoldMiner.toJsonFile(actual, subjectFile, true));
     }
 
     @Test
@@ -59,7 +58,7 @@ public class GoldMinerTest {
         File courseLevelFile = new File(JSON_RESOURCE_DIR + "courseLevels.json");
 
         assertTrue("Expected to be able to output course levels to .json file",
-                GoldMiner.toJsonFile(courseLevels, courseLevelFile));
+                GoldMiner.toJsonFile(courseLevels, courseLevelFile, true));
     }
 
     @Test
@@ -69,7 +68,7 @@ public class GoldMinerTest {
 
         File quarterFile = new File(JSON_RESOURCE_DIR + "spring2019.json");
 
-        assertTrue(GoldMiner.toJsonFile(allSubjects, quarterFile));
+        assertTrue(GoldMiner.toJsonFile(allSubjects, quarterFile, true));
     }
 
     @Test
@@ -83,7 +82,7 @@ public class GoldMinerTest {
             String quarterStr = season + " " + year;
             JSONObject quarter = cut.getAllData(quarterStr);
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
-            assertTrue(GoldMiner.toJsonFile(quarter, quarterFile));
+            assertTrue(GoldMiner.toJsonFile(quarter, quarterFile, true));
         }
     }
 
@@ -98,7 +97,7 @@ public class GoldMinerTest {
             String quarterStr = season + " " + year;
             JSONObject quarter = cut.getAllData(quarterStr);
             File quarterFile = new File(JSON_RESOURCE_DIR + season.toLowerCase() + year + ".json");
-            assertTrue(GoldMiner.toJsonFile(quarter, quarterFile));
+            assertTrue(GoldMiner.toJsonFile(quarter, quarterFile, true));
         }
     }
 }

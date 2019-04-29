@@ -578,16 +578,23 @@ public class GoldMiner {
      * @param filename Target file name (existing or new) for the output.
      * @return True if it was able to write to the file, false if an IOException occurred.
      */
-    public static boolean toJsonFile(JSONObject jsonObject, File filename) {
+    public static boolean toJsonFile(JSONObject jsonObject, File filename, boolean doFormatting) {
+        String writeString = jsonObject.toString();
+
         // Creates a new instance of Gson with "pretty printing" enabled.
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonParser jp = new JsonParser();
-        JsonElement je = jp.parse(jsonObject.toString());
+        if (doFormatting) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonParser jp = new JsonParser();
+            JsonElement je = jp.parse(writeString);
+            writeString = gson.toJson(je);
+        } else {
+            writeString = jsonObject.toString();
+        }
 
         // Write to output file
         try {
             FileWriter file = new FileWriter(filename);
-            file.write(gson.toJson(je));
+            file.write(writeString);
             file.flush();
 
         } catch (IOException e) {
