@@ -67,7 +67,7 @@ public class GoldMiner {
 
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
-        options.addArguments("--log-level=3", "--no-sandbox");
+        options.addArguments("--no-sandbox");
 
         driver = new ChromeDriver(options);
 
