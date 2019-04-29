@@ -4,12 +4,6 @@ env: DISPLAY=':99.0'
 language: java
 jdk: oraclejdk8
 dist: trusty
-#addons:
-#  apt:
-#    sources:
-#    - google-chrome
-#    packages:
-#    - google-chrome-stable
 
 addons:
   chrome: stable
@@ -59,7 +53,6 @@ script:
 before_script:
   - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - sudo unzip chromedriver_linux64.zip -d /usr/local/bin/.
-#  - sudo apt-get --only-upgrade install google-chrome-stable
   - sudo chmod +x /usr/local/bin/chromedriver
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
