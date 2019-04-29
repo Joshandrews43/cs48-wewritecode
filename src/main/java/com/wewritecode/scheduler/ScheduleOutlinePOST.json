@@ -1,0 +1,42 @@
+{
+  "courses":
+  [
+    {
+      "courseID": "String",
+      "lectures":
+      [
+        {
+          "selected": true,
+          "instructor": "String",
+          "days": "String",
+          "time":
+          {
+            "start": "String",
+            "end": "String"
+          },
+          "sections":
+          [
+            {
+              "selected": true,
+              "days": "String",
+              "time":
+              {
+                "start": "String",
+                "end": "String"
+              }
+            },
+            {
+              "selected": false,
+              "days": "String",
+              "time":
+              {
+                "start": "String",
+                "end": "String"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+***** Outline for how the GoldPan utility should operate *****
+
+Option 1: Genetic Algorithm
+    1) Server is sent a JSON object detailing the courses they would like to choose.
