@@ -1,5 +1,6 @@
 package com.wewritecode;
 
+import com.wewritecode.miner.GoldMiner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.*;
@@ -9,7 +10,7 @@ import java.io.File;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Test class for the com.wewritecode.GoldMiner class.
+ * Test class for the com.wewritecode.miner.GoldMiner class.
  *
  * @author  Grant Clark
  * @version 1.1

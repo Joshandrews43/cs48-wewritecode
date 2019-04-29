@@ -1,17 +1,11 @@
-package com.server;
+package com.wewritecode.server;
 
-import com.wewritecode.GoldMineCLI;
-import com.wewritecode.GoldMiner;
+import com.wewritecode.miner.GoldMineCLI;
+import com.wewritecode.miner.GoldMiner;
 import org.apache.log4j.Logger;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication

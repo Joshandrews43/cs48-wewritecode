@@ -1,4 +1,4 @@
-package com.server;
+package com.wewritecode.server;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;

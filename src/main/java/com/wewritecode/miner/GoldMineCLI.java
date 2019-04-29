@@ -2,7 +2,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode;
+package com.wewritecode.miner;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;

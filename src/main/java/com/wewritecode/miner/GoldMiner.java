@@ -1,4 +1,4 @@
-package com.wewritecode;
+package com.wewritecode.miner;
 
 import com.google.gson.*;
 import org.apache.log4j.Logger;
