@@ -16,7 +16,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
-        // Get most recent quarter.
+         // Get most recent quarter.
         GoldMiner miner = new GoldMiner();
         String quarter = miner.getQuartersAsList().get(0);
         miner.close();
