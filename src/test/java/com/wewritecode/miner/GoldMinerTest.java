@@ -1,4 +1,4 @@
-package com.wewritecode;
+package com.wewritecode.miner;
 
 import com.wewritecode.miner.GoldMiner;
 import org.json.JSONArray;

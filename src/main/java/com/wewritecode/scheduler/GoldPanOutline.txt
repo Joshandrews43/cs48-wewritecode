@@ -1,10 +1,20 @@
 ***** Outline for how the GoldPan utility should operate *****
 
+
+class: RequestController
+    see cs48-post-diagram.svg for details
+
 Option 1: Genetic Algorithm
-    1) Server is sent a JSON object detailing the courses they would like to choose.
-        a. Information needed includes:
-            i. Course IDs for the courses they wish to take.
-            ii. Selections on lectures and sections (default = true)
-            iii. A tag for "optional" to indicate if the class is a must-have (false), or if the class is a class
-                 that could be added if possible (true). (default = false)
-    2)
+    Preconditions:
+        - RequestController has mapped the POST request into two JSON objects:
+            - baseSchedule.json
+                - Includes lectures/sections that MUST be present in any generated schedule, as including the course
+                  leaves only the one option for the lecture or section.
+            - schedulePan.json
+                - Includes courses with lecture/sections that have more than one option.
+            * Note: baseSchedule.json and schedulePan.json MUST be independent of each other. If there is a lecture
+              in baseSchedule.json for a specific course, that lecture must NOT present in schedulePan.json
+        - No exceptions have been thrown up to this point.
+
+    Setup:
+        - 

@@ -2,13 +2,12 @@
   "courses":
   {
     "mandatory": [
+      "Mandatory/Must-Have courses here",
       {
         "courseID": "String",
-        "optional": false,
         "lectures":
         [
           {
-            "instructor": "String",
             "days": "String",
             "time":
             {
@@ -39,7 +38,7 @@
       }
     ],
     "optional": [
-
+      "Optional/Additional courses here."
     ]
   }
 }
