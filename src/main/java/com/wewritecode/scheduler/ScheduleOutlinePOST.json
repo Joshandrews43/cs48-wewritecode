@@ -2,7 +2,7 @@
   "courses":
   {
     "mandatory": [
-      "Mandatory/Must-Have courses here",
+      "Mandatory/Must-Have courses here.",
       {
         "courseID": "String",
         "lectures":
