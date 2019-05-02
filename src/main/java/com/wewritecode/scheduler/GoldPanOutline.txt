@@ -4,9 +4,9 @@
 class: RequestController
     see cs48-post-diagram.svg for details
 
-Option 1: Genetic Algorithm
+Algorithm
     Preconditions:
-        - RequestController has mapped the POST request into two JSON objects:
+        - RequestParser has mapped the POST request into two JSON objects:
             - baseSchedule.json
                 - Includes lectures/sections that MUST be present in any generated schedule, as including the course
                   leaves only the one option for the lecture or section.
@@ -16,101 +16,30 @@ Option 1: Genetic Algorithm
               in baseSchedule.json for a specific course, that lecture must NOT present in schedulePan.json
         - No exceptions have been thrown up to this point.
 
-        Example:
-            - Courses: courseA, courseB, courseC
-                - courseA
-                    - lecture1
-                        - sectionA, sectionB
-                    - lecture2
-                        - sectionA, sectionB
-                - courseB
-                    - lecture1
-                        - sectionA, sectionB
-                - courseC
-                    - lecture1
-                        - sectionA
-                    - lecture2
-                        - sectionA
-
-            - baseSchedule.json
-                courses:
-                [
-                    {
-                        courseB: "String",
-                        lecture:
-                        {
-                            days: ["M", "T", "W", "R", "F"],
-                            times:
-                            {
-                                start: int,
-                                end: int
-                            }
-                            section:
-                            {
-                                // Choose between section1 and section2 later
-                                days: [],
-                                times: {}
-                            }
-                        }
-                    },
-                    {
-                        courseC: "String",
-                        lecture:
-                        {
-                            // Choose between lecture1 and lecture2 later
-                            days: []
-                            times: {}
-                            section:
-                            {
-                                days: ["M", "T", "W", "R", "F"],
-                                times:
-                                {
-                                    start: int,
-                                    end: int
-                                }
-                            }
-                        }
-                    }
-                ]
-
-             - schedulePan.json
-                courses:
-                [
-                    {
-                        courseA: "String",
-                        lectures:
-                        [
-                            {
-                                days: ["M", "T", "W", "R", "F"],
-                                times:
-                                {
-                                    start: int,
-                                    end: int
-                                }
-                                sections:
-                                [
-                                    {
-                                        days: ["M", "T", "W", "R", "F"],
-                                        times:
-                                        {
-                                            start: int,
-                                            end: int
-                                        }
-                                    },
-                                    
-                                ]
-                            },
-                            {
-                                days: ["M", "T", "W", "R", "F"],
-                                times:
-                                {
-                                    start: int,
-                                    end: int
-                                }
-                            }
-                        ]
-                    }
-                ]
-
     Setup:
         -
+
+
+RequestController (com.wewritecode.server)
+- Entry point of POST request.
+- Calls appropriate functions for parsing different POSTs.
+
+
+RequestParser (com.wewritecode.server)
+- Parses POST JSONObject into class objects.
+
+
+GoldPan (com.wewritecode.scheduler)
+- Find non-conflicting schedules.
+- Filter based on filter options (if any).
+
+
+
+
+
+RC  ->  + GoldPan pan = new GoldPan()
+RC  ->  + pan.parsePOST()
+            - parseCourses()
+                - addToBase()
+                - addToPan()
+            - parseFilters()

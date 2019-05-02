@@ -1,149 +1,118 @@
 package com.wewritecode.server;
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
+import java.io.InputStream;
 
 @RestController
 public class RequestController {
 
     private static final String DATA_DIR = System.getProperty("user.dir") + "/data/";
 
-
-
-//    @RequestMapping(method= RequestMethod.POST, value="/getUpdated")
-//    public JsonObject updateQuarters(@RequestBody JsonObject quartersRequest) {
-//        System.out.println("Quarters update request:\n");
-//        JsonObject response = new JsonObject();
-//        try {
-//            JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "general.json"));
-//            JsonParser parser = new JsonParser();
-//            Object object = parser.parse(reader);
-//            JsonObject general = (JsonObject) object;
-//            response.add("general", (JsonElement) general);
-//            JsonArray serverQuarters = (JsonArray) general.get("quarters");
-//            JsonArray clientQuarters = (JsonArray) quartersRequest.get("quarters");
-//            JsonObject clientQuarter;
-//            JsonObject serverQuarter;
-//
-//
-//            for (int i = 0; i < clientQuarters.size(); i++) {
-//                clientQuarter = (JsonObject) clientQuarters.get(i);
-//                serverQuarter = (JsonObject) serverQuarters.get(i);
-//                System.out.println("Update request for: " + clientQuarter.get("quarter").getAsString());
-//                if (serverQuarter.get("lastUpdated").getAsInt() > clientQuarter.get("lastUpdated").getAsInt()) {
-//                    System.out.println(clientQuarter.get("quarter").getAsString() + " is outdated.");
-//                    response.add(serverQuarter.get("quarter").getAsString(), (JsonElement) getQuarter(serverQuarter));
-//                } else {
-//                    System.out.println(clientQuarter.get("quarter").getAsString() + " is up to date");
-//                }
-//            }
-//
-//            if (serverQuarters.size() != clientQuarters.size()) {
-//                for (int i = clientQuarters.size(); i < serverQuarters.size(); i++) {
-//                    serverQuarter = (JsonObject) serverQuarters.get(i);
-//                    System.out.println(serverQuarter.get("quarter").getAsString() + " not found on client.");
-//                    response.add(serverQuarter.get("quarter").getAsString(), (JsonElement) getQuarter(serverQuarter));
-//                }
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            System.out.println("general.json file not found");
-//            return new JsonObject();
-//        }
-//        return response;
-//
-//    }
-
-    @RequestMapping(method= RequestMethod.POST, value="/generateSchedules")
+    @RequestMapping(method = RequestMethod.POST, value = "/generateSchedules")
     public JsonObject generateSchedule(@RequestBody JsonObject requestedClasses) {
-        System.out.println(requestedClasses.toString());
+        System.out.println(requestedClasses);
+//        JSONObject request = gsonToJson(requestedClasses);
+//        JSONObject response = new JSONObject();
+//        return jsonToGson(response);
         return requestedClasses;
     }
 
-    @RequestMapping(method= RequestMethod.POST, value="/getUpdated")
+    @RequestMapping(method = RequestMethod.POST, value = "/getUpdated")
     public JsonObject updateRequest(@RequestBody JsonObject quartersRequest) {
-        System.out.println("Quarters update request:\n");
-        JsonObject response = new JsonObject();
-        JsonParser parser = new JsonParser();
-        JsonObject general = null;
-        JsonArray serverQuarters = null;
-        JsonArray clientQuarters = null;
+        System.out.println("\nQuarters update request");
 
-        try {
-            JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "general.json"));
+        JSONObject request = gsonToJson(quartersRequest);
+        JSONObject response = new JSONObject();
+        JSONObject general = parseFromDataDir("general.json");
 
-            Object object = parser.parse(reader);
-            general = (JsonObject) object;
-            response.add("general", (JsonElement) general);
-            serverQuarters = (JsonArray) general.get("quarters");
-            clientQuarters = (JsonArray) quartersRequest.get("quarters");
+        JSONArray serverQuarters;
+        JSONArray clientQuarters;
 
-        } catch (FileNotFoundException e) {
-            System.out.println("general.json file not found");
-            return new JsonObject();
-        }
+        response.put("general", general);
+
+        serverQuarters = general.getJSONArray("quarters");
+        clientQuarters = request.getJSONArray("quarters");
 
         response = updateQuarters(serverQuarters, clientQuarters, response);
 
-        return response;
-
+        return jsonToGson(response);
     }
 
-    public JsonObject updateQuarters(JsonArray serverQuarters, JsonArray clientQuarters, JsonObject response) {
-        JsonObject clientQuarter;
-        JsonObject serverQuarter;
-        for (int i = 0; i < serverQuarters.size(); i++) {
-            serverQuarter = (JsonObject) serverQuarters.get(i);
-            for (int j = 0; j < clientQuarters.size(); j++) {
-                clientQuarter = (JsonObject) clientQuarters.get(j);
-                if (serverQuarter.get("quarter").equals(clientQuarter.get("quarter")) &&
-                        isOutdated(serverQuarter, clientQuarter)) {
-                    System.out.println(clientQuarter.get("quarter").getAsString() + " is outdated.");
-                    response.add(serverQuarter.get("quarter").getAsString(),
-                            (JsonElement) getQuarter(serverQuarter));
+    private JSONObject updateQuarters(JSONArray serverQuarters, JSONArray clientQuarters, JSONObject response) {
+        JSONObject clientQuarter, serverQuarter;
+        String clientQuarterStr, serverQuarterStr;
+
+        for (int i = 0; i < serverQuarters.length(); i++) {
+            serverQuarter = serverQuarters.getJSONObject(i);
+            serverQuarterStr = serverQuarter.getString("quarter");
+            for (int j = 0; j < clientQuarters.length(); j++) {
+                clientQuarter = clientQuarters.getJSONObject(j);
+                clientQuarterStr = clientQuarter.getString("quarter");
+                boolean sameQuarter = clientQuarterStr.equals(serverQuarterStr);
+
+                if (sameQuarter) {
+                    if (isOutdated(serverQuarter, clientQuarter)) {
+                        System.out.println(clientQuarterStr + " is outdated.");
+                        response.put(serverQuarterStr, updateQuarter(serverQuarter));
+                    } else {
+                        System.out.println(clientQuarterStr + " is up to date");
+                    }
                     break;
-                } else if (serverQuarter.get("quarter").equals(clientQuarter.get("quarter")) &&
-                        !isOutdated(serverQuarter, clientQuarter)) {
-                    System.out.println(clientQuarter.get("quarter").getAsString() + " is up to date");
-                    break;
-                } else if (j+1 == clientQuarters.size()) {
-                    System.out.println(serverQuarter.get("quarter").getAsString() + " not found on client.");
-                    response.add(serverQuarter.get("quarter").getAsString(), (JsonElement) getQuarter(serverQuarter));
+                } else if (j + 1 == clientQuarter.length()) {
+                    System.out.println(serverQuarterStr + " not found on client.");
+                    response.put(serverQuarterStr, updateQuarter(serverQuarter));
                 }
             }
-
         }
+
         return response;
     }
 
+    private JSONObject updateQuarter(JSONObject quarter) {
+        System.out.println("Updating " + quarter.getString("quarter"));
 
-    public JsonObject getQuarter(JsonObject quarter) {
-        try {
-            String quarterName = quarter.get("quarter").getAsString();
-            quarterName = quarterName.replaceAll("\\s+", "");
-            quarterName = quarterName.toLowerCase();
-            JsonReader reader = new JsonReader(new FileReader(DATA_DIR + "/2019/" + quarterName + ".json"));
-            JsonParser parser = new JsonParser();
-            Object object = parser.parse(reader);
-            JsonObject obj = (JsonObject) object;
-            System.out.println("Updating " + quarter.get("quarter").getAsString());
-            return obj;
+        String quarterName = quarter.getString("quarter");
+        String year = quarterName.substring(quarterName.length() - 4);
+        quarterName = quarterName.replaceAll("\\s+", "").toLowerCase();
 
+        JSONObject updatedQuarter = parseFromDataDir(year + "/" + quarterName + ".json");
 
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            return new JsonObject();
-        }
+        return updatedQuarter;
     }
 
-    public boolean isOutdated(JsonObject serverQuarter, JsonObject clientQuarter) {
-        return serverQuarter.get("lastUpdated").getAsInt() > clientQuarter.get("lastUpdated").getAsInt();
+    private JSONObject parseFromDataDir(String fileName) {
+        InputStream is;
+
+        try {
+            is = new FileInputStream(DATA_DIR + fileName);
+        } catch (FileNotFoundException e) {
+            System.out.printf("File \"%s\" not found.", fileName);
+            return new JSONObject();
+        }
+
+        JSONTokener tokener = new JSONTokener(is);
+        JSONObject output = new JSONObject(tokener);
+
+        return output;
+    }
+
+    private boolean isOutdated(JSONObject serverQuarter, JSONObject clientQuarter) {
+        return serverQuarter.getLong("lastUpdated") > clientQuarter.getLong("lastUpdated");
+    }
+
+    private static JsonObject jsonToGson(JSONObject json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json.toString(), JsonObject.class);
+    }
+
+    private static JSONObject gsonToJson(JsonObject gson) {
+        return new JSONObject(gson.toString());
     }
 }

@@ -587,8 +587,6 @@ public class GoldMiner {
             JsonParser jp = new JsonParser();
             JsonElement je = jp.parse(writeString);
             writeString = gson.toJson(je);
-        } else {
-            writeString = jsonObject.toString();
         }
 
         // Write to output file

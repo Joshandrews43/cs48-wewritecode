@@ -16,17 +16,17 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
-         // Get most recent quarter.
-        GoldMiner miner = new GoldMiner();
-        String quarter = miner.getQuartersAsList().get(0);
-        miner.close();
-
-        try {
-            GoldMineCLI.run(quarter);
-        } catch (InterruptedException | ExecutionException e) {
-            LOGGER.error("Exception thrown in main GoldMineCLI Application");
-            LOGGER.error(e.getMessage());
-        }
+//         // Get most recent quarter.
+//        GoldMiner miner = new GoldMiner();
+//        String quarter = miner.getQuartersAsList().get(0);
+//        miner.close();
+//
+//        try {
+//            GoldMineCLI.run(quarter);
+//        } catch (InterruptedException | ExecutionException e) {
+//            LOGGER.error("Exception thrown in main GoldMineCLI Application");
+//            LOGGER.error(e.getMessage());
+//        }
     }
 }
 
