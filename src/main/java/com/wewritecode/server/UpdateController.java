@@ -32,7 +32,7 @@ public class UpdateController {
         return response;
     }
 
-    public static void updateQuarters(JSONObject serverGeneral, JSONObject clientGeneral, JSONObject response) {
+    private static void updateQuarters(JSONObject serverGeneral, JSONObject clientGeneral, JSONObject response) {
 
         JSONArray serverQuarters = serverGeneral.getJSONArray("quarters");
         JSONArray clientQuarters = clientGeneral.getJSONArray("quarters");
@@ -64,7 +64,7 @@ public class UpdateController {
         }
     }
 
-    public static JSONObject getQuarter(JSONObject quarter) {
+    private static JSONObject getQuarter(JSONObject quarter) {
         System.out.println("Updating " + quarter.getString("quarter"));
 
         String quarterName = quarter.getString("quarter");
@@ -76,7 +76,7 @@ public class UpdateController {
         return updatedQuarter;
     }
 
-    public static JSONObject parseFromDataDir(String fileName) {
+    private static JSONObject parseFromDataDir(String fileName) {
         InputStream is;
 
         try {
@@ -92,16 +92,9 @@ public class UpdateController {
         return output;
     }
 
-    public static boolean isOutdated(JSONObject serverQuarter, JSONObject clientQuarter) {
+    private static boolean isOutdated(JSONObject serverQuarter, JSONObject clientQuarter) {
         return serverQuarter.getLong("lastUpdated") > clientQuarter.getLong("lastUpdated");
     }
 
-    public static JsonObject jsonToGson(JSONObject json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json.toString(), JsonObject.class);
-    }
 
-    public static JSONObject gsonToJson(JsonObject gson) {
-        return new JSONObject(gson.toString());
-    }
 }

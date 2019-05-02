@@ -26,10 +26,20 @@ public class RequestController {
     public JsonObject updateRequest(@RequestBody JsonObject request) {
         System.out.println("\nQuarters update request");
 
-        JSONObject clientGeneral = RequestManager.gsonToJson(request);
-        return UpdateController.jsonToGson(UpdateController.updateJson(clientGeneral));
+        JSONObject clientGeneral = gsonToJson(request);
+        return jsonToGson(UpdateController.updateJson(clientGeneral));
     }
 
+
+    // Methods to convert JSON to Gson and vice versa
+    private static JsonObject jsonToGson(JSONObject json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json.toString(), JsonObject.class);
+    }
+
+    private static JSONObject gsonToJson(JsonObject gson) {
+        return new JSONObject(gson.toString());
+    }
 
 
 
