@@ -82,18 +82,20 @@ public class RequestController {
         String year = quarterName.substring(quarterName.length() - 4);
         quarterName = quarterName.replaceAll("\\s+", "").toLowerCase();
 
-        JSONObject updatedQuarter = parseFromDataDir(year + "/" + quarterName + ".json");
+        String path = year + "/" + quarterName + ".json";
+
+        JSONObject updatedQuarter = parseFromDataDir(path);
 
         return updatedQuarter;
     }
 
-    private JSONObject parseFromDataDir(String fileName) {
+    private JSONObject parseFromDataDir(String path) {
         InputStream is;
 
         try {
-            is = new FileInputStream(DATA_DIR + fileName);
+            is = new FileInputStream(DATA_DIR + path);
         } catch (FileNotFoundException e) {
-            System.out.printf("File \"%s\" not found.", fileName);
+            System.out.printf("File \"%s\" not found.", path);
             return new JSONObject();
         }
 

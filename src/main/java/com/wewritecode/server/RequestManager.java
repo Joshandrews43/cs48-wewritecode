@@ -12,13 +12,4 @@ public class RequestManager {
         return null;
     }
 
-//    public static JsonObject JSONtoGSON(JSONObject old) {
-//        String writeString = old.toString();
-//
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        JsonParser jp = new JsonParser();
-//        JsonElement je = jp.parse(writeString);
-//
-//        return je;
-//    }
 }

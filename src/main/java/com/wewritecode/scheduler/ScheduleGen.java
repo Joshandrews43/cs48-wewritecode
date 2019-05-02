@@ -22,7 +22,6 @@ public class ScheduleGen {
      */
     public static List<Schedule> generate(JSONObject post) {
         List<Schedule> schedules = new ArrayList<>();
-        // Use GSON if you want, but I recommend JSON if you are able to get that working.
         // TODO: Implement logic here
         return schedules;
     }
