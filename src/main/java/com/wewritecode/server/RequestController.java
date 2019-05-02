@@ -10,6 +10,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * RequestController to handle POST requests for generating schedules and updating quarters
+ *
+ * @author  Alan Roddick
+ * @version 1.1
+ * @since   2019-04-24
+ */
+
 @RestController
 public class RequestController {
 

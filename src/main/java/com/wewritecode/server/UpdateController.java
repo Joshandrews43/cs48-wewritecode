@@ -23,7 +23,13 @@ public class UpdateController {
 
         // Get general.json
         JSONObject response = new JSONObject();
-        JSONObject serverGeneral = parseFromDataDir("general.json");
+        JSONObject serverGeneral;
+        try {
+            serverGeneral = parseFromDataDir("general.json");
+        } catch (FileNotFoundException e) {
+            System.out.printf("File \"%s\" not found.", "general.json");
+            return new JSONObject();
+        }
         response.put("general", serverGeneral);
 
         // Add new quarters if outdated
@@ -51,40 +57,40 @@ public class UpdateController {
                 if (sameQuarter) {
                     if (isOutdated(serverQuarter, clientQuarter)) {
                         System.out.println(clientQuarterStr + " is outdated.");
-                        response.put(serverQuarterStr, getQuarter(serverQuarter));
+                        response.put(serverQuarterStr, getQuarter(serverQuarter.getString("quarter")));
                     } else {
                         System.out.println(clientQuarterStr + " is up to date");
                     }
                     break;
                 } else if (j + 1 == clientQuarters.length()) {
                     System.out.println(serverQuarterStr + " not found on client.");
-                    response.put(serverQuarterStr, getQuarter(serverQuarter));
+                    response.put(serverQuarterStr, getQuarter(serverQuarter.getString("quarter")));
                 }
             }
         }
     }
 
-    private static JSONObject getQuarter(JSONObject quarter) {
-        System.out.println("Updating " + quarter.getString("quarter"));
+    public static JSONObject getQuarter(String quarterName) {
+        System.out.println("Updating " + quarterName);
 
-        String quarterName = quarter.getString("quarter");
         String year = quarterName.substring(quarterName.length() - 4);
         quarterName = quarterName.replaceAll("\\s+", "").toLowerCase();
 
-        JSONObject updatedQuarter = parseFromDataDir(year + "/" + quarterName + ".json");
-
-        return updatedQuarter;
-    }
-
-    private static JSONObject parseFromDataDir(String fileName) {
-        InputStream is;
-
+        JSONObject updatedQuarter;
+        String fileName = year + "/" + quarterName + ".json";
         try {
-            is = new FileInputStream(DATA_DIR + fileName);
+            updatedQuarter = parseFromDataDir(fileName);
         } catch (FileNotFoundException e) {
             System.out.printf("File \"%s\" not found.", fileName);
             return new JSONObject();
         }
+
+        return updatedQuarter;
+    }
+
+    public static JSONObject parseFromDataDir(String fileName) throws FileNotFoundException {
+
+        InputStream is = new FileInputStream(DATA_DIR + fileName);
 
         JSONTokener tokener = new JSONTokener(is);
         JSONObject output = new JSONObject(tokener);
