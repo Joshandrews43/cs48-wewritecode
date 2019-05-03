@@ -4,6 +4,8 @@
 
 package com.wewritecode.server.handler;
 
+import org.json.JSONObject;
+
 public class UpdateHandler implements RequestHandler {
 
     private static final UpdateHandler INSTANCE = new UpdateHandler();
@@ -20,12 +22,12 @@ public class UpdateHandler implements RequestHandler {
     }
 
     @Override
-    public void handlePost() {
+    public void handlePost(JSONObject request) {
 
     }
 
     @Override
-    public void handlePut() {
+    public void handlePut(JSONObject request) {
 
     }
 

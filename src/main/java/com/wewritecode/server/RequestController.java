@@ -1,6 +1,7 @@
 package com.wewritecode.server;
 
 import com.google.gson.*;
+import com.wewritecode.server.manager.ScheduleManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -15,16 +16,17 @@ public class RequestController {
 
     private static final String DATA_DIR = System.getProperty("user.dir") + "/data/";
 
-    @RequestMapping(method = RequestMethod.POST, value = "/generateSchedules")
-    public JsonObject generateSchedule(@RequestBody JsonObject requestedClasses) {
+    @PostMapping(value = "/generateSchedules")
+    public JsonObject scheduleRequest(@RequestBody JsonObject requestedClasses) {
         System.out.println(requestedClasses);
-//        JSONObject request = gsonToJson(requestedClasses);
-//        JSONObject response = new JSONObject();
-//        return jsonToGson(response);
-        return requestedClasses;
+
+        JSONObject request = gsonToJson(requestedClasses);
+        JSONObject response = ScheduleManager.getInstance().generateSchedules(request);
+
+        return jsonToGson(response);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/getUpdated")
+    @PostMapping(value = "/getUpdated")
     public JsonObject updateRequest(@RequestBody JsonObject quartersRequest) {
         System.out.println("\nQuarters update request");
 

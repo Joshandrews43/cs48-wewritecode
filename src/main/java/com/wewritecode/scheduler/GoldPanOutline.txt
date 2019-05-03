@@ -43,3 +43,5 @@ RC  ->  + pan.parsePOST()
                 - addToBase()
                 - addToPan()
             - parseFilters()
+
+RequestController  ->  ScheduleManager  ->  generateSchedules()
