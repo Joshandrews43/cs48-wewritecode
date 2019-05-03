@@ -4,5 +4,5 @@
 
 package com.wewritecode.server.manager;
 
-public class UpdateManager {
+public class UpdateManager implements RequestManager {
 }

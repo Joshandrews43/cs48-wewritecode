@@ -2,14 +2,8 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.server;
+package com.wewritecode.server.manager;
 
-import org.json.JSONObject;
-
-public class RequestManager {
-
-    public static JSONObject generateSchedule() {
-        return null;
-    }
+public interface RequestManager {
 
 }

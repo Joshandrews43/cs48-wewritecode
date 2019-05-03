@@ -1,4 +1,4 @@
-package com.wewritecode.scheduler.handler;
+package com.wewritecode.server.handler;
 
 public interface RequestHandler {
     void handleGet();

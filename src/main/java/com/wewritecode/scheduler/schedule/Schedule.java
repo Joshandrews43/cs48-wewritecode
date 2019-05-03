@@ -1,6 +1,5 @@
-package com.wewritecode.scheduler;
+package com.wewritecode.scheduler.schedule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
