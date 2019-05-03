@@ -15,7 +15,7 @@ package com.wewritecode.server;
         import java.io.FileNotFoundException;
         import java.io.InputStream;
 
-public class UpdateController {
+public class UpdateController_v1 {
 
     private static final String DATA_DIR = System.getProperty("user.dir") + "/data/";
 

@@ -1,14 +1,8 @@
 package com.wewritecode.server;
 
 import com.google.gson.*;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 /**
  * RequestController to handle POST requests for generating schedules and updating quarters
@@ -35,7 +29,7 @@ public class RequestController {
         System.out.println("\nQuarters update request");
 
         JSONObject clientGeneral = gsonToJson(request);
-        return jsonToGson(UpdateController.updateJson(clientGeneral));
+        return jsonToGson(UpdateController_v1.updateJson(clientGeneral));
     }
 
 
