@@ -4,6 +4,8 @@
 
 package com.wewritecode.scheduler;
 
+import com.wewritecode.scheduler.schedule.Course;
+import com.wewritecode.scheduler.schedule.Schedule;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ public class ScheduleGen {
      */
     public static List<Schedule> generate(JSONObject post) {
         List<Schedule> schedules = new ArrayList<>();
-        // Use GSON if you want, but I recommend JSON if you are able to get that working.
         // TODO: Implement logic here
         return schedules;
     }

@@ -1,5 +1,6 @@
 package com.wewritecode.scheduler;
 
+import com.wewritecode.scheduler.schedule.Schedule;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

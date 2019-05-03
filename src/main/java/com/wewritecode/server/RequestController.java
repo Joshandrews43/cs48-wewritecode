@@ -32,7 +32,6 @@ public class RequestController {
         return jsonToGson(UpdateController_v1.updateJson(clientGeneral));
     }
 
-
     // Methods to convert JSON to Gson and vice versa
     private static JsonObject jsonToGson(JSONObject json) {
         Gson gson = new Gson();
