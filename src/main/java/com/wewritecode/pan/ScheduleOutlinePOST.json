@@ -39,6 +39,11 @@
     ],
     "optional": [
       "Optional/Additional courses here."
-    ]
+    ],
+    "filters": {
+      "filter1" : "selected",
+      "filter2" : true,
+      "filter3" : "etc."
+    }
   }
 }

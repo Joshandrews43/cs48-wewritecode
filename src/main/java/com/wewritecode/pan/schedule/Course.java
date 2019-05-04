@@ -5,9 +5,19 @@
 
 package com.wewritecode.pan.schedule;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.List;
 
+@Entity
 public class Course {
-    private String courseID;
-    private ArrayList<Lecture> lectures;
+
+    @Id
+    private String courseId;
+    private List<Lecture> lectures;
+
+    public String getCourseID() { return courseId; }
+    public void setCourseID(String courseId) { this.courseId = courseId; }
+    public List<Lecture> getLectures() { return lectures; }
+    public void setLectures(List<Lecture> lectures) { this.lectures = lectures; }
 }

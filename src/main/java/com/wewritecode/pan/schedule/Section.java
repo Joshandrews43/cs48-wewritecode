@@ -5,6 +5,8 @@
 
 package com.wewritecode.pan.schedule;
 
-public class Section extends Session {
+import javax.persistence.Entity;
 
+@Entity
+public class Section extends Session {
 }
