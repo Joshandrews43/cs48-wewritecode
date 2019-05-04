@@ -38,7 +38,9 @@ public class BruteForceScheduler implements Scheduler {
     public void addToBaseSchedule() {
         // TODO: Implement and give appropriate parameters
     }
+
     public void addToRemainingCourses(Course course) { remainingCourses.add(course); }
+
     public void updateFilterOptions(Map<String, String> options) {
         filterOptions = options;
         sort();
