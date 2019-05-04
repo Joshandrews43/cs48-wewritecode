@@ -1,0 +1,15 @@
+2019-05-03 18:37:06,038 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Update Quarter Requested
+2019-05-03 18:37:06,041 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Spring 2019 not found on client.
+2019-05-03 18:37:06,042 [http-nio-5000-exec-2] ERROR com.wewritecode.util.JSONUtils - File 2019/Spring 2019.json not found.
+2019-05-03 18:37:06,042 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Winter 2019 is up to date.
+2019-05-03 18:40:00,152 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Update Quarter Requested
+2019-05-03 18:40:00,154 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Spring 2019 not found on client.
+2019-05-03 18:40:00,155 [http-nio-5000-exec-1] ERROR com.wewritecode.util.JSONUtils - File 2019/spring 2019.json not found.
+2019-05-03 18:40:00,155 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Winter 2019 is up to date.
+2019-05-03 18:42:32,546 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Update Quarter Requested
+2019-05-03 18:42:32,548 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Spring 2019 not found on client.
+2019-05-03 18:42:32,548 [http-nio-5000-exec-2] ERROR com.wewritecode.util.JSONUtils - File 2019/spring 2019.json not found.
+2019-05-03 18:42:32,549 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Winter 2019 is up to date.
+2019-05-03 18:43:18,882 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Update Quarter Requested
+2019-05-03 18:43:18,885 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Spring 2019 not found on client.
+2019-05-03 18:43:19,181 [http-nio-5000-exec-1] INFO  com.wewritecode.server.manager.UpdateManager - Winter 2019 is up to date.
