@@ -1,4 +1,5 @@
 /**
+ * @author Alan Roddick
  * @author Grant Clark
  */
 

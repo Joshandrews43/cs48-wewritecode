@@ -1,6 +1,5 @@
 package com.wewritecode.miner;
 
-import com.wewritecode.miner.GoldMiner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.*;

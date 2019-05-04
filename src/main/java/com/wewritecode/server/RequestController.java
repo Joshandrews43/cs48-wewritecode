@@ -1,3 +1,7 @@
+/**
+ * @author Alan Roddick
+ * @author Grant Clark
+ */
 package com.wewritecode.server;
 
 import com.google.gson.*;

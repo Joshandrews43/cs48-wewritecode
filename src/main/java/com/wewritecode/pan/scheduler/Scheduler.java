@@ -1,3 +1,7 @@
+/**
+ * @author Grant Clark
+ */
+
 package com.wewritecode.pan.scheduler;
 
 import com.wewritecode.pan.schedule.Schedule;

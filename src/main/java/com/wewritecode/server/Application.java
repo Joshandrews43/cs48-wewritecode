@@ -1,3 +1,6 @@
+/**
+ * @author Alan Roddick
+ */
 package com.wewritecode.server;
 
 import com.wewritecode.miner.GoldMineCLI;
