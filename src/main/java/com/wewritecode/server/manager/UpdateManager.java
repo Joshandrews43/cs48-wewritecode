@@ -84,8 +84,9 @@ public class UpdateManager implements RequestManager {
     }
 
     private JSONObject updateQuarter(JSONObject quarter) {
-        String quarterName = quarter.getString("quarter");
-        String year = quarterName.substring(quarterName.length() - 4).replaceAll("\\s+", "").toLowerCase();
+        String quarterName = quarter.getString("quarter").toLowerCase();
+        quarterName = quarterName.replaceAll("\\s", "");
+        String year = quarterName.substring(quarterName.length() - 4);
         String path = year + "/" + quarterName + ".json";
 
         return JSONUtils.getFromDataDir(path);
