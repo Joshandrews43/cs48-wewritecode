@@ -4,6 +4,7 @@
 
 package com.wewritecode.miner;
 
+import com.wewritecode.util.MethodTimer;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 

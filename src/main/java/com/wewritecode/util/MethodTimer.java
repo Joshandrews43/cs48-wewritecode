@@ -2,7 +2,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.miner;
+package com.wewritecode.util;
 
 import org.apache.log4j.Logger;
 

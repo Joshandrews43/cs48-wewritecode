@@ -2,7 +2,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.scheduler.filter;
+package com.wewritecode.pan.filter;
 
 public class AvailablityFilter implements Filter {
 }

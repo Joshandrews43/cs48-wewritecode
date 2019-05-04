@@ -1,6 +1,7 @@
 package com.wewritecode.miner;
 
 import com.google.gson.*;
+import com.wewritecode.util.MethodTimer;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;

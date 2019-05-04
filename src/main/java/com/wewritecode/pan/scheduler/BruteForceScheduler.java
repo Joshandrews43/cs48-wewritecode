@@ -2,14 +2,14 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.scheduler;
+package com.wewritecode.pan.scheduler;
 
-import com.wewritecode.scheduler.schedule.Course;
-import com.wewritecode.scheduler.schedule.Schedule;
+import com.wewritecode.pan.schedule.Course;
+import com.wewritecode.pan.schedule.Schedule;
 
 import java.util.*;
 
-public class GoldPan {
+public class BruteForceScheduler implements Scheduler {
 
     // TODO: Should we distinguish between a selected Course and a Course with multiple lectures/sections?
     private Schedule baseSchedule;
@@ -17,41 +17,41 @@ public class GoldPan {
     private Map<String, String> filterOptions;
     private List<Schedule> fullSchedules;
 
-    private GoldPan() {
+    private BruteForceScheduler() {
         baseSchedule = new Schedule();
         remainingCourses = new ArrayList<>();
         filterOptions = new HashMap<>();
         fullSchedules = new ArrayList<>();
     }
 
-    private static class GoldPanHolder {
-        private static final GoldPan INSTANCE = new GoldPan();
+    private static class BruteForceSchedulerHolder {
+        private static final BruteForceScheduler INSTANCE = new BruteForceScheduler();
     }
 
-    public static GoldPan getInstance() {
-        return GoldPanHolder.INSTANCE;
+    public static BruteForceScheduler getInstance() {
+        return BruteForceSchedulerHolder.INSTANCE;
     }
 
     // Modifiers
 
-    public Schedule getBaseSchedule() { return baseSchedule; }
-    public void addToBaseSchedule() {} // TODO: Implement and give appropriate parameters
-
-    public List<Course> getRemainingCourses() { return remainingCourses; }
+    public void addToBaseSchedule() {
+        // TODO: Implement and give appropriate parameters
+    }
     public void addToRemainingCourses(Course course) { remainingCourses.add(course); }
-
-    public Map<String, String> getFilterOptions() { return filterOptions; }
-    public void updateFilterOptions(Map<String, String> options) {} // TODO: Implement
+    public void updateFilterOptions(Map<String, String> options) {
+        filterOptions = options;
+        sort();
+    }
 
     // Core Methods
 
+    @Override
     /**
      * Generates a list of non-conflicting schedules.
      *
      * @return list of schedules that do not conflict.
      */
     public List<Schedule> generate() {
-        // TODO: Implement
         findViableSchedules();
         sort();
         return fullSchedules;

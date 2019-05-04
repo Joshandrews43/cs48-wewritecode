@@ -4,6 +4,11 @@
 
 package com.wewritecode.server.manager;
 
-public interface RequestManager {
+import org.json.JSONObject;
 
+public interface RequestManager {
+    void handleGet();
+    void handlePost(JSONObject request);
+    void handlePut(JSONObject request);
+    void handleDelete();
 }
