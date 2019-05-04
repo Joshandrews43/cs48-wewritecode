@@ -6,11 +6,13 @@
 package com.wewritecode.server.manager;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.wewritecode.pan.scheduler.BruteForceScheduler;
 import com.wewritecode.pan.schedule.Schedule;
 import com.wewritecode.pan.scheduler.Scheduler;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.json.Json;
 
 import java.util.List;
 
@@ -39,7 +41,13 @@ public class ScheduleManager implements RequestManager {
     // Add any lectures/sections not added to baseSchedule to remainingCourses of goldPan.
     @Override
     public void handlePost(JSONObject request) {
-        // TODO: Implement
+        JSONObject courses = (JSONObject) request.get("courses");
+        JSONArray mandatoryCourses = (JSONArray) courses.get("mandatory");
+        JSONArray optionalCourses = (JSONArray) courses.get("optional");
+        JSONArray filterOptions = (JSONArray) courses.get("filters");
+        addCoursesToScheduler(mandatoryCourses, optionalCourses);
+        addFiltersToScheduler(filterOptions);
+
     }
 
     @Override
@@ -81,6 +89,14 @@ public class ScheduleManager implements RequestManager {
          */
 
         return output;
+    }
+
+    private static void addCoursesToScheduler(JSONArray mandatoryCourses, JSONArray optionalCourses) {
+
+    }
+
+    private static void addFiltersToScheduler(JSONArray filterOptions) {
+
     }
 
 }

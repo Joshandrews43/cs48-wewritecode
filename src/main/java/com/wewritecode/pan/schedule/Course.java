@@ -6,8 +6,9 @@
 package com.wewritecode.pan.schedule;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Course {
     private String courseID;
-    private ArrayList<Lecture> lectures;
+    private List<Lecture> lectures;
 }
