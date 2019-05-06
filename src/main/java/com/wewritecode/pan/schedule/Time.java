@@ -5,23 +5,41 @@
 
 package com.wewritecode.pan.schedule;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Time {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int timeId;
     private int hour;
     private int minute;
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    @OneToMany(targetEntity = Section.class, mappedBy = "start", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Section> sectionStarts = new ArrayList<>();
+    @OneToMany(targetEntity = Section.class, mappedBy = "end", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Section> sectionEnds = new ArrayList<>();
+    @OneToMany(targetEntity = Lecture.class, mappedBy = "start", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Section> lectureStarts = new ArrayList<>();
+    @OneToMany(targetEntity = Lecture.class, mappedBy = "end", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Section> lectureEnds = new ArrayList<>();
+
+    public int getTimeId() { return timeId; }
+    public void setTimeId(int timeId) { this.timeId = timeId; }
     public int getHour() { return hour; }
     public void setHour(int hour) { this.hour = hour; }
     public int getMinute() { return minute; }
     public void setMinute(int minute) { this.minute = minute; }
+
+    public List<Section> getSectionStarts() { return sectionStarts; }
+    public void setSectionStarts(List<Section> sectionStarts) { this.sectionStarts = sectionStarts; }
+    public List<Section> getSectionEnds() { return sectionEnds; }
+    public void setSectionEnds(List<Section> sectionEnds) { this.sectionEnds = sectionEnds; }
+    public List<Section> getLectureStarts() { return lectureStarts; }
+    public void setLectureStarts(List<Section> lectureStarts) { this.lectureStarts = lectureStarts; }
+    public List<Section> getLectureEnds() { return lectureEnds; }
+    public void setLectureEnds(List<Section> lectureEnds) { this.lectureEnds = lectureEnds; }
 }

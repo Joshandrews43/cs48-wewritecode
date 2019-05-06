@@ -18,7 +18,7 @@ public class UpdateController {
 
     // TODO: Switch the RequestBody to an object wrapping List<Quarter>
     // TODO: Switch the Response to an object wrapping List<Quarter> and n - Quarter objects.
-    @PostMapping(value = "/getUpdated")
+    @PostMapping("/getUpdated")
     public JsonObject updateRequest(@RequestBody JsonObject requestedQuarters) {
         JSONObject request = JSONUtils.gsonToJson(requestedQuarters);
         JSONObject response = UpdateManager.getInstance().updateQuarters(request);

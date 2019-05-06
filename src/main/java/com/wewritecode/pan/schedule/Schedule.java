@@ -5,9 +5,8 @@
 
 package com.wewritecode.pan.schedule;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,12 +14,13 @@ public class Schedule implements Comparable<Schedule> {
 
     @Id
     @GeneratedValue
-    private int id;
-    private List<Course> courses;
+    private int scheduleId;
+    @OneToMany(targetEntity = Course.class, mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Course> courses = new ArrayList<>();
     private int fitness;
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getScheduleId() { return scheduleId; }
+    public void setScheduleId(int scheduleId) { this.scheduleId = scheduleId; }
     public List<Course> getCourses() { return courses; }
     public void setCourses(List<Course> courses) { this.courses = courses; }
     public int getFitness() { return fitness; }

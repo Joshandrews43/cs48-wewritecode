@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
  * @version 1.1
  * @since   2019-04-24
  */
+@Ignore
 public class GoldMinerTest {
 
     // Component Under Test (CUT)

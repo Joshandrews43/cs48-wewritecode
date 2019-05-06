@@ -8,10 +8,12 @@ import com.wewritecode.miner.GoldMiner;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
+@EntityScan("com.wewritecode")
 public class Application {
 
     private static final Logger LOGGER = Logger.getLogger(GoldMineCLI.class);
