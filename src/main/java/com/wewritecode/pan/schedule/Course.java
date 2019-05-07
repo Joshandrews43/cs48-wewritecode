@@ -14,8 +14,10 @@ public class Course {
 
     @Id
     private String courseId;
+
     @OneToMany(targetEntity = Lecture.class, mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Lecture> lectures = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "scheduleId")
     private Schedule schedule;

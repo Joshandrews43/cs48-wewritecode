@@ -24,8 +24,8 @@
 //    private Time start;
 //    private Time end;
 //
-//    public List<String> getDays() { return days; }
-//    public void setDays(List<String> days) { this.days = days; }
+//    public List<String> getLectureDays() { return days; }
+//    public void setLectureDays(List<String> days) { this.days = days; }
 //    public Time getStart() { return start; }
 //    public void setStart(Time start) { this.start = start; }
 //    public Time getEnd() { return end; }

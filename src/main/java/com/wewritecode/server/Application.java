@@ -16,11 +16,10 @@ import java.util.concurrent.ExecutionException;
 @EntityScan("com.wewritecode")
 public class Application {
 
-    private static final Logger LOGGER = Logger.getLogger(GoldMineCLI.class);
+    private static final Logger LOGGER = Logger.getLogger(Application.class);
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-
 //         // Get most recent quarter.
 //        GoldMiner miner = new GoldMiner();
 //        String quarter = miner.getQuartersAsList().get(0);

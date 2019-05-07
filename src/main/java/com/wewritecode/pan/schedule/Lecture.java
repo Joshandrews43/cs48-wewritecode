@@ -24,7 +24,7 @@ public class Lecture {
     private Course course;
 
     @ElementCollection
-    private List<String> days = new ArrayList<>();
+    private List<String> lectureDays = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "LECTURE_START")
@@ -40,8 +40,8 @@ public class Lecture {
     public void setSections(List<Section> sections) { this.sections = sections; }
     public Course getCourse() { return course; }
     public void setCourse(Course course) { this.course = course; }
-    public List<String> getDays() { return days; }
-    public void setDays(List<String> days) { this.days = days; }
+    public List<String> getLectureDays() { return lectureDays; }
+    public void setLectureDays(List<String> lectureDays) { this.lectureDays = lectureDays; }
     public Time getStart() { return start; }
     public void setStart(Time start) { this.start = start; }
     public Time getEnd() { return end; }

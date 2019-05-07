@@ -4,5 +4,11 @@
 
 package com.wewritecode.pan.filter;
 
-public class RateProfessorFilter implements Filter {
+import com.wewritecode.pan.schedule.Schedule;
+
+public class RateProfessorFilter implements Filter<Schedule> {
+    @Override
+    public double getFitness(Schedule schedule) {
+        return 0;
+    }
 }

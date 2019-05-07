@@ -15,8 +15,10 @@ public class Schedule implements Comparable<Schedule> {
     @Id
     @GeneratedValue
     private int scheduleId;
+
     @OneToMany(targetEntity = Course.class, mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Course> courses = new ArrayList<>();
+
     private int fitness;
 
     public int getScheduleId() { return scheduleId; }
@@ -27,7 +29,5 @@ public class Schedule implements Comparable<Schedule> {
     public void setFitness(int fitness) { this.fitness = fitness; }
 
     @Override
-    public int compareTo(Schedule s) {
-        return this.fitness - s.fitness;
-    }
+    public int compareTo(Schedule s) { return this.fitness - s.fitness; }
 }
