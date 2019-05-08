@@ -11,6 +11,7 @@ import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,8 @@ public class ScheduleController {
     @Autowired
     Scheduler bruteForceScheduler;
 
-    @PostMapping(path = "/generateSchedules", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/generateSchedules",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse scheduleRequest(@RequestBody ScheduleRequest request) {
         System.out.println(request);
         ScheduleResponse response = bruteForceScheduler.generate(request);
