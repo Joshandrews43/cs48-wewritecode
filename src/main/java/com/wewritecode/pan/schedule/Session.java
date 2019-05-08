@@ -5,46 +5,31 @@
 
 package com.wewritecode.pan.schedule;
 
-// TODO: Modify to be an interface with just public (unimplemented) getters/setters. Leave out private fields.
+import java.util.ArrayList;
+import java.util.List;
+
 public class Session {
-    private String[] days;
-    private Time start;
-    private Time end;
+    private List<String> days;
+    private Time time;
 
     public Session() {
-        this.start = new Time();
-        this.end = new Time();
+        days = new ArrayList<>();
+        time = new Time();
     }
 
-    public String[] getDays() {
-        return days;
+    public Session(List<String> days, Time time) {
+        this.days = days;
+        this.time = time;
     }
 
-    public String getDay(int index) throws IndexOutOfBoundsException { return days[index]; }
-
-    public Time getStart() {
-        return start;
+    public Session(List<String> days, int startHour, int startMin, int endHour, int endMin) {
+        this.days = days;
+        time = new Time(startHour, startMin, endHour, endMin);
     }
 
-    public Time getEnd() {
-        return end;
-    }
-
-    public void setDays(String[] days) {
-        if (days == null) {
-            return;
-        }
-        this.days = new String[days.length];
-        for (int i = 0; i < days.length; i++) {
-            this.days[i] = days[i];
-        }
-    }
-
-    public void setStart(Time start) {
-        this.start = start;
-    }
-
-    public void setEnd(Time end) {
-        this.end = end;
-    }
+    public String getDay(int index) throws IndexOutOfBoundsException { return days.get(index); }
+    public Time getTime() { return time; }
+    public void setTime(Time time) { this.time = time; }
+    public List<String> getDays() { return days; }
+    public void setDays(List<String> days) { this.days = days; }
 }

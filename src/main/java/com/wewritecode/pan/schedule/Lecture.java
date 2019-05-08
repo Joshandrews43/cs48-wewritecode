@@ -8,42 +8,42 @@ package com.wewritecode.pan.schedule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lecture extends Session {
+public class Lecture extends Session implements ILecture<Section> {
     private List<Section> sections;
+
+    public Lecture() {
+        sections = new ArrayList<>();
+    }
 
     public Lecture(Lecture l) {
         super();
         sections = new ArrayList<>();
-        this.setStart(l.getStart());
-        this.setEnd(l.getEnd());
+        this.setTime(l.getTime());
         this.setDays(this.getDays());
         for (int i = 0; i < l.sections.size(); i++) {
             this.addSection(l.getSection(i));
         }
     }
+
     public Lecture(Lecture l, Section section) {
-        super();
+        super(l.getDays(), l.getTime());
         sections = new ArrayList<>();
-        this.setStart(l.getStart());
-        this.setEnd(l.getEnd());
-        this.setDays(l.getDays());
-        this.sections.add(section);
+        sections.add(section);
     }
 
-    public Lecture(String[] days, Time start, Time end) {
-        super();
+    public Lecture(List<String> days, Time time) {
+        super(days, time);
         sections = new ArrayList<>();
-        this.setDays(days);
-        this.setStart(start);
-        this.setEnd(end);
     }
 
     public int getNumSections() { return sections.size(); }
     public Section getSection(int index) { return sections.get(index); }
-    public void addSection(Section section) { sections.add(section); }
     public void removeSections() { sections.clear(); }
 
-    public List<Section> getSections() {
-        return sections;
-    }
+    @Override
+    public List<Section> getSections() { return sections; }
+    @Override
+    public void setSections(List<Section> sections) { this.sections = sections; }
+    @Override
+    public void addSection(Section section) { sections.add(section); }
 }

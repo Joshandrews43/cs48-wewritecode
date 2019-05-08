@@ -8,7 +8,7 @@ package com.wewritecode.pan.schedule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Schedule implements Comparable<Schedule> {
+public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
     private List<Course> courses;
     private int fitness;
 
@@ -26,19 +26,21 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     public void addToSchedule(Course c) { courses.add(c); }
-
     public void removeFromSchedule(Course c) {
         courses.remove(c);
     }
 
+    @Override
+    public List<Course> getCourses() { return courses; }
+    @Override
+    public void setCourses(List<Course> courses) { this.courses = courses; }
+    @Override
+    public void addCourse(Course course) { courses.add(course); }
 
+    public int getFitness() { return fitness; }
+    public void setFitness(int fitness) { this.fitness = fitness; }
 
     @Override
-    public int compareTo(Schedule s) {
-        return this.fitness - s.fitness;
-    }
+    public int compareTo(Schedule s) { return this.fitness - s.fitness; }
 
-    public List<Course> getCourses() {
-        return courses;
-    }
 }

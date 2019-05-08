@@ -8,40 +8,42 @@ package com.wewritecode.pan.schedule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course {
-    private String courseID;
+public class Course implements ICourse<Lecture> {
+    private String courseId;
     private List<Lecture> lectures;
+
+    public Course() {
+        courseId = "";
+        lectures = new ArrayList<>();
+    }
+
+    public Course(String courseId) {
+        this.courseId = courseId;
+        lectures = new ArrayList<>();
+    }
 
     public Course(Course c, Lecture lecture, Section section) {
         lectures = new ArrayList<>();
         Lecture courseLecture = new Lecture(lecture, section);
-        this.courseID = c.courseID;
+        this.courseId = c.getCourseId();
         this.lectures.add(courseLecture);
-
     }
 
-    public Course(String courseID) {
-        lectures = new ArrayList<>();
-        this.courseID = courseID;
-    }
+    @Override
+    public String getCourseId() { return courseId; }
+    public void setCourseId(String courseId) { this.courseId = courseId; }
 
     public int getNumLectures() { return lectures.size(); }
-
     public Lecture getLecture(int index) { return lectures.get(index); }
 
-    public List<Lecture> getLectures() {
-        return lectures;
-    }
-
-    public void addLecture(Lecture lecture) {
-        lectures.add(lecture);
-    }
-
-    public String getCourseID() {
-        return courseID;
-    }
+    @Override
+    public List<Lecture> getLectures() { return lectures; }
+    @Override
+    public void setLectures(List<Lecture> lectures) { this.lectures = lectures; }
+    @Override
+    public void addLecture(Lecture lecture) { lectures.add(lecture); }
 
     public boolean equals(Course c) {
-        return this.courseID.equalsIgnoreCase(c.courseID);
+        return this.courseId.equalsIgnoreCase(c.courseId);
     }
 }

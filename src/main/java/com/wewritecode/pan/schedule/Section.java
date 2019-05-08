@@ -5,13 +5,14 @@
 
 package com.wewritecode.pan.schedule;
 
-public class Section extends Session {
 
-    public Section(String[] days, Time start, Time end) {
+import java.util.List;
+
+public class Section extends Session implements ISection {
+    public Section() {
         super();
-        this.setDays(days);
-        this.setStart(start);
-        this.setEnd(end);
     }
-
+    public Section(List<String> days, Time time) {
+        super(days, time);
+    }
 }
