@@ -9,6 +9,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+
 /**
  * Test class for the com.wewritecode.miner.GoldMiner class.
  *
@@ -49,8 +51,8 @@ public class BruteForceSchedulerTest {
         CS64.addLecture(CS64Lecture);
 
         String[] lectureCS130ADays = {"M", "W"};
-        Time lectureCS130AStart = new Time(12, 0);
-        Time lectureCS130AEnd = new Time(13, 45);
+        Time lectureCS130AStart = new Time(11, 0);
+        Time lectureCS130AEnd = new Time(12, 15);
         String[] section1CS130ADays = {"F"};
         Time section1CS130AStart = new Time(9, 0);
         Time section1CS130AEnd = new Time(9, 50);
@@ -65,12 +67,30 @@ public class BruteForceSchedulerTest {
         Course CS130A = new Course("CS130A");
         CS130A.addLecture(CS130ALecture);
 
+        String[] lectureCS138Days = {"M", "W"};
+        Time lectureCS138Start = new Time(9, 30);
+        Time lectureCS138End = new Time(10, 45);
+        String[] section1CS138Days = {"F"};
+        Time section1CS138Start = new Time(11, 0);
+        Time section1CS138End = new Time(11, 50);
+        String[] section2CS138Days = {"F"};
+        Time section2CS138Start = new Time(12, 0);
+        Time section2CS138End = new Time(12, 50);
+        Section section1CS138 = new Section(section1CS138Days, section1CS138Start, section1CS138End);
+        Section section2CS138 = new Section(section2CS138Days, section2CS138Start, section2CS138End);
+        Lecture CS138Lecture = new Lecture(lectureCS138Days, lectureCS138Start, lectureCS138End);
+        CS138Lecture.addSection(section1CS138);
+        CS138Lecture.addSection(section2CS138);
+        Course CS138 = new Course("CS138");
+        CS138.addLecture(CS138Lecture);
+
         scheduler.addToRemainingCourses(CS64);
         scheduler.addToRemainingCourses(CS130A);
+        scheduler.addToRemainingCourses(CS138);
         scheduler.generate();
 
         List<Schedule> schedules = scheduler.getFullSchedules();
-        System.out.println(schedules.size());
+        assertEquals(8, schedules.size());
     }
 
 
