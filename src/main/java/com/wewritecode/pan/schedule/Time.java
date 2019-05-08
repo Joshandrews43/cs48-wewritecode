@@ -5,53 +5,34 @@
 
 package com.wewritecode.pan.schedule;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-public class Time implements Comparable<Time> {
-
-    @Id
-    @GeneratedValue
-    private int timeId;
-
+public class Time implements ITime {
     private int hour;
-
     private int minute;
 
-    @OneToMany(targetEntity = Section.class, mappedBy = "start", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Section> sectionStarts = new ArrayList<>();
+    public Time() {
+        hour = 0;
+        minute = 0;
+    }
 
-    @OneToMany(targetEntity = Section.class, mappedBy = "end", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Section> sectionEnds = new ArrayList<>();
+    public Time(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+    }
 
-    @OneToMany(targetEntity = Lecture.class, mappedBy = "start", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Section> lectureStarts = new ArrayList<>();
-
-    @OneToMany(targetEntity = Lecture.class, mappedBy = "end", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Section> lectureEnds = new ArrayList<>();
-
-    public int getTimeId() { return timeId; }
-    public void setTimeId(int timeId) { this.timeId = timeId; }
+    @Override
     public int getHour() { return hour; }
+    @Override
     public void setHour(int hour) { this.hour = hour; }
+    @Override
     public int getMinute() { return minute; }
+    @Override
     public void setMinute(int minute) { this.minute = minute; }
-    public List<Section> getSectionStarts() { return sectionStarts; }
-    public void setSectionStarts(List<Section> sectionStarts) { this.sectionStarts = sectionStarts; }
-    public List<Section> getSectionEnds() { return sectionEnds; }
-    public void setSectionEnds(List<Section> sectionEnds) { this.sectionEnds = sectionEnds; }
-    public List<Section> getLectureStarts() { return lectureStarts; }
-    public void setLectureStarts(List<Section> lectureStarts) { this.lectureStarts = lectureStarts; }
-    public List<Section> getLectureEnds() { return lectureEnds; }
-    public void setLectureEnds(List<Section> lectureEnds) { this.lectureEnds = lectureEnds; }
 
 
     @Override
-    public int compareTo(Time t) {
+    public int compareTo(ITime t) {
         int thisTime = (hour * 60) + minute;
-        int thatTime = (t.hour * 60) + t.minute;
+        int thatTime = (t.getHour() * 60) + t.getMinute();
         return thisTime - thatTime;
     }
 }

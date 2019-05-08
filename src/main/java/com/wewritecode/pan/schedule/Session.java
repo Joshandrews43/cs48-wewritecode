@@ -1,33 +1,40 @@
+/**
+ * @author Alan Roddick
+ * @author Grant Clark
+ */
 
-// TODO: Revisit to try to re-implement into program to work with in-memory database.
+package com.wewritecode.pan.schedule;
 
-///**
-// * @author Alan Roddick
-// * @author Grant Clark
-// */
-//
-//package com.wewritecode.pan.schedule;
-//
-//import javax.persistence.*;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-//public class Session {
-//    @Id
-//    @GeneratedValue
-//    private int sessionId;
-//
-//    @OneToMany(targetEntity = String.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<String> days = new ArrayList<>();
-//    private Time start;
-//    private Time end;
-//
-//    public List<String> getLectureDays() { return days; }
-//    public void setLectureDays(List<String> days) { this.days = days; }
-//    public Time getStart() { return start; }
-//    public void setStart(Time start) { this.start = start; }
-//    public Time getEnd() { return end; }
-//    public void setEnd(Time end) { this.end = end; }
-//}
+import java.util.ArrayList;
+import java.util.List;
+
+public class Session {
+    private List<String> days;
+    private ITime start;
+    private ITime end;
+
+    public Session() {
+        days = new ArrayList<>();
+        start = new Time();
+        end = new Time();
+    }
+
+    public Session(List<String> days, ITime start, ITime end) {
+        this.days = days;
+        this.start = start;
+        this.end = end;
+    }
+
+    public Session(List<String> days, int startHour, int startMin, int endHour, int endMin) {
+        this.days = days;
+        start = new Time(startHour, startMin);
+        end = new Time(endHour, endMin);
+    }
+
+    public List<String> getDays() { return days; }
+    public void setDays(List<String> days) { this.days = days; }
+    public ITime getStart() { return start; }
+    public void setStart(Time start) { this.start = start; }
+    public ITime getEnd() { return end; }
+    public void setEnd(Time end) { this.end = end; }
+}

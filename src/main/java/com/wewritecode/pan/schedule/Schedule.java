@@ -5,26 +5,25 @@
 
 package com.wewritecode.pan.schedule;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Schedule implements Comparable<Schedule> {
-
-    @Id
-    @GeneratedValue
-    private int scheduleId;
-
-    @OneToMany(targetEntity = Course.class, mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Course> courses = new ArrayList<>();
-
+public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
+    private List<Course> courses;
     private int fitness;
 
-    public int getScheduleId() { return scheduleId; }
-    public void setScheduleId(int scheduleId) { this.scheduleId = scheduleId; }
+    public Schedule() {
+        courses = new ArrayList<>();
+        fitness = 0;
+    }
+
+    @Override
     public List<Course> getCourses() { return courses; }
+    @Override
     public void setCourses(List<Course> courses) { this.courses = courses; }
+    @Override
+    public void addCourse(Course course) { courses.add(course); }
+
     public int getFitness() { return fitness; }
     public void setFitness(int fitness) { this.fitness = fitness; }
 

@@ -4,5 +4,5 @@
 
 package com.wewritecode.pan.schedule;
 
-public class ISection {
+public interface ISection {
 }

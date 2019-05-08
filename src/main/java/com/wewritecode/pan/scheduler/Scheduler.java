@@ -4,10 +4,9 @@
 
 package com.wewritecode.pan.scheduler;
 
-import com.wewritecode.pan.schedule.Schedule;
-
-import java.util.List;
+import com.wewritecode.server.request.ScheduleRequest;
+import com.wewritecode.server.response.ScheduleResponse;
 
 public interface Scheduler {
-    List<Schedule> generate();
+    ScheduleResponse generate(ScheduleRequest request);
 }

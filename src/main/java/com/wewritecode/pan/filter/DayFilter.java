@@ -4,5 +4,13 @@
 
 package com.wewritecode.pan.filter;
 
-public class DayFilter {
+import com.wewritecode.pan.schedule.Schedule;
+
+public class DayFilter implements Filter<Schedule> {
+
+    @Override
+    public double getFitness(Schedule s) {
+        // TODO: Implement
+        return 0;
+    }
 }

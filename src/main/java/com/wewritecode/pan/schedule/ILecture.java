@@ -4,5 +4,10 @@
 
 package com.wewritecode.pan.schedule;
 
-public class ILecture {
+import java.util.List;
+
+public interface ILecture<T> {
+    List<T> getSections();
+    void setSections(List<T> sections);
+    void addSection(T section);
 }
