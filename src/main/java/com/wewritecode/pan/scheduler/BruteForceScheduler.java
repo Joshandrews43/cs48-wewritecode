@@ -109,37 +109,22 @@ public class BruteForceScheduler implements Scheduler {
         return false;
     }
 
-    private boolean isConflicting(Schedule schedule, Lecture lecture) throws InvalidScheduleException {
+    private boolean isConflicting(Schedule schedule, Session session) throws InvalidScheduleException {
         for (int i = 0; i < schedule.getCourses().size(); i++) {
             if (schedule.getCourses().get(i).getNumLectures() > 1) {
                 throw new InvalidScheduleException();
             } else if (schedule.getCourses().get(i).getLecture(0).getNumSections() > 1) {
                 throw new InvalidScheduleException();
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), lecture)) {
+            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), session)) {
                 return true;
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), lecture)) {
+            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isConflicting(Schedule schedule, Section section) throws InvalidScheduleException {
-        for (int i = 0; i < schedule.getCourses().size(); i++) {
-            if (schedule.getCourses().get(i).getNumLectures() > 1) {
-                throw new InvalidScheduleException();
-            } else if (schedule.getCourses().get(i).getLecture(0).getNumSections() > 1) {
-                throw new InvalidScheduleException();
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), section)) {
-                return true;
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), section)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isConflicting(Lecture first, Lecture second) {
+    private boolean isConflicting(Session first, Session second) {
         boolean sameDay = false;
         for (int i = 0; i < first.getDays().size(); i++) {
             for (int j = 0; j < second.getDays().size(); j++) {
@@ -151,56 +136,8 @@ public class BruteForceScheduler implements Scheduler {
         if (!sameDay) {
             return false;
         }
-        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) >= 0)
-                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) >= 0));
-    }
-
-    private boolean isConflicting(Section first, Section second) {
-        boolean sameDay = false;
-        for (int i = 0; i < first.getDays().size(); i++) {
-            for (int j = 0; j < second.getDays().size(); j++) {
-                if (first.getDay(i).equals(second.getDay(j))) {
-                    sameDay = true;
-                }
-            }
-        }
-        if (!sameDay) {
-            return false;
-        }
-        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) >= 0)
-                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) >= 0));
-    }
-
-    private boolean isConflicting(Lecture first, Section second) {
-        boolean sameDay = false;
-        for (int i = 0; i < first.getDays().size(); i++) {
-            for (int j = 0; j < second.getDays().size(); j++) {
-                if (first.getDay(i).equals(second.getDay(j))) {
-                    sameDay = true;
-                }
-            }
-        }
-        if (!sameDay) {
-            return false;
-        }
-        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) >= 0)
-                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) >= 0));
-    }
-
-    private boolean isConflicting(Section first, Lecture second) {
-        boolean sameDay = false;
-        for (int i = 0; i < first.getDays().size(); i++) {
-            for (int j = 0; j < second.getDays().size(); j++) {
-                if (first.getDay(i).equals(second.getDay(j))) {
-                    sameDay = true;
-                }
-            }
-        }
-        if (!sameDay) {
-            return false;
-        }
-        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) >= 0)
-                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) >= 0));
+        return ((first.getTime().getStart().compareTo(second.getTime().getEnd()) < 0) && (first.getTime().getStart().compareTo(second.getTime().getStart()) >= 0)
+                || (second.getTime().getStart().compareTo(first.getTime().getEnd()) < 0) && (second.getTime().getStart().compareTo(first.getTime().getStart()) >= 0));
     }
 
     public List<Schedule> getFullSchedules() {

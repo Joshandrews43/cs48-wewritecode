@@ -10,33 +10,26 @@ import java.util.List;
 
 public class Session {
     private List<String> days;
-    private Time start;
-    private Time end;
+    private Time time;
 
     public Session() {
         days = new ArrayList<>();
-        start = new Time();
-        end = new Time();
+        time = new Time();
     }
 
-    public Session(List<String> days, Time start, Time end) {
+    public Session(List<String> days, Time time) {
         this.days = days;
-        this.start = start;
-        this.end = end;
+        this.time = time;
     }
 
     public Session(List<String> days, int startHour, int startMin, int endHour, int endMin) {
         this.days = days;
-        start = new Time(startHour, startMin);
-        end = new Time(endHour, endMin);
+        time = new Time(startHour, startMin, endHour, endMin);
     }
 
     public String getDay(int index) throws IndexOutOfBoundsException { return days.get(index); }
-
+    public Time getTime() { return time; }
+    public void setTime(Time time) { this.time = time; }
     public List<String> getDays() { return days; }
     public void setDays(List<String> days) { this.days = days; }
-    public Time getStart() { return start; }
-    public void setStart(Time start) { this.start = start; }
-    public Time getEnd() { return end; }
-    public void setEnd(Time end) { this.end = end; }
 }

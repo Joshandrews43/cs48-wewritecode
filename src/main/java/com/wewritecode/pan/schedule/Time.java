@@ -5,34 +5,31 @@
 
 package com.wewritecode.pan.schedule;
 
-public class Time implements ITime {
-    private int hour;
-    private int minute;
+public class Time implements ITime<TimeObj> {
+    private TimeObj start;
+    private TimeObj end;
 
     public Time() {
-        hour = 0;
-        minute = 0;
+        start = new TimeObj();
+        end = new TimeObj();
     }
 
-    public Time(int hour, int minute) {
-        this.hour = hour;
-        this.minute = minute;
+    public Time(int startHour, int startMinute, int endHour, int endMinute) {
+        start = new TimeObj(startHour, startMinute);
+        end = new TimeObj(endHour, endMinute);
     }
 
     @Override
-    public int getHour() { return hour; }
+    public TimeObj getStart() { return start; }
     @Override
-    public void setHour(int hour) { this.hour = hour; }
+    public void setStart(TimeObj start) { this.start = start; }
     @Override
-    public int getMinute() { return minute; }
+    public TimeObj getEnd() { return end; }
     @Override
-    public void setMinute(int minute) { this.minute = minute; }
+    public void setEnd(TimeObj end) { this.end = end; }
 
 
-    @Override
-    public int compareTo(ITime t) {
-        int thisTime = (hour * 60) + minute;
-        int thatTime = (t.getHour() * 60) + t.getMinute();
-        return thisTime - thatTime;
+    public boolean isConflicting(Time t) {
+        return true;
     }
 }
