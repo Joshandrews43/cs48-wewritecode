@@ -33,9 +33,4 @@ public class ScheduleController {
         ScheduleResponse response = bruteForceScheduler.generate(request);
         return response;
     }
-
-    @GetMapping(path = "/scheduleGetTest")
-    public String test() {
-        return "test";
-    }
 }
