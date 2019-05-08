@@ -9,29 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Course implements ICourse<Lecture> {
-    private String courseId;
+    private String courseID;
     private List<Lecture> lectures;
 
     public Course() {
-        courseId = "";
+        courseID = "";
         lectures = new ArrayList<>();
     }
 
     public Course(String courseId) {
-        this.courseId = courseId;
+        this.courseID = courseId;
         lectures = new ArrayList<>();
     }
 
     public Course(Course c, Lecture lecture, Section section) {
         lectures = new ArrayList<>();
         Lecture courseLecture = new Lecture(lecture, section);
-        this.courseId = c.getCourseId();
+        this.courseID = c.getCourseID();
         this.lectures.add(courseLecture);
     }
 
     @Override
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public String getCourseID() { return courseID; }
+    public void setCourseID(String courseId) { this.courseID = courseId; }
 
     public int getNumLectures() { return lectures.size(); }
     public Lecture getLecture(int index) { return lectures.get(index); }
@@ -44,6 +44,6 @@ public class Course implements ICourse<Lecture> {
     public void addLecture(Lecture lecture) { lectures.add(lecture); }
 
     public boolean equals(Course c) {
-        return this.courseId.equalsIgnoreCase(c.courseId);
+        return this.courseID.equalsIgnoreCase(c.courseID);
     }
 }
