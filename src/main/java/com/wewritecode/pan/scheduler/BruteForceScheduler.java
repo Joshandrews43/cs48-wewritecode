@@ -17,7 +17,7 @@ public class BruteForceScheduler implements Scheduler {
     private Map<String, String> filterOptions;
     private List<Schedule> fullSchedules;
 
-    private BruteForceScheduler() {
+    public BruteForceScheduler() {
         baseSchedule = new Schedule();
         remainingCourses = new ArrayList<>();
         filterOptions = new HashMap<>();
@@ -97,7 +97,11 @@ public class BruteForceScheduler implements Scheduler {
                 try {
                     if (!isConflicting(copy, finalCourse)) {
                         copy.addToSchedule(finalCourse);
+                        int fullScheduleSize = fullSchedules.size();
                         findViableSchedules(index - 1, copy);
+                        if (fullScheduleSize != fullSchedules.size()) {
+                            copy.removeFromSchedule(finalCourse);
+                        }
                     }
                 } catch (InvalidScheduleException e) {
                     System.out.println("Invalid Schedule");
@@ -141,7 +145,22 @@ public class BruteForceScheduler implements Scheduler {
 
     }
     private boolean isConflicting(Session first, Session second) {
-        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) > 0)
-                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) > 0));
+        boolean sameDay = false;
+        for (int i = 0; i < first.getDays().length; i++) {
+            for (int j = 0; j < second.getDays().length; j++) {
+                if (first.getDay(i).equals(second.getDay(j))) {
+                    sameDay = true;
+                }
+            }
+        }
+        if (!sameDay) {
+            return false;
+        }
+        return ((first.getStart().compareTo(second.getEnd()) < 0) && (first.getStart().compareTo(second.getStart()) >= 0)
+                || (second.getStart().compareTo(first.getEnd()) < 0) && (second.getStart().compareTo(first.getStart()) >= 0));
+    }
+
+    public List<Schedule> getFullSchedules() {
+        return fullSchedules;
     }
 }

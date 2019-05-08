@@ -5,12 +5,15 @@
 
 package com.wewritecode.pan.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Lecture extends Session {
     private List<Section> sections;
 
     public Lecture(Lecture l) {
+        super();
+        sections = new ArrayList<>();
         this.setStart(l.getStart());
         this.setEnd(l.getEnd());
         this.setDays(this.getDays());
@@ -19,10 +22,20 @@ public class Lecture extends Session {
         }
     }
     public Lecture(Lecture l, Section section) {
+        super();
+        sections = new ArrayList<>();
         this.setStart(l.getStart());
         this.setEnd(l.getEnd());
-        this.setDays(this.getDays());
+        this.setDays(l.getDays());
         this.sections.add(section);
+    }
+
+    public Lecture(String[] days, Time start, Time end) {
+        super();
+        sections = new ArrayList<>();
+        this.setDays(days);
+        this.setStart(start);
+        this.setEnd(end);
     }
 
     public int getNumSections() { return sections.size(); }

@@ -18,6 +18,7 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     public Schedule(Schedule s) {
+        courses = new ArrayList<>();
         for (int i = 0; i < s.getCourses().size(); i++) {
             this.courses.add(s.getCourses().get(i));
         }
@@ -25,6 +26,10 @@ public class Schedule implements Comparable<Schedule> {
     }
 
     public void addToSchedule(Course c) { courses.add(c); }
+
+    public void removeFromSchedule(Course c) {
+        courses.remove(c);
+    }
 
 
 
