@@ -12,6 +12,7 @@ import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +32,10 @@ public class ScheduleController {
         System.out.println(request);
         ScheduleResponse response = bruteForceScheduler.generate(request);
         return response;
+    }
+
+    @GetMapping(path = "/scheduleGetTest")
+    public String test() {
+        return "test";
     }
 }
