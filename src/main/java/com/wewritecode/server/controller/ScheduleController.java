@@ -24,8 +24,9 @@ public class ScheduleController {
     @Autowired
     Scheduler bruteForceScheduler;
 
-    @PostMapping("/generateSchedules")
+    @PostMapping(path = "/generateSchedules", consumes = "application/json", produces = "application/json")
     public ScheduleResponse scheduleRequest(@RequestBody ScheduleRequest request) {
+        System.out.println(request);
         ScheduleResponse response = bruteForceScheduler.generate(request);
         return response;
     }
