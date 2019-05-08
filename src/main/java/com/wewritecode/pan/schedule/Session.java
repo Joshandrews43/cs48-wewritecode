@@ -31,10 +31,12 @@ public class Session {
         end = new Time(endHour, endMin);
     }
 
+    public String getDay(int index) throws IndexOutOfBoundsException { return days.get(index); }
+
     public List<String> getDays() { return days; }
     public void setDays(List<String> days) { this.days = days; }
     public ITime getStart() { return start; }
-    public void setStart(Time start) { this.start = start; }
+    public void setStart(ITime start) { this.start = start; }
     public ITime getEnd() { return end; }
-    public void setEnd(Time end) { this.end = end; }
+    public void setEnd(ITime end) { this.end = end; }
 }

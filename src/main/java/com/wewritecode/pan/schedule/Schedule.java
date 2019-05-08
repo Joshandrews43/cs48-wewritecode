@@ -17,6 +17,19 @@ public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
         fitness = 0;
     }
 
+    public Schedule(Schedule s) {
+        courses = new ArrayList<>();
+        for (int i = 0; i < s.getCourses().size(); i++) {
+            this.courses.add(s.getCourses().get(i));
+        }
+        this.fitness = s.fitness;
+    }
+
+    public void addToSchedule(Course c) { courses.add(c); }
+    public void removeFromSchedule(Course c) {
+        courses.remove(c);
+    }
+
     @Override
     public List<Course> getCourses() { return courses; }
     @Override
@@ -29,4 +42,5 @@ public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
 
     @Override
     public int compareTo(Schedule s) { return this.fitness - s.fitness; }
+
 }
