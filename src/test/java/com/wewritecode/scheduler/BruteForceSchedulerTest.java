@@ -3,6 +3,8 @@ package com.wewritecode.scheduler;
 
 import com.wewritecode.pan.schedule.*;
 import com.wewritecode.pan.scheduler.BruteForceScheduler;
+import com.wewritecode.server.request.ScheduleRequest;
+import com.wewritecode.server.response.ScheduleResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,16 +30,21 @@ public class BruteForceSchedulerTest {
 
     @Test
     public void scheduleGenTest() {
-        String[] lectureCS64Days = {"M", "W"};
+        List<String> lectureCS64Days = new ArrayList<>();
+        lectureCS64Days.add("M");
+        lectureCS64Days.add("W");
         Time lectureCS64Start = new Time(12, 30);
         Time lectureCS64End = new Time(13, 45);
-        String[] section1CS64Days = {"F"};
+        List<String> section1CS64Days = new ArrayList<>();
+        section1CS64Days.add("F");
         Time section1CS64Start = new Time(11, 0);
         Time section1CS64End = new Time(11, 50);
-        String[] section2CS64Days = {"F"};
+        List<String> section2CS64Days = new ArrayList<>();
+        section2CS64Days.add("F");
         Time section2CS64Start = new Time(12, 0);
         Time section2CS64End = new Time(12, 50);
-        String[] section3CS64Days = {"F"};
+        List<String> section3CS64Days = new ArrayList<>();
+        section3CS64Days.add("F");
         Time section3CS64Start = new Time(13, 0);
         Time section3CS64End = new Time(13, 50);
         Section section1CS64 = new Section(section1CS64Days, section1CS64Start, section1CS64End);
@@ -50,13 +57,17 @@ public class BruteForceSchedulerTest {
         Course CS64 = new Course("CS64");
         CS64.addLecture(CS64Lecture);
 
-        String[] lectureCS130ADays = {"M", "W"};
+        List<String> lectureCS130ADays = new ArrayList<>();
+        lectureCS130ADays.add("M");
+        lectureCS130ADays.add("W");
         Time lectureCS130AStart = new Time(11, 0);
         Time lectureCS130AEnd = new Time(12, 15);
-        String[] section1CS130ADays = {"F"};
+        List<String> section1CS130ADays = new ArrayList<>();
+        section1CS130ADays.add("F");
         Time section1CS130AStart = new Time(9, 0);
         Time section1CS130AEnd = new Time(9, 50);
-        String[] section2CS130ADays = {"F"};
+        List<String> section2CS130ADays = new ArrayList<>();
+        section2CS130ADays.add("F");
         Time section2CS130AStart = new Time(10, 0);
         Time section2CS130AEnd = new Time(10, 50);
         Section section1CS130A = new Section(section1CS130ADays, section1CS130AStart, section1CS130AEnd);
@@ -67,13 +78,17 @@ public class BruteForceSchedulerTest {
         Course CS130A = new Course("CS130A");
         CS130A.addLecture(CS130ALecture);
 
-        String[] lectureCS138Days = {"M", "W"};
+        List<String> lectureCS138Days = new ArrayList<>();
+        lectureCS138Days.add("M");
+        lectureCS138Days.add("W");
         Time lectureCS138Start = new Time(9, 30);
         Time lectureCS138End = new Time(10, 45);
-        String[] section1CS138Days = {"F"};
+        List<String> section1CS138Days = new ArrayList<>();
+        section1CS138Days.add("F");
         Time section1CS138Start = new Time(11, 0);
         Time section1CS138End = new Time(11, 50);
-        String[] section2CS138Days = {"F"};
+        List<String> section2CS138Days = new ArrayList<>();
+        section2CS138Days.add("F");
         Time section2CS138Start = new Time(12, 0);
         Time section2CS138End = new Time(12, 50);
         Section section1CS138 = new Section(section1CS138Days, section1CS138Start, section1CS138End);
@@ -84,14 +99,16 @@ public class BruteForceSchedulerTest {
         Course CS138 = new Course("CS138");
         CS138.addLecture(CS138Lecture);
 
-        scheduler.addToRemainingCourses(CS64);
-        scheduler.addToRemainingCourses(CS130A);
-        scheduler.addToRemainingCourses(CS138);
-        scheduler.generate();
+        List<Course> requestCourses = new ArrayList<>();
+        requestCourses.add(CS64);
+        requestCourses.add(CS130A);
+        requestCourses.add(CS138);
+        ScheduleRequest request = new ScheduleRequest();
+        request.setMandatory(requestCourses);
 
-        List<Schedule> schedules = scheduler.getFullSchedules();
+        ScheduleResponse response = scheduler.generate(request);
+
+        List<Schedule> schedules = response.getSchedules();;
         assertEquals(8, schedules.size());
     }
-
-
 }

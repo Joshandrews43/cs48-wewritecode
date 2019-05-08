@@ -5,6 +5,7 @@
 
 package com.wewritecode.server.controller;
 
+import com.wewritecode.pan.scheduler.BruteForceScheduler;
 import com.wewritecode.pan.scheduler.Scheduler;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Serves as the receiver for any requests related to scheduling
  */
 @RestController
-@ComponentScan("com.wewritecode.pan.scheduler")
 public class ScheduleController {
 
     @Autowired

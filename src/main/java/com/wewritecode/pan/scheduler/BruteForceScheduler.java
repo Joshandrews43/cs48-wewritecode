@@ -15,14 +15,14 @@ import java.util.*;
 
 @Component
 public class BruteForceScheduler implements Scheduler {
-    private Schedule baseSchedule;
-    private List<Course> remainingCourses;
+    private List<Course> mandatoryCourses;
+    private List<Course> optionalCourses;
     private List<Filter> filterOptions;
     private List<Schedule> fullSchedules;
 
     public BruteForceScheduler() {
-        baseSchedule = new Schedule();
-        remainingCourses = new ArrayList<>();
+        mandatoryCourses = new ArrayList<>();
+        optionalCourses = new ArrayList<>();
         filterOptions = new ArrayList<>();
         fullSchedules = new ArrayList<>();
     }
@@ -36,9 +36,10 @@ public class BruteForceScheduler implements Scheduler {
      */
     @Override
     public ScheduleResponse generate(ScheduleRequest request) {
-        findViableSchedules(remainingCourses.size() - 1, baseSchedule);
+        parseRequest(request);
+        findViableSchedules(mandatoryCourses.size() - 1, new Schedule());
         sort();
-        return new ScheduleResponse();
+        return createResponse();
     }
 
     private void findViableSchedules(int index, Schedule s) {
@@ -47,7 +48,7 @@ public class BruteForceScheduler implements Scheduler {
             fullSchedules.add(copy);
             return;
         }
-        Course c = remainingCourses.get(index);
+        Course c = mandatoryCourses.get(index);
         for (Lecture lecture : c.getLectures()) {
             for (Section section : lecture.getSections()) {
                 Course finalCourse = new Course(c, lecture, section);
@@ -67,11 +68,21 @@ public class BruteForceScheduler implements Scheduler {
         }
     }
 
-    private void addToBaseSchedule() {
-        // TODO: Implement and give appropriate parameters
+    private void parseRequest(ScheduleRequest request) {
+        mandatoryCourses = request.getMandatory();
+        optionalCourses = request.getOptional();
+        filterOptions = request.getFilters();
     }
 
-    private void addToRemainingCourses(Course course) { remainingCourses.add(course); }
+    private ScheduleResponse createResponse() {
+        ScheduleResponse response = new ScheduleResponse();
+        response.setSchedules(fullSchedules);
+        response.setFilters(filterOptions);
+        return response;
+    }
+
+    // TODO: Switch to private
+    public void addToRemainingCourses(Course course) { mandatoryCourses.add(course); }
 
     // TODO: Check if needed / possible to just update filter options.
     private void updateFilterOptions(List<Filter> options) {
