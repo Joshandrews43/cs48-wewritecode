@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Session {
     private List<String> days;
-    private ITime start;
-    private ITime end;
+    private Time start;
+    private Time end;
 
     public Session() {
         days = new ArrayList<>();
@@ -19,7 +19,7 @@ public class Session {
         end = new Time();
     }
 
-    public Session(List<String> days, ITime start, ITime end) {
+    public Session(List<String> days, Time start, Time end) {
         this.days = days;
         this.start = start;
         this.end = end;
@@ -35,8 +35,8 @@ public class Session {
 
     public List<String> getDays() { return days; }
     public void setDays(List<String> days) { this.days = days; }
-    public ITime getStart() { return start; }
-    public void setStart(ITime start) { this.start = start; }
-    public ITime getEnd() { return end; }
-    public void setEnd(ITime end) { this.end = end; }
+    public Time getStart() { return start; }
+    public void setStart(Time start) { this.start = start; }
+    public Time getEnd() { return end; }
+    public void setEnd(Time end) { this.end = end; }
 }

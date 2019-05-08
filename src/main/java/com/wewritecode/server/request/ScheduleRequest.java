@@ -19,7 +19,7 @@ public class ScheduleRequest {
     private List<Course> mandatory;
     @ElementCollection
     private List<Course> optional;
-    @ElementCollection(targetClass = Filter.class)
+    @ElementCollection
     private List<Filter> filters;
 
     public int getId() { return id; }
