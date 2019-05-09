@@ -1,6 +1,7 @@
 package com.wewritecode.scheduler;
 
 
+import com.wewritecode.pan.filter.DayFilter;
 import com.wewritecode.pan.schedule.*;
 import com.wewritecode.pan.scheduler.BruteForceScheduler;
 import com.wewritecode.server.request.ScheduleRequest;
@@ -98,7 +99,8 @@ public class BruteForceSchedulerTest {
 
         ScheduleResponse response = scheduler.generate(request);
 
-        List<Schedule> schedules = response.getSchedules();;
+        List<Schedule> schedules = response.getSchedules();
         assertEquals(8, schedules.size());
     }
+
 }
