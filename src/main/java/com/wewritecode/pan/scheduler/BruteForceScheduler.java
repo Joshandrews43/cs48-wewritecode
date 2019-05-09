@@ -136,8 +136,10 @@ public class BruteForceScheduler implements Scheduler {
         if (!sameDay) {
             return false;
         }
-        return ((first.getTime().getStart().compareTo(second.getTime().getEnd()) < 0) && (first.getTime().getStart().compareTo(second.getTime().getStart()) >= 0)
-                || (second.getTime().getStart().compareTo(first.getTime().getEnd()) < 0) && (second.getTime().getStart().compareTo(first.getTime().getStart()) >= 0));
+        return ((first.getTime().getStart().compareTo(second.getTime().getEnd()) < 0)
+                && (first.getTime().getStart().compareTo(second.getTime().getStart()) >= 0)
+                || (second.getTime().getStart().compareTo(first.getTime().getEnd()) < 0)
+                && (second.getTime().getStart().compareTo(first.getTime().getStart()) >= 0));
     }
 
     public List<Schedule> getFullSchedules() {
