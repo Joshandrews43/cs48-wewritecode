@@ -5,6 +5,8 @@
 
 package com.wewritecode.pan.schedule;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class Course implements ICourse<Lecture> {
     public String getCourseID() { return courseID; }
     public void setCourseID(String courseId) { this.courseID = courseId; }
 
+    @JsonIgnore
     public int getNumLectures() { return lectures.size(); }
+    @JsonIgnore
     public Lecture getLecture(int index) { return lectures.get(index); }
 
     @Override

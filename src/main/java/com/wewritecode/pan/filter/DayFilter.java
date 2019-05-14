@@ -4,12 +4,14 @@
 
 package com.wewritecode.pan.filter;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.wewritecode.pan.schedule.Lecture;
 import com.wewritecode.pan.schedule.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeName("Day")
 public class DayFilter implements Filter<Schedule> {
 
     // Two ways I could see this going. Either user selects a certain day they don't want class or they

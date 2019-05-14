@@ -13,6 +13,8 @@ import java.util.List;
 @JsonTypeName("Time")
 public class TimeFilter implements Filter<Schedule> {
 
+    // Constants
+
     private static final int EARLIEST_TIME = 480;           // 08:00 AM in minutes since midnight.
     private static final int LATEST_TIME = 1320;            // 10:00 PM in minutes since midnight.
     private static final int TIME_RANGE = LATEST_TIME - EARLIEST_TIME;
@@ -24,14 +26,20 @@ public class TimeFilter implements Filter<Schedule> {
 
     private static final String[] OPTIONS = {OPTION_EARLY, OPTION_MID, OPTION_LATE};
 
+    // Private Member Variable(s)
+
     private String option;
+
+    // Getter(s) / Setter(s)
 
     public String getOption() { return option; }
     public void setOption(String option) { this.option = option; }
     public String[] getOptions() { return OPTIONS; }
 
+    // Public Core Method(s)
+
     @Override
-    public double getFitness(Schedule schedule) {
+    public double getFitness(Schedule schedule) throws InvalidFilterOptionException {
         List<Integer> times = new ArrayList<>();
         List<Course> courses = schedule.getCourses();
         for (Course c : courses)
@@ -39,6 +47,8 @@ public class TimeFilter implements Filter<Schedule> {
 
         return applyOption(avgTimes(times));
     }
+
+    // Private Helper Method(s)
 
     private List<Integer> getCourseTimes(Course course) {
         List<Integer> times = new ArrayList<>();
@@ -84,7 +94,7 @@ public class TimeFilter implements Filter<Schedule> {
         return (sum / count);
     }
 
-    private double applyOption(double avgTime) {
+    private double applyOption(double avgTime) throws InvalidFilterOptionException {
         switch(option) {
             case OPTION_EARLY:
                 return ((avgTime - EARLIEST_TIME) / TIME_RANGE);
@@ -93,8 +103,8 @@ public class TimeFilter implements Filter<Schedule> {
             case OPTION_LATE:
                 return ((LATEST_TIME - avgTime) / TIME_RANGE);
             default:
-                // TODO: Replace with a proper error/issue handling.
-                return -1; // Indicates an issue.
+                String message = String.format("Option: \"%s\" not supported for TimeFilter.", option);
+                throw new InvalidFilterOptionException(message);
         }
     }
 }

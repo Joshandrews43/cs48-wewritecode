@@ -6,6 +6,7 @@
 package com.wewritecode.pan.scheduler;
 
 import com.wewritecode.pan.filter.Filter;
+import com.wewritecode.pan.filter.InvalidFilterOptionException;
 import com.wewritecode.pan.schedule.*;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
@@ -27,7 +28,7 @@ public class BruteForceScheduler implements Scheduler {
         fullSchedules = new ArrayList<>();
     }
 
-    // Core Methods
+    // Public Core Method(s)
 
     /**
      * Generates a list of non-conflicting schedules.
@@ -41,6 +42,8 @@ public class BruteForceScheduler implements Scheduler {
         sort();
         return createResponse();
     }
+
+    // Private Helper Method(s)
 
     private void findViableSchedules(int index, Schedule s) {
         Schedule copy = new Schedule(s);
@@ -62,6 +65,7 @@ public class BruteForceScheduler implements Scheduler {
                         }
                     }
                 } catch (InvalidScheduleException e) {
+                    // TODO: Do something with this exception. i.e. Make status code or something.
                     System.out.println("Invalid Schedule");
                 }
             }
@@ -81,17 +85,15 @@ public class BruteForceScheduler implements Scheduler {
         return response;
     }
 
-    // TODO: Check if needed / possible to just update filter options.
-//    private void updateFilterOptions(Set<Filter> options) {
-//        filterOptions = options;
-//        sort();
-//    }
-
     private void sort() {
-        // TODO: Implement
-        // Assign fitness values to each schedule based on filter options.
-        // Then, sort them by said fitness values.
-        //Collections.sort(fullSchedules);
+        try {
+            for (Schedule s : fullSchedules)
+                s.calcFitness(filterOptions);
+        } catch (InvalidFilterOptionException e) {
+            // TODO: Do something with this exception. i.e. Make status code or something.
+            e.printStackTrace();
+        }
+        Collections.sort(fullSchedules, Collections.reverseOrder());
     }
 
     private boolean isConflicting(Schedule schedule, Course course) throws InvalidScheduleException {
@@ -137,9 +139,5 @@ public class BruteForceScheduler implements Scheduler {
                 && (first.getTime().getStart().compareTo(second.getTime().getStart()) >= 0)
                 || (second.getTime().getStart().compareTo(first.getTime().getEnd()) < 0)
                 && (second.getTime().getStart().compareTo(first.getTime().getStart()) >= 0));
-    }
-
-    public List<Schedule> getFullSchedules() {
-        return fullSchedules;
     }
 }
