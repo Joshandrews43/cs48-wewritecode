@@ -81,8 +81,6 @@ public class BruteForceScheduler implements Scheduler {
         return response;
     }
 
-    // TODO: Switch to private
-    public void addToRemainingCourses(Course course) { mandatoryCourses.add(course); }
 
     // TODO: Check if needed / possible to just update filter options.
     private void updateFilterOptions(List<Filter> options) {
