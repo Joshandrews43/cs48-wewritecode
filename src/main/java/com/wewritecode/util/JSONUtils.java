@@ -24,7 +24,7 @@ public final class JSONUtils {
         try {
             is = new FileInputStream(DATA_DIR + path);
         } catch (FileNotFoundException e) {
-            LOGGER.error("File " + path + " not found.", e);
+            LOGGER.error(String.format("File \"%s\" not found.", path), e);
             return new JSONObject();
         }
 

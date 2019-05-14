@@ -46,9 +46,13 @@ public class BruteForceScheduler implements Scheduler {
     // Private Request/Response Methods
 
     private void parseRequest(ScheduleRequest request) {
-        mandatoryCourses = request.getMandatory();
-        optionalCourses = request.getOptional();
-        filterOptions = request.getFilters();
+        List<Course> mandatory = request.getMandatory();
+        List<Course> optional = request.getOptional();
+        Set<Filter> filters = request.getFilters();
+
+        mandatoryCourses = (mandatory != null) ? mandatory : new ArrayList<>();
+        optionalCourses = (optional != null) ? optional : new ArrayList<>();
+        filterOptions = (filters != null) ? filters : new HashSet<>();
     }
 
     private ScheduleResponse createResponse() {
@@ -101,6 +105,8 @@ public class BruteForceScheduler implements Scheduler {
     }
 
     private void addOptionalCourses(int numOptional) {
+        if (optionalCourses.isEmpty())
+            return;
         List<Schedule> newFullSchedules = new ArrayList<>();
         // Creates a Set of Set<Course> containing each combination possible of optionalCourses.size() choose numOptional.
         Set<Set<Course>> combinations = Sets.combinations(new HashSet<>(optionalCourses), numOptional);
