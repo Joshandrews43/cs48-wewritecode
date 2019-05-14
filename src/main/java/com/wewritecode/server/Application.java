@@ -3,6 +3,7 @@
  */
 package com.wewritecode.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wewritecode.miner.GoldMineCLI;
 import com.wewritecode.miner.GoldMiner;
 import org.apache.log4j.Logger;

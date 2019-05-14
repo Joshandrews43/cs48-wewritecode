@@ -17,13 +17,13 @@ import java.util.*;
 public class BruteForceScheduler implements Scheduler {
     private List<Course> mandatoryCourses;
     private List<Course> optionalCourses;
-    private List<Filter> filterOptions;
+    private Set<Filter> filterOptions;
     private List<Schedule> fullSchedules;
 
     public BruteForceScheduler() {
         mandatoryCourses = new ArrayList<>();
         optionalCourses = new ArrayList<>();
-        filterOptions = new ArrayList<>();
+        filterOptions = new HashSet<>();
         fullSchedules = new ArrayList<>();
     }
 
@@ -81,12 +81,11 @@ public class BruteForceScheduler implements Scheduler {
         return response;
     }
 
-
     // TODO: Check if needed / possible to just update filter options.
-    private void updateFilterOptions(List<Filter> options) {
-        filterOptions = options;
-        sort();
-    }
+//    private void updateFilterOptions(Set<Filter> options) {
+//        filterOptions = options;
+//        sort();
+//    }
 
     private void sort() {
         // TODO: Implement
