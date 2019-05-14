@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonTypeName("Time")
-public class TimeFilter implements Filter<Schedule> {
+public class TimeFilter extends AbstractScheduleFilter {
 
     // Constants
 
@@ -26,17 +26,10 @@ public class TimeFilter implements Filter<Schedule> {
 
     private static final String[] OPTIONS = {OPTION_EARLY, OPTION_MID, OPTION_LATE};
 
-    // Private Member Variable(s)
-
-    private String option;
-
-    // Getter(s) / Setter(s)
-
-    public String getOption() { return option; }
-    public void setOption(String option) { this.option = option; }
-    public String[] getOptions() { return OPTIONS; }
-
     // Public Core Method(s)
+
+    @Override
+    public String[] getOptions() { return OPTIONS; }
 
     @Override
     public double getFitness(Schedule schedule) throws InvalidFilterOptionException {
@@ -65,7 +58,7 @@ public class TimeFilter implements Filter<Schedule> {
         int startMinute = lecture.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
 
-        for (String days : lecture.getDays())
+        for (int i = 0; i < lecture.getDays().size(); i++)
             times.add(timeInMins);
 
         for (Section s : lecture.getSections())
@@ -80,7 +73,7 @@ public class TimeFilter implements Filter<Schedule> {
         int startMinute = section.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
 
-        for (String days : section.getDays())
+        for (int i = 0; i < section.getDays().size(); i++)
             times.add(timeInMins);
 
         return times;
