@@ -4,11 +4,13 @@
 
 package com.wewritecode.pan.filter;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.wewritecode.pan.schedule.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeName("Time")
 public class TimeFilter implements Filter<Schedule> {
 
     private static final int EARLIEST_TIME = 480;           // 08:00 AM in minutes since midnight.
@@ -23,11 +25,6 @@ public class TimeFilter implements Filter<Schedule> {
     private static final String[] OPTIONS = {OPTION_EARLY, OPTION_MID, OPTION_LATE};
 
     private String option;
-    List<Integer> times;
-
-    public TimeFilter() {
-        times = new ArrayList<>();
-    }
 
     public String getOption() { return option; }
     public void setOption(String option) { this.option = option; }
@@ -35,20 +32,25 @@ public class TimeFilter implements Filter<Schedule> {
 
     @Override
     public double getFitness(Schedule schedule) {
+        List<Integer> times = new ArrayList<>();
         List<Course> courses = schedule.getCourses();
         for (Course c : courses)
-            addCourseTimes(c);
+            times.addAll(getCourseTimes(c));
 
-        return applyOption(avgTimes());
+        return applyOption(avgTimes(times));
     }
 
-    private void addCourseTimes(Course course) {
+    private List<Integer> getCourseTimes(Course course) {
+        List<Integer> times = new ArrayList<>();
         List<Lecture> lectures = course.getLectures();
         for (Lecture l : lectures)
-            addLectureTimes(l);
+            times.addAll(getLectureTimes(l));
+
+        return times;
     }
 
-    private void addLectureTimes(Lecture lecture) {
+    private List<Integer> getLectureTimes(Lecture lecture) {
+        List<Integer> times = new ArrayList<>();
         int startHour = lecture.getTime().getStart().getHour();
         int startMinute = lecture.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
@@ -57,19 +59,24 @@ public class TimeFilter implements Filter<Schedule> {
             times.add(timeInMins);
 
         for (Section s : lecture.getSections())
-            addSectionTimes(s);
+            times.addAll(getSectionTimes(s));
+
+        return times;
     }
 
-    private void addSectionTimes(Section section) {
+    private List<Integer> getSectionTimes(Section section) {
+        List<Integer> times = new ArrayList<>();
         int startHour = section.getTime().getStart().getHour();
         int startMinute = section.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
 
         for (String days : section.getDays())
             times.add(timeInMins);
+
+        return times;
     }
 
-    private double avgTimes() {
+    private double avgTimes(List<Integer> times) {
         double sum = 0;
         int count = times.size();
         for (Integer i : times)
@@ -86,7 +93,8 @@ public class TimeFilter implements Filter<Schedule> {
             case OPTION_LATE:
                 return ((LATEST_TIME - avgTime) / TIME_RANGE);
             default:
-                return -1;
+                // TODO: Replace with a proper error/issue handling.
+                return -1; // Indicates an issue.
         }
     }
 }
