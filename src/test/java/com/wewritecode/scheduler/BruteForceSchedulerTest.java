@@ -35,6 +35,14 @@ public class BruteForceSchedulerTest {
     @Before
     public void setup() { scheduler = new BruteForceScheduler(); }
 
+    // TODO: Tests to make
+    // scheduleGenMandatoryOnlyNoSectionsTest
+    // scheduleGenNoCoursesTest
+    // scheduleGenAllConflictingTest
+    // scheduleGenFullRequestTest (i.e. Mandatory, Optional, and Filter(s))
+    // scheduleGenTimeFilterTest
+    // scheduleGenDayFilterTest
+
     @Test
     public void scheduleGenMandatoryOnlyTest() throws IOException {
         InputStream is = BruteForceSchedulerTest.class.getResourceAsStream("/jsons/pan/scheduleGenTest_1.json");
@@ -55,6 +63,10 @@ public class BruteForceSchedulerTest {
 
         List<Schedule> schedules = response.getSchedules();
         assertEquals(1094, schedules.size());
+
+        for (Schedule schedule : schedules) {
+            assertEquals(6, schedule.getCourses().size());
+        }
     }
 
 }
