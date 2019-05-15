@@ -29,6 +29,8 @@ public class BruteForceScheduler implements Scheduler {
         fullSchedules = new ArrayList<>();
     }
 
+
+
     // Public Core Method(s)
 
     /**
@@ -43,6 +45,30 @@ public class BruteForceScheduler implements Scheduler {
         return createResponse();
     }
 
+    @Override
+    public ScheduleResponse createResponse() {
+        ScheduleResponse response = new ScheduleResponse();
+        response.setSchedules(fullSchedules);
+        response.setFilters(filterOptions);
+        return response;
+    }
+
+    @Override
+    public ScheduleResponse createResponse(int scheduleIndex) {
+        ScheduleResponse response = new ScheduleResponse();
+        response.addSchedule(fullSchedules.get(scheduleIndex));
+        response.setFilters(filterOptions);
+        return response;
+    }
+
+    @Override
+    public ScheduleResponse createResponse(int start, int end) {
+        ScheduleResponse response = new ScheduleResponse();
+        response.setSchedules(fullSchedules.subList(start, end + 1));
+        response.setFilters(filterOptions);
+        return response;
+    }
+
     // Private Request/Response Methods
 
     private void parseRequest(ScheduleRequest request) {
@@ -53,13 +79,6 @@ public class BruteForceScheduler implements Scheduler {
         mandatoryCourses = (mandatory != null) ? mandatory : new ArrayList<>();
         optionalCourses = (optional != null) ? optional : new ArrayList<>();
         filterOptions = (filters != null) ? filters : new HashSet<>();
-    }
-
-    private ScheduleResponse createResponse() {
-        ScheduleResponse response = new ScheduleResponse();
-        response.setSchedules(fullSchedules);
-        response.setFilters(filterOptions);
-        return response;
     }
 
     // Private Schedule Conflict Resolution Method(s)

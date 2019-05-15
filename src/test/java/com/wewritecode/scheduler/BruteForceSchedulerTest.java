@@ -42,6 +42,7 @@ public class BruteForceSchedulerTest {
     // scheduleGenFullRequestTest (i.e. Mandatory, Optional, and Filter(s))
     // scheduleGenTimeFilterTest
     // scheduleGenDayFilterTest
+    // scheduleGenEmptyRequestTest
 
     @Test
     public void scheduleGenMandatoryOnlyTest() throws IOException {
@@ -68,5 +69,4 @@ public class BruteForceSchedulerTest {
             assertEquals(6, schedule.getCourses().size());
         }
     }
-
 }
