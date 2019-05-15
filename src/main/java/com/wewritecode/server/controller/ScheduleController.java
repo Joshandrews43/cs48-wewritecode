@@ -45,10 +45,17 @@ public class ScheduleController {
         bruteForceScheduler.generate(request);
     }
 
-    @PostMapping(path = {"/schedule/post", "/generateSchedules"},
+    @PostMapping(path = "/schedule/post",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ScheduleResponse generateSchedules(@RequestBody ScheduleRequest request) {
+    public ScheduleResponse generate50Schedules(@RequestBody ScheduleRequest request) {
         ScheduleResponse response = bruteForceScheduler.generate(request);
         return response;
+    }
+
+    @PostMapping(path = "/generateSchedules",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScheduleResponse generateAllSchedule(@RequestBody ScheduleRequest request) {
+        bruteForceScheduler.generate(request);
+        return bruteForceScheduler.createResponse(0, 49);
     }
 }

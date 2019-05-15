@@ -90,11 +90,11 @@ public class TimeFilter extends AbstractScheduleFilter {
     private double applyOption(double avgTime) throws InvalidFilterOptionException {
         switch(option) {
             case OPTION_EARLY:
-                return ((avgTime - EARLIEST_TIME) / TIME_RANGE);
+                return ((LATEST_TIME - avgTime) / TIME_RANGE);
             case OPTION_MID:
                 return Math.abs((avgTime - MID_TIME) / TIME_RANGE);
             case OPTION_LATE:
-                return ((LATEST_TIME - avgTime) / TIME_RANGE);
+                return ((avgTime - EARLIEST_TIME) / TIME_RANGE);
             default:
                 String message = String.format("Option: \"%s\" not supported for TimeFilter.", option);
                 throw new InvalidFilterOptionException(message);
