@@ -6,10 +6,12 @@ import com.wewritecode.pan.schedule.*;
 import com.wewritecode.pan.scheduler.BruteForceScheduler;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
+import com.wewritecode.util.ScheduleViewer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -52,6 +54,10 @@ public class BruteForceSchedulerTest {
         ScheduleResponse response = scheduler.generate(request);
 
         List<Schedule> schedules = response.getSchedules();
+
+//        ScheduleViewer viewer = new ScheduleViewer(0, schedules);
+//        SwingUtilities.invokeLater(() -> new ScheduleViewer(0, schedules));
+
         assertEquals(8, schedules.size());
     }
 

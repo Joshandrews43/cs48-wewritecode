@@ -29,8 +29,6 @@ public class BruteForceScheduler implements Scheduler {
         fullSchedules = new ArrayList<>();
     }
 
-
-
     // Public Core Method(s)
 
     /**
