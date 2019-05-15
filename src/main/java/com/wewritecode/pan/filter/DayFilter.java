@@ -4,13 +4,21 @@
 
 package com.wewritecode.pan.filter;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.wewritecode.pan.schedule.Lecture;
 import com.wewritecode.pan.schedule.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DayFilter implements Filter<Schedule> {
+/**
+ * Filter Schedules by Day
+ *
+ * User selects days they wish to OMIT from their schedule.
+ *
+ */
+@JsonTypeName("Day")
+public class DayFilter extends AbstractScheduleFilter {
 
     // Two ways I could see this going. Either user selects a certain day they don't want class or they
     // want the schedule that has classes on the least number of days. I will implement the latter
@@ -20,13 +28,18 @@ public class DayFilter implements Filter<Schedule> {
     // Therefore, if schedule has class on k days, fitness is (5-k)/4
 
     // Precondition: schedule passed in has only 1 lecture and 1 section per course
-    // Postcondition: returns fitness for that course
+    // Postcondition: returns fitness for that schedule
+
+    private static final String[] OPTIONS = {"M", "T", "W", "R", "F"};
 
     private List<String> days;
 
     public DayFilter() {
         days = new ArrayList<>();
     }
+
+    @Override
+    public String[] getOptions() { return OPTIONS; }
 
     @Override
     public double getFitness(Schedule s) {

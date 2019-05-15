@@ -23,6 +23,7 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+        // TODO: Refactor into some sort of Controller and/or function controlled by a Heroku script.
 //         // Get most recent quarter.
 //        GoldMiner miner = new GoldMiner();
 //        String quarter = miner.getQuartersAsList().get(0);

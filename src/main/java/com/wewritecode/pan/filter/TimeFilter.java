@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonTypeName("Time")
-public class TimeFilter implements Filter<Schedule> {
+public class TimeFilter extends AbstractScheduleFilter {
+
+    // Constants
 
     private static final int EARLIEST_TIME = 480;           // 08:00 AM in minutes since midnight.
     private static final int LATEST_TIME = 1320;            // 10:00 PM in minutes since midnight.
@@ -24,14 +26,13 @@ public class TimeFilter implements Filter<Schedule> {
 
     private static final String[] OPTIONS = {OPTION_EARLY, OPTION_MID, OPTION_LATE};
 
-    private String option;
+    // Public Core Method(s)
 
-    public String getOption() { return option; }
-    public void setOption(String option) { this.option = option; }
+    @Override
     public String[] getOptions() { return OPTIONS; }
 
     @Override
-    public double getFitness(Schedule schedule) {
+    public double getFitness(Schedule schedule) throws InvalidFilterOptionException {
         List<Integer> times = new ArrayList<>();
         List<Course> courses = schedule.getCourses();
         for (Course c : courses)
@@ -39,6 +40,8 @@ public class TimeFilter implements Filter<Schedule> {
 
         return applyOption(avgTimes(times));
     }
+
+    // Private Helper Method(s)
 
     private List<Integer> getCourseTimes(Course course) {
         List<Integer> times = new ArrayList<>();
@@ -55,7 +58,7 @@ public class TimeFilter implements Filter<Schedule> {
         int startMinute = lecture.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
 
-        for (String days : lecture.getDays())
+        for (int i = 0; i < lecture.getDays().size(); i++)
             times.add(timeInMins);
 
         for (Section s : lecture.getSections())
@@ -70,7 +73,7 @@ public class TimeFilter implements Filter<Schedule> {
         int startMinute = section.getTime().getStart().getMinute();
         int timeInMins = (60 * startHour) + startMinute;
 
-        for (String days : section.getDays())
+        for (int i = 0; i < section.getDays().size(); i++)
             times.add(timeInMins);
 
         return times;
@@ -84,7 +87,7 @@ public class TimeFilter implements Filter<Schedule> {
         return (sum / count);
     }
 
-    private double applyOption(double avgTime) {
+    private double applyOption(double avgTime) throws InvalidFilterOptionException {
         switch(option) {
             case OPTION_EARLY:
                 return ((avgTime - EARLIEST_TIME) / TIME_RANGE);
@@ -93,8 +96,8 @@ public class TimeFilter implements Filter<Schedule> {
             case OPTION_LATE:
                 return ((LATEST_TIME - avgTime) / TIME_RANGE);
             default:
-                // TODO: Replace with a proper error/issue handling.
-                return -1; // Indicates an issue.
+                String message = String.format("Option: \"%s\" not supported for TimeFilter.", option);
+                throw new InvalidFilterOptionException(message);
         }
     }
 }
