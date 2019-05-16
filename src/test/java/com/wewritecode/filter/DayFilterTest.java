@@ -1,6 +1,7 @@
 package com.wewritecode.filter;
 
 import com.wewritecode.pan.filter.DayFilter;
+import com.wewritecode.pan.filter.InvalidFilterOptionException;
 import com.wewritecode.pan.schedule.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,14 +53,24 @@ public class DayFilterTest {
     @Test
     public void dayFilterTestMinimize() {
         dayFilter.setOption("Minimize Days");
-        double fitness = dayFilter.getFitness(schedule);
+        double fitness = 0;
+        try {
+            fitness = dayFilter.getFitness(schedule);
+        } catch (InvalidFilterOptionException e) {
+            e.printStackTrace();
+        }
         assertEquals(0.25, fitness);
     }
 
     @Test
     public void dayFilterTestMaximize() {
         dayFilter.setOption("Maximize Days");
-        double fitness = dayFilter.getFitness(schedule);
+        double fitness = 0;
+        try {
+            fitness = dayFilter.getFitness(schedule);
+        } catch (InvalidFilterOptionException e) {
+            e.printStackTrace();
+        }
         assertEquals(0.75, fitness);
     }
 }
