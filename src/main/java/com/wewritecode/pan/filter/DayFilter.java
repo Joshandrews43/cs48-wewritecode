@@ -59,7 +59,14 @@ public class DayFilter extends AbstractScheduleFilter {
             }
 
         }
-        // Compute fitness from number of days of section and lecture
-        return ((double)(5 - days.size())/ 4);
+        double fitness = ((double)(5 - days.size())/ 4);
+
+        // Compute fitness from number of days of section and lecture based on option
+        if (option.equals("Minimize Days")) {
+            return fitness;
+        }
+
+        return 1 - fitness;
+
     }
 }
