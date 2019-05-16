@@ -7,6 +7,7 @@ package com.wewritecode.pan.filter;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.wewritecode.pan.schedule.Lecture;
 import com.wewritecode.pan.schedule.Schedule;
+import com.wewritecode.pan.schedule.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,33 +41,43 @@ public class DayFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
-    public double getFitness(Schedule s) {
-        // Add all the days from lectures
+    public double getFitness(Schedule s) throws InvalidFilterOptionException {
+        // Traverse through courses
         for (int i = 0; i < s.getCourses().size(); i++) {
             Lecture courseLecture = s.getCourses().get(i).getLecture(0);
-            for (int j = 0; j < courseLecture.getDays().size(); j++) {
-                String day = s.getCourses().get(i).getLecture(0).getDay(j);
-                if (!days.contains(day)) {
-                    days.add(day);
-                }
-            }
+
+            // Add all the days from lectures
+            addDaysFromSession(courseLecture);
+
             // Add all the days from sections
-            for (int j = 0; j < courseLecture.getSection(0).getDays().size(); j++) {
-                String day = s.getCourses().get(i).getLecture(0).getSection(0).getDay(j);
-                if (!days.contains(day)) {
-                    days.add(day);
-                }
+            addDaysFromSession(courseLecture.getSection(0));
+
+        }
+
+        // Apply option based on number of days with class
+        return applyOption(days.size());
+
+    }
+
+    private void addDaysFromSession(Session session) {
+
+        for (String day : session.getDays()) {
+            if (!days.contains(day)) {
+                days.add(day);
             }
-
         }
-        double fitness = ((double)(5 - days.size())/ 4);
+    }
 
-        // Compute fitness from number of days of section and lecture based on option
-        if (option.equals("Minimize Days")) {
-            return fitness;
+    private double applyOption(double size) throws InvalidFilterOptionException {
+
+        switch (option) {
+            case "Minimize Days":
+                return (5-size)/4;
+            case "Maximize Days":
+                return (size-1)/4;
+            default:
+                String message = String.format("Option: \"%s\" not supported for DayFilter.", option);
+                throw new InvalidFilterOptionException(message);
         }
-
-        return 1 - fitness;
-
     }
 }
