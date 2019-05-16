@@ -1,5 +1,5 @@
 /**
- * @author Grant Clark
+ * @author Alan Roddick
  */
 
 package com.wewritecode.pan.filter;
@@ -14,14 +14,12 @@ import java.util.List;
 /**
  * Filter Schedules by Day
  *
- * User selects days they wish to OMIT from their schedule.
+ * User selects to minimize or maximize days
  *
  */
 @JsonTypeName("Day")
 public class DayFilter extends AbstractScheduleFilter {
 
-    // Two ways I could see this going. Either user selects a certain day they don't want class or they
-    // want the schedule that has classes on the least number of days. I will implement the latter
 
     // If schedule has classes all 5 days, fitness is 0
     // If schedule has classes on one day, fitness is 1
@@ -30,7 +28,7 @@ public class DayFilter extends AbstractScheduleFilter {
     // Precondition: schedule passed in has only 1 lecture and 1 section per course
     // Postcondition: returns fitness for that schedule
 
-    private static final String[] OPTIONS = {"M", "T", "W", "R", "F"};
+    private static final String[] OPTIONS = {"Minimize Days", "Maximize Days"};
 
     private List<String> days;
 
@@ -43,6 +41,7 @@ public class DayFilter extends AbstractScheduleFilter {
 
     @Override
     public double getFitness(Schedule s) {
+        // Add all the days from lectures
         for (int i = 0; i < s.getCourses().size(); i++) {
             Lecture courseLecture = s.getCourses().get(i).getLecture(0);
             for (int j = 0; j < courseLecture.getDays().size(); j++) {
@@ -51,6 +50,7 @@ public class DayFilter extends AbstractScheduleFilter {
                     days.add(day);
                 }
             }
+            // Add all the days from sections
             for (int j = 0; j < courseLecture.getSection(0).getDays().size(); j++) {
                 String day = s.getCourses().get(i).getLecture(0).getSection(0).getDay(j);
                 if (!days.contains(day)) {
@@ -59,6 +59,14 @@ public class DayFilter extends AbstractScheduleFilter {
             }
 
         }
-        return ((double)(5 - days.size())/ 4);
+        double fitness = ((double)(5 - days.size())/ 4);
+
+        // Compute fitness from number of days of section and lecture based on option
+        if (option.equals("Minimize Days")) {
+            return fitness;
+        }
+
+        return 1 - fitness;
+
     }
 }

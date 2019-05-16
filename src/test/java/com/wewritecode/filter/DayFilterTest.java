@@ -22,7 +22,7 @@ public class DayFilterTest {
 
         List<String> lectureCS64Days = new ArrayList<>();
         lectureCS64Days.add("M");
-        lectureCS64Days.add("W");
+        lectureCS64Days.add("R");
         Time lectureCS64Time = new Time(12, 30, 13, 45);
         List<String> section1CS64Days = new ArrayList<>();
         section1CS64Days.add("F");
@@ -50,8 +50,16 @@ public class DayFilterTest {
     }
 
     @Test
-    public void dayFilterTest() {
+    public void dayFilterTestMinimize() {
+        dayFilter.setOption("Minimize Days");
         double fitness = dayFilter.getFitness(schedule);
-        assertEquals(0.5, fitness);
+        assertEquals(0.25, fitness);
+    }
+
+    @Test
+    public void dayFilterTestMaximize() {
+        dayFilter.setOption("Maximize Days");
+        double fitness = dayFilter.getFitness(schedule);
+        assertEquals(0.75, fitness);
     }
 }
