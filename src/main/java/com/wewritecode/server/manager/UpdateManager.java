@@ -47,7 +47,7 @@ public class UpdateManager implements RequestManager {
     // Core Methods
 
     public JSONObject updateQuarters(JSONObject request) {
-        LOGGER.info("Update Quarter Requested");
+        LOGGER.info("Update GeneralQuarter Requested");
 
         JSONObject clientQuarter, serverQuarter;
         String clientQuarterStr, serverQuarterStr;

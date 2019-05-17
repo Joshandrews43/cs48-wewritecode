@@ -39,8 +39,6 @@ public class GoldMiner {
     private static final String URL = "https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx";
     private static final String CHROME_DRIVER_PROPERTY_1 = "webdriver.drivers.driver";
     private static final String CHROME_DRIVER_PROPERTY_2 = "webdriver.chrome.driver";
-    private static final String PATH_TO_CHROME_DRIVER_OLD =
-            System.getProperty("user.dir")+"/src/main/resources/drivers/chromedriver";
     private static final String PATH_TO_CHROME_DRIVER = "/usr/local/bin/chromedriver";
 
     private static final String SUBJECT_ID = "ctl00_pageContent_courseList";
@@ -57,7 +55,7 @@ public class GoldMiner {
 
     /**
      * Constructs a new GoldMiner object.
-     * Uses ChromeDriver to begin scraping the data.
+     * Uses ChromeDriver to begin scraping the vault.
      *
      * Change field: {@code PATH_TO_CHROME_DRIVER} if the ChromeDriver executable is located in a different
      * directory or location.
@@ -193,7 +191,7 @@ public class GoldMiner {
         String extendedName, symbol;
         JSONObject subjectsObj = new JSONObject();
 
-        // Quarter Selector
+        // GeneralQuarter Selector
         Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
         quarterMenu.selectByVisibleText(quarter.toUpperCase());
 
@@ -201,7 +199,7 @@ public class GoldMiner {
         Select courseLevelMenu = new Select(driver.findElement(By.id(COURSE_LEVEL_ID)));
         courseLevelMenu.selectByVisibleText("All");
 
-        // Subject Selector
+        // GeneralSubject Selector
         Select subjectMenu = new Select(driver.findElement(By.id(SUBJECT_ID)));
         List<WebElement> subjectOptions = subjectMenu.getOptions();
 
@@ -222,7 +220,7 @@ public class GoldMiner {
             WebElement search = driver.findElement(By.id(SEARCH_ID));
             search.click();
 
-            // Get the data from the individual subject area.
+            // Get the vault from the individual subject area.
             JSONObject subjectObj = getCourses(symbol);
             subjectsObj.put(symbol, subjectObj); // Adds an individual subject to the group of subjects.
         }
@@ -266,7 +264,7 @@ public class GoldMiner {
         JSONObject courseObj = new JSONObject();
         JSONObject lecture = new JSONObject();
 
-        // Populates the coursesArray with ALL data for that subject.
+        // Populates the coursesArray with ALL vault for that subject.
         String prevCourseID = "";
         for (WebElement session : sessions) {
             String currCourseID = getCourseID(session);
@@ -283,7 +281,7 @@ public class GoldMiner {
 
                 // If this lecture is not the same lecture as the one that was just done,
                 // put the current courseObj into the coursesArray, and make a new
-                // instance of the courseObj to put the new data into.
+                // instance of the courseObj to put the new vault into.
                 if (!sameCourse) {
                     // If the courseObj is empty, we don't want to add it to the courseArray.
                     if (!courseObj.isEmpty())
@@ -325,7 +323,7 @@ public class GoldMiner {
 
 
     public JSONObject getAllCoursesFromSubject(String subject, String quarter) {
-        // Quarter Selector
+        // GeneralQuarter Selector
         Select quarterMenu = new Select(driver.findElement(By.id(QUARTER_ID)));
         quarterMenu.selectByVisibleText(quarter.toUpperCase());
 
@@ -333,7 +331,7 @@ public class GoldMiner {
         Select courseLevelMenu = new Select(driver.findElement(By.id(COURSE_LEVEL_ID)));
         courseLevelMenu.selectByVisibleText("All");
 
-        // Subject Selector
+        // GeneralSubject Selector
         Select subjectMenu = new Select(driver.findElement(By.id(SUBJECT_ID)));
         subjectMenu.selectByVisibleText(subject);
 

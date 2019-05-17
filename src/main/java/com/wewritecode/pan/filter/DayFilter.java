@@ -5,8 +5,8 @@
 package com.wewritecode.pan.filter;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.wewritecode.pan.schedule.Lecture;
-import com.wewritecode.pan.schedule.Schedule;
+import com.wewritecode.common.schedule.Lecture;
+import com.wewritecode.common.schedule.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;

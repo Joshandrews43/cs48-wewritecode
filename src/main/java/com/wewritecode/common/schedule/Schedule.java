@@ -3,7 +3,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.pan.schedule;
+package com.wewritecode.common.schedule;
 
 import com.wewritecode.pan.filter.Filter;
 import com.wewritecode.pan.filter.InvalidFilterOptionException;

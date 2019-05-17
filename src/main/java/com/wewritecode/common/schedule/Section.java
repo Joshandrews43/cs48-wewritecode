@@ -3,7 +3,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.pan.schedule;
+package com.wewritecode.common.schedule;
 
 
 import java.util.List;

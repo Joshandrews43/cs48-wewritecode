@@ -5,7 +5,7 @@
 package com.wewritecode.server.response;
 
 import com.wewritecode.pan.filter.Filter;
-import com.wewritecode.pan.schedule.Schedule;
+import com.wewritecode.common.schedule.Schedule;
 
 import java.util.ArrayList;
 import java.util.HashSet;

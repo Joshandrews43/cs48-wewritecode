@@ -1,7 +1,7 @@
 package com.wewritecode.filter;
 
 import com.wewritecode.pan.filter.DayFilter;
-import com.wewritecode.pan.schedule.*;
+import com.wewritecode.common.schedule.*;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -3,7 +3,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.pan.schedule;
+package com.wewritecode.common.schedule;
 
 public class Time implements ITime<TimeObj> {
     private TimeObj start;
@@ -27,9 +27,4 @@ public class Time implements ITime<TimeObj> {
     public TimeObj getEnd() { return end; }
     @Override
     public void setEnd(TimeObj end) { this.end = end; }
-
-
-    public boolean isConflicting(Time t) {
-        return true;
-    }
 }

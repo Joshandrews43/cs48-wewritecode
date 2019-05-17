@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UpdateController {
 
-    // TODO: Switch the RequestBody to an object wrapping List<Quarter>
-    // TODO: Switch the Response to an object wrapping List<Quarter> and n - Quarter objects.
+    // TODO: Switch the RequestBody to an object wrapping List<GeneralQuarter>
+    // TODO: Switch the Response to an object wrapping List<GeneralQuarter> and n - GeneralQuarter objects.
     @PostMapping("/getUpdated")
     public JsonObject updateRequest(@RequestBody JsonObject requestedQuarters) {
         JSONObject request = JSONUtils.gsonToJson(requestedQuarters);

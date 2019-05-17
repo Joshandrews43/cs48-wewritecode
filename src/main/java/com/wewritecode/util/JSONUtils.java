@@ -13,7 +13,7 @@ import java.io.*;
 
 public final class JSONUtils {
     private static final Logger LOGGER = Logger.getLogger(JSONUtils.class);
-    private static final String DATA_DIR = System.getProperty("user.dir") + "/data/";
+    private static final String DATA_DIR = System.getProperty("user.dir") + "/vault/";
 
     public static JSONObject getFromDataDir(String path) {
         InputStream is;

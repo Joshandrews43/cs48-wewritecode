@@ -2,16 +2,14 @@ package com.wewritecode.scheduler;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wewritecode.pan.schedule.*;
+import com.wewritecode.common.schedule.*;
 import com.wewritecode.pan.scheduler.BruteForceScheduler;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
-import com.wewritecode.util.ScheduleViewer;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;

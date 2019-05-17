@@ -7,8 +7,8 @@ package com.wewritecode.pan.scheduler;
 
 import com.google.common.collect.Sets;
 import com.wewritecode.pan.filter.Filter;
-import com.wewritecode.pan.filter.InvalidFilterOptionException;
-import com.wewritecode.pan.schedule.*;
+import com.wewritecode.common.schedule.*;
+import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.stereotype.Component;
@@ -39,8 +39,14 @@ public class BruteForceScheduler implements Scheduler {
     public ScheduleResponse generate(ScheduleRequest request) {
         parseRequest(request);
         findFullSchedules();
-        sort();
         return createResponse();
+    }
+
+    @Override
+    public void applyFilters(FilterRequest request) {
+        Set<Filter> filters = request.getFilters();
+        filterOptions = (filters != null) ? filters : new HashSet<>();
+        BruteForceFilterer.sort(fullSchedules, filterOptions);
     }
 
     @Override
@@ -72,11 +78,9 @@ public class BruteForceScheduler implements Scheduler {
     private void parseRequest(ScheduleRequest request) {
         List<Course> mandatory = request.getMandatory();
         List<Course> optional = request.getOptional();
-        Set<Filter> filters = request.getFilters();
 
         mandatoryCourses = (mandatory != null) ? mandatory : new ArrayList<>();
         optionalCourses = (optional != null) ? optional : new ArrayList<>();
-        filterOptions = (filters != null) ? filters : new HashSet<>();
     }
 
     // Private Schedule Conflict Resolution Method(s)
@@ -195,18 +199,5 @@ public class BruteForceScheduler implements Scheduler {
                 && (first.getTime().getStart().compareTo(second.getTime().getStart()) >= 0)
                 || (second.getTime().getStart().compareTo(first.getTime().getEnd()) < 0)
                 && (second.getTime().getStart().compareTo(first.getTime().getStart()) >= 0));
-    }
-
-    // Private Sort Method(s)
-
-    private void sort() {
-        try {
-            for (Schedule s : fullSchedules)
-                s.calcFitness(filterOptions);
-        } catch (InvalidFilterOptionException e) {
-            // TODO: Do something with this exception. i.e. Make status code or something.
-            e.printStackTrace();
-        }
-        Collections.sort(fullSchedules, Collections.reverseOrder());
     }
 }

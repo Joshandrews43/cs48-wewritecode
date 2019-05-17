@@ -7,7 +7,7 @@ package com.wewritecode.pan.filter;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.wewritecode.pan.schedule.Schedule;
+import com.wewritecode.common.schedule.Schedule;
 
 /**
  * Abstract class for {@code Filter.java} using {@code Schedule.java} as the Schedule object.

@@ -2,7 +2,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.pan.schedule;
+package com.wewritecode.common.schedule;
 
 public class TimeObj implements Comparable<TimeObj> {
     private int hour;

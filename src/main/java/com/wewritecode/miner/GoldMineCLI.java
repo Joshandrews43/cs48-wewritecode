@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.concurrent.ExecutionException;
 
 public class GoldMineCLI {
-    private static final String DATA_DIR = System.getProperty("user.dir")+"/data/2019/";
+    private static final String DATA_DIR = System.getProperty("user.dir")+"/data/";
     private static final Logger LOGGER = Logger.getLogger(GoldMineCLI.class);
 
     public static void run(String quarter) throws ExecutionException, InterruptedException {
@@ -26,7 +26,8 @@ public class GoldMineCLI {
         LOGGER.info("Scraping " + quarter + " complete.");
 
         quarter = quarter.toLowerCase().replaceAll("\\s","");
-        File quarterFile = new File(DATA_DIR + quarter +".json");
+        String year = quarter.substring(quarter.length() - 4);
+        File quarterFile = new File(DATA_DIR + year + "/" + quarter +".json");
         File quarterFileFormatted = new File(DATA_DIR + quarter +"_formatted.json");
 
         JSONUtils.toJsonFile(fullQuarter, quarterFile, false);

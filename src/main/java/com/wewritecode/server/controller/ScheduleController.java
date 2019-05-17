@@ -6,6 +6,7 @@
 package com.wewritecode.server.controller;
 
 import com.wewritecode.pan.scheduler.Scheduler;
+import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,38 +25,57 @@ public class ScheduleController {
     @Autowired
     Scheduler bruteForceScheduler;
 
-    @GetMapping(path = "/schedule/get", produces = MediaType.APPLICATION_JSON_VALUE)
+    // Scheduling Mappings
+
+    @GetMapping(path = "/api/v1/schedule", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse getAllSchedules() {
         return bruteForceScheduler.createResponse();
     }
 
-    @GetMapping(path = "/schedule/get/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/api/v1/schedule/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse getOneSchedule(@PathVariable int index) {
         return bruteForceScheduler.createResponse(index);
     }
 
-    @GetMapping(path = "/schedule/get/{first}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/api/v1/schedule/{first}/{second}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse getRangeSchedules(@PathVariable("first") int first,
                                               @PathVariable("second") int second) {
         return bruteForceScheduler.createResponse(first, second);
     }
 
-    @PutMapping(path = "/schedule/put", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/api/v1/schedule/update/courses", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void putSchedules(@RequestBody ScheduleRequest request) {
         bruteForceScheduler.generate(request);
     }
 
-    @PostMapping(path = "/schedule/post",
+    @PostMapping(path = "/api/v1/schedule/generate/all",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ScheduleResponse generate50Schedules(@RequestBody ScheduleRequest request) {
+    public ScheduleResponse generateAllSchedules(@RequestBody ScheduleRequest request) {
         ScheduleResponse response = bruteForceScheduler.generate(request);
         return response;
     }
 
+    // TODO: Change path to "/api/v1/schedule/generate"
     @PostMapping(path = "/generateSchedules",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ScheduleResponse generateAllSchedule(@RequestBody ScheduleRequest request) {
+    public ScheduleResponse generate50Schedules(@RequestBody ScheduleRequest request) {
         bruteForceScheduler.generate(request);
         return bruteForceScheduler.createResponse(0, 49);
     }
+
+    // Filter Mappings
+
+    @PutMapping(path = "/api/v1/schedule/update/filters",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void applyFilters(@RequestBody FilterRequest request) {
+        bruteForceScheduler.applyFilters(request);
+    }
+
+    @PostMapping(path = "/api/v1/schedule/generate/filter",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ScheduleResponse filterSchedules(@RequestBody FilterRequest request) {
+        bruteForceScheduler.applyFilters(request);
+        return bruteForceScheduler.createResponse(0, 49);
+    }
+
 }
