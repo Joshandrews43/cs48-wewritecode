@@ -23,18 +23,18 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//        // TODO: Refactor into some sort of Controller and/or function controlled by a Heroku script.
-//         // Get most recent quarter.
-//        GoldMiner miner = new GoldMiner();
-//        String quarter = miner.getQuartersAsList().get(0);
-//        miner.close();
-//
-//        try {
-//            GoldMineCLI.run(quarter);
-//        } catch (InterruptedException | ExecutionException e) {
-//            LOGGER.error("Exception thrown in main GoldMineCLI Application");
-//            LOGGER.error(e.getMessage());
-//        }
+        // TODO: Refactor into some sort of Controller and/or function controlled by a Heroku script.
+         // Get most recent quarter.
+        GoldMiner miner = new GoldMiner();
+        String quarter = miner.getQuartersAsList().get(0);
+        miner.close();
+
+        try {
+            GoldMineCLI.run(quarter);
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.error("Exception thrown in main GoldMineCLI Application");
+            LOGGER.error(e.getMessage());
+        }
     }
 }
 
