@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lecture extends Session implements ILecture<Section> {
+public class Lecture extends Session {
     private List<Section> sections;
 
     public Lecture() {
@@ -38,17 +38,12 @@ public class Lecture extends Session implements ILecture<Section> {
         sections = new ArrayList<>();
     }
 
+    public List<Section> getSections() { return sections; }
+    public void setSections(List<Section> sections) { this.sections = sections; }
+
     @JsonIgnore
     public int getNumSections() { return sections.size(); }
     @JsonIgnore
     public Section getSection(int index) { return sections.get(index); }
-    @JsonIgnore
-    public void removeSections() { sections.clear(); }
-
-    @Override
-    public List<Section> getSections() { return sections; }
-    @Override
-    public void setSections(List<Section> sections) { this.sections = sections; }
-    @Override
     public void addSection(Section section) { sections.add(section); }
 }

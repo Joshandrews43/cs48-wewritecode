@@ -5,6 +5,7 @@
 package com.wewritecode.common.full;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wewritecode.common.schedule.Lecture;
 
@@ -47,4 +48,14 @@ public class FullCourse {
     public void setUnits(Map<String, Integer> units) { this.units = units; }
     public Set<FullLecture> getLectures() { return lectures; }
     public void setLectures(Set<FullLecture> lectures) { this.lectures = lectures; }
+
+    @JsonIgnore
+    public int getNumLectures() { return lectures.size(); }
+    @JsonIgnore
+    public FullLecture getLecture(int index) { return (FullLecture) lectures.toArray()[index]; }
+    public void addLecture(FullLecture lecture) { lectures.add(lecture); }
+
+    public boolean equals(FullCourse c) {
+        return this.courseID.equalsIgnoreCase(c.courseID);
+    }
 }

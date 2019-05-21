@@ -5,7 +5,7 @@
 
 package com.wewritecode.common.schedule;
 
-public class Time implements ITime<TimeObj> {
+public class Time {
     private TimeObj start;
     private TimeObj end;
 
@@ -19,12 +19,8 @@ public class Time implements ITime<TimeObj> {
         end = new TimeObj(endHour, endMinute);
     }
 
-    @Override
     public TimeObj getStart() { return start; }
-    @Override
     public void setStart(TimeObj start) { this.start = start; }
-    @Override
     public TimeObj getEnd() { return end; }
-    @Override
     public void setEnd(TimeObj end) { this.end = end; }
 }

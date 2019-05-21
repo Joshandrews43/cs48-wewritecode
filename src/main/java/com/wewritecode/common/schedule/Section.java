@@ -8,7 +8,7 @@ package com.wewritecode.common.schedule;
 
 import java.util.List;
 
-public class Section extends Session implements ISection {
+public class Section extends Session {
     public Section() {
         super();
     }

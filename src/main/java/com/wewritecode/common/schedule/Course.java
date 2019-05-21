@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course implements ICourse<Lecture> {
+public class Course {
     private String courseID;
     private List<Lecture> lectures;
 
@@ -31,20 +31,15 @@ public class Course implements ICourse<Lecture> {
         this.lectures.add(courseLecture);
     }
 
-    @Override
     public String getCourseID() { return courseID; }
     public void setCourseID(String courseId) { this.courseID = courseId; }
+    public List<Lecture> getLectures() { return lectures; }
+    public void setLectures(List<Lecture> lectures) { this.lectures = lectures; }
 
     @JsonIgnore
     public int getNumLectures() { return lectures.size(); }
     @JsonIgnore
     public Lecture getLecture(int index) { return lectures.get(index); }
-
-    @Override
-    public List<Lecture> getLectures() { return lectures; }
-    @Override
-    public void setLectures(List<Lecture> lectures) { this.lectures = lectures; }
-    @Override
     public void addLecture(Lecture lecture) { lectures.add(lecture); }
 
     public boolean equals(Course c) {

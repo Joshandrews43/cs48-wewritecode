@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
+public class Schedule implements Comparable<Schedule> {
     private List<Course> courses;
     private double fitness;
 
@@ -29,20 +29,15 @@ public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
         this.fitness = s.fitness;
     }
 
+    public List<Course> getCourses() { return courses; }
+    public void setCourses(List<Course> courses) { this.courses = courses; }
+    public double getFitness() { return fitness; }
+    public void setFitness(int fitness) { this.fitness = fitness; }
+
     public void addToSchedule(Course c) { courses.add(c); }
     public void removeFromSchedule(Course c) {
         courses.remove(c);
     }
-
-    @Override
-    public List<Course> getCourses() { return courses; }
-    @Override
-    public void setCourses(List<Course> courses) { this.courses = courses; }
-    @Override
-    public void addCourse(Course course) { courses.add(course); }
-
-    public double getFitness() { return fitness; }
-    public void setFitness(int fitness) { this.fitness = fitness; }
 
     public void calcFitness(Set<Filter> filters) throws InvalidFilterOptionException {
         double sum = 0;
