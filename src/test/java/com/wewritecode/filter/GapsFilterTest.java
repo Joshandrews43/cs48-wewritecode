@@ -27,7 +27,7 @@ public class GapsFilterTest {
 
         List<String> lectureCS64Days = new ArrayList<>();
         lectureCS64Days.add("M");
-        lectureCS64Days.add("R");
+        lectureCS64Days.add("W");
         Time lectureCS64Time = new Time(12, 30, 13, 45);
         List<String> section1CS64Days = new ArrayList<>();
         section1CS64Days.add("F");
@@ -64,9 +64,9 @@ public class GapsFilterTest {
 
 //    @Test
 //    public void dayFilterTestMaximize() throws InvalidFilterOptionException {
-//        dayFilter.setOption("Maximize Days");
+//        gapsFilter.setOption("Maximize Days");
 //        double fitness = 0;
-//        fitness = dayFilter.getFitness(schedule);
+//        fitness = gapsFilter.getFitness(schedule);
 //        assertEquals(0.75, fitness);
 //    }
 //
