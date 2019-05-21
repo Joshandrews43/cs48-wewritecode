@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.wewritecode.pan.schedule.Course;
 import com.wewritecode.pan.schedule.Schedule;
 import com.wewritecode.pan.schedule.Session;
-import com.wewritecode.pan.schedule.Time;
 
 import java.util.*;
 
@@ -28,11 +27,11 @@ public class GapsFilter extends AbstractScheduleFilter {
     private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE};
     private HashMap<String, ArrayList<Session>> sortedSessions;
     private double fitness;
-    private HashMap<String, Double> dayFitness;
+    private HashMap<String, Double> avgDayDifference;
 
     public GapsFilter() {
         sortedSessions = new HashMap<>();
-        dayFitness = new HashMap<>();
+        avgDayDifference = new HashMap<>();
         sortedSessions.put("M", new ArrayList<>());
         sortedSessions.put("T", new ArrayList<>());
         sortedSessions.put("W", new ArrayList<>());
@@ -46,6 +45,13 @@ public class GapsFilter extends AbstractScheduleFilter {
     @Override
     public double getFitness(Schedule o) throws InvalidFilterOptionException {
 
+        sortedSessions = new HashMap<>();
+        avgDayDifference = new HashMap<>();
+        sortedSessions.put("M", new ArrayList<>());
+        sortedSessions.put("T", new ArrayList<>());
+        sortedSessions.put("W", new ArrayList<>());
+        sortedSessions.put("R", new ArrayList<>());
+        sortedSessions.put("F", new ArrayList<>());
         // Arrange classes in arraylist of arraylist of sessions based on day
         populateArray((ArrayList<Course>)o.getCourses());
 
@@ -79,41 +85,51 @@ public class GapsFilter extends AbstractScheduleFilter {
     }
 
     private void calculateFitnessForDay(String day) {
-        if (sortedSessions.get(day).size() == 1) {
-            dayFitness.put(day, 1.0);
+        int size = sortedSessions.get(day).size();
+        ArrayList<Session> sessions = sortedSessions.get(day);
+        if (size == 1) {
+            avgDayDifference.put(day, 0.0);
+            return;
+        } else if (size == 2) {
+            avgDayDifference.put(day, (double)calculateDifference(sessions.get(0), sessions.get(1)));
+            return;
         } else {
-            ArrayList<Session> sessions = sortedSessions.get(day);
+
             for(int i = 0; i < sessions.size() - 1; i++) {
-                if (dayFitness.get(day) == 1) {
-                    dayFitness.put(day, calculateDifference(sessions.get(i), sessions.get(i+1)));
-                } else {
-                    int size = sortedSessions.get(day).size();
-                    dayFitness.put(day, avg(size, dayFitness.get(day) * (size - 1),
-                            calculateDifference(sessions.get(i), sessions.get(i+1))));
-                }
+
+                avgDayDifference.put(day, avg(size, avgDayDifference.get(day) * (size - 1),
+                        calculateDifference(sessions.get(i), sessions.get(i+1))));
+
 
             }
         }
     }
 
-    private double calculateDifference(Session s1, Session s2) {
-        double difference;
+    private int calculateDifference(Session s1, Session s2) {
+        int difference;
         if (s1.getTime().getStart().compareTo(s2.getTime().getStart()) < 1) {
             difference = s2.getTime().getStart().compareTo(s1.getTime().getEnd());
         } else {
             difference = s1.getTime().getStart().compareTo(s2.getTime().getEnd());
         }
-        return 1 - (difference / TIME_RANGE);
+        return difference;
     }
-    private double avg(int size, double dayFitness, double newFitness) {
-        return (dayFitness + newFitness) / size;
+    private double avg(int size, double totalDifference, double newDifference) {
+        return (totalDifference + newDifference) / size;
     }
 
     private double applyOption() {
-        double fitness = 0;
-        for (Map.Entry mapElement : dayFitness.entrySet()) {
-            fitness += (double)mapElement.getValue();
+        double averageDifference = 0.0;
+        for (Map.Entry mapElement : avgDayDifference.entrySet()) {
+            averageDifference += (double)mapElement.getValue();
         }
-        return fitness / dayFitness.size();
+        averageDifference /= avgDayDifference.size();
+        switch(option) {
+            case OPTION_MINIMIZE:
+                return (TIME_RANGE - averageDifference) / TIME_RANGE;
+            case OPTION_MAXIMIZE:
+                return averageDifference / TIME_RANGE;
+        }
+        return fitness / avgDayDifference.size();
     }
 }
