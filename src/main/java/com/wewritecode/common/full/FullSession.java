@@ -4,7 +4,6 @@
 
 package com.wewritecode.common.full;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wewritecode.common.schedule.Time;
 
 import java.util.ArrayList;

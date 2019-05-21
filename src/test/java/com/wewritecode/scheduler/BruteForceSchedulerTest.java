@@ -53,9 +53,6 @@ public class BruteForceSchedulerTest {
 
         List<Schedule> schedules = response.getSchedules();
 
-//        ScheduleViewer viewer = new ScheduleViewer(0, schedules);
-//        SwingUtilities.invokeLater(() -> new ScheduleViewer(0, schedules));
-
         assertEquals(8, schedules.size());
     }
 
