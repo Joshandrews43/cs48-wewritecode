@@ -5,7 +5,7 @@
 
 package com.wewritecode.server.controller;
 
-import com.wewritecode.pan.schedule.Course;
+import com.wewritecode.common.schedule.Course;
 import com.wewritecode.pan.scheduler.Scheduler;
 import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
