@@ -4,34 +4,30 @@
 package com.wewritecode.filter;
 
 import com.wewritecode.pan.filter.DayFilter;
+import com.wewritecode.pan.filter.GapsFilter;
 import com.wewritecode.pan.filter.InvalidFilterOptionException;
 import com.wewritecode.pan.schedule.*;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class DayFilterTest {
+public class GapsFilterTest {
 
-    private DayFilter dayFilter;
+    private GapsFilter gapsFilter;
     private Schedule schedule;
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setup() {
-        dayFilter = new DayFilter();
+        gapsFilter = new GapsFilter();
         schedule = new Schedule();
 
         List<String> lectureCS64Days = new ArrayList<>();
         lectureCS64Days.add("M");
-        lectureCS64Days.add("R");
+        lectureCS64Days.add("W");
         Time lectureCS64Time = new Time(12, 30, 13, 45);
         List<String> section1CS64Days = new ArrayList<>();
         section1CS64Days.add("F");
@@ -60,25 +56,26 @@ public class DayFilterTest {
 
     @Test
     public void dayFilterTestMinimize() throws InvalidFilterOptionException {
-        dayFilter.setOption("Minimize Days");
+        gapsFilter.setOption("Minimize Gaps");
         double fitness = 0;
-        fitness = dayFilter.getFitness(schedule);
-        assertEquals(0.25, fitness);
+        fitness = gapsFilter.getFitness(schedule);
+        String format = String.format("%.3f", fitness);
+        assertEquals("0.945", format);
     }
 
-    @Test
-    public void dayFilterTestMaximize() throws InvalidFilterOptionException {
-        dayFilter.setOption("Maximize Days");
-        double fitness = 0;
-        fitness = dayFilter.getFitness(schedule);
-        assertEquals(0.75, fitness);
-    }
-
-    @Test
-    public void dayFilterTestException() throws InvalidFilterOptionException {
-        dayFilter.setOption("Random");
-        double fitness = 0;
-        thrown.expect(InvalidFilterOptionException.class);
-        fitness = dayFilter.getFitness(schedule);
-    }
+//    @Test
+//    public void dayFilterTestMaximize() throws InvalidFilterOptionException {
+//        gapsFilter.setOption("Maximize Days");
+//        double fitness = 0;
+//        fitness = gapsFilter.getFitness(schedule);
+//        assertEquals(0.75, fitness);
+//    }
+//
+//    @Test
+//    public void dayFilterTestException() throws InvalidFilterOptionException {
+//        dayFilter.setOption("Random");
+//        double fitness = 0;
+//        thrown.expect(InvalidFilterOptionException.class);
+//        fitness = dayFilter.getFitness(schedule);
+//    }
 }

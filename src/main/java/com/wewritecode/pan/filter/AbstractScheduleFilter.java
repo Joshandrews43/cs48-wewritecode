@@ -18,7 +18,8 @@ import com.wewritecode.pan.schedule.Schedule;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @Type(value = TimeFilter.class),
-        @Type(value = DayFilter.class)
+        @Type(value = DayFilter.class),
+        @Type(value = GapsFilter.class)
     })
 public abstract class AbstractScheduleFilter implements Filter<Schedule> {
     protected String option;
