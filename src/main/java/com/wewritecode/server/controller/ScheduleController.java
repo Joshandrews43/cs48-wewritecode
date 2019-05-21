@@ -5,7 +5,6 @@
 
 package com.wewritecode.server.controller;
 
-import com.wewritecode.common.schedule.Course;
 import com.wewritecode.pan.scheduler.Scheduler;
 import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
@@ -13,9 +12,6 @@ import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 
 /**
