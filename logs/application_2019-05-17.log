@@ -1,0 +1,13 @@
+2019-05-17 00:00:16,282 [pool-1-thread-4] DEBUG com.wewritecode.miner.GoldMiner - Done getting courses for: Writing
+2019-05-17 00:00:16,315 [pool-1-thread-4] INFO  com.wewritecode.util.MethodTimer - Method: getCourses took 1 min, 7 sec for: Writing
+2019-05-17 00:01:48,789 [pool-1-thread-2] DEBUG com.wewritecode.miner.GoldMiner - Done getting courses for: Statistics & Applied Probability
+2019-05-17 00:01:48,792 [pool-1-thread-2] INFO  com.wewritecode.util.MethodTimer - Method: getCourses took 3 min, 4 sec for: Statistics & Applied Probability
+2019-05-17 00:01:48,893 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped PSTAT courses.
+2019-05-17 00:01:48,893 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped TMP courses.
+2019-05-17 00:01:48,894 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped THTR courses.
+2019-05-17 00:01:48,895 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped WRIT courses.
+2019-05-17 00:01:48,895 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped W&L courses.
+2019-05-17 00:01:48,896 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped W&L CS courses.
+2019-05-17 00:01:48,896 [restartedMain] INFO  com.wewritecode.miner.GoldMineController - Shutting down the executor service.
+2019-05-17 00:01:48,898 [restartedMain] INFO  com.wewritecode.util.MethodTimer - Method: mine took 18 min, 30 sec for: n/a
+2019-05-17 00:01:48,899 [restartedMain] INFO  com.wewritecode.miner.GoldMineCLI - Scraping FALL 2019 complete.

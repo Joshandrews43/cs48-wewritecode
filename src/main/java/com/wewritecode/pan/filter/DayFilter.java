@@ -29,7 +29,9 @@ public class DayFilter extends AbstractScheduleFilter {
     // Precondition: schedule passed in has only 1 lecture and 1 section per course
     // Postcondition: returns fitness for that schedule
 
-    private static final String[] OPTIONS = {"Minimize Days", "Maximize Days"};
+    public static final String OPTION_MINIMIZE = "Minimize Days";
+    public static final String OPTION_MAXIMIZE = "Maximize Days";
+    private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE};
 
     private List<String> days;
 
@@ -71,9 +73,9 @@ public class DayFilter extends AbstractScheduleFilter {
     private double applyOption(double size) throws InvalidFilterOptionException {
 
         switch (option) {
-            case "Minimize Days":
+            case OPTION_MINIMIZE:
                 return (5-size)/4;
-            case "Maximize Days":
+            case OPTION_MAXIMIZE:
                 return (size-1)/4;
             default:
                 String message = String.format("Option: \"%s\" not supported for DayFilter.", option);
