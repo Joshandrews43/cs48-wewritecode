@@ -59,7 +59,8 @@ public class GapsFilterTest {
         gapsFilter.setOption("Minimize Gaps");
         double fitness = 0;
         fitness = gapsFilter.getFitness(schedule);
-        assertEquals(0.25, fitness);
+        String format = String.format("%.3f", fitness);
+        assertEquals("0.945", format);
     }
 
 //    @Test
