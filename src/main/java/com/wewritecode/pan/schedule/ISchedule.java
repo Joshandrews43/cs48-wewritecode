@@ -1,9 +1,8 @@
 package com.wewritecode.pan.schedule;
 
-import java.io.Serializable;
 import java.util.List;
 
-public interface ISchedule<T> extends Serializable {
+public interface ISchedule<T> {
     List<T> getCourses();
     void setCourses(List<T> courses);
     void addCourse(T course);

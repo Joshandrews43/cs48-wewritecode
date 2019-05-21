@@ -4,6 +4,7 @@
 
 package com.wewritecode.miner;
 
+import com.wewritecode.util.JSONUtils;
 import com.wewritecode.util.MethodTimer;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -28,8 +29,8 @@ public class GoldMineCLI {
         File quarterFile = new File(DATA_DIR + quarter +".json");
         File quarterFileFormatted = new File(DATA_DIR + quarter +"_formatted.json");
 
-        GoldMiner.toJsonFile(fullQuarter, quarterFile, false);
-        GoldMiner.toJsonFile(fullQuarter, quarterFileFormatted, true);
+        JSONUtils.toJsonFile(fullQuarter, quarterFile, false);
+        JSONUtils.toJsonFile(fullQuarter, quarterFileFormatted, true);
 
         LOGGER.info("Scraping complete.");
 

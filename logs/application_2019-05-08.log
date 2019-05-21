@@ -1,0 +1,3 @@
+2019-05-08 14:59:49,200 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Update Quarter Requested
+2019-05-08 14:59:49,202 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Spring 2019 not found on client.
+2019-05-08 14:59:49,460 [http-nio-5000-exec-2] INFO  com.wewritecode.server.manager.UpdateManager - Winter 2019 is up to date.

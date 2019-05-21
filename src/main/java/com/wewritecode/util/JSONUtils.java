@@ -4,15 +4,12 @@
 
 package com.wewritecode.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 public final class JSONUtils {
     private static final Logger LOGGER = Logger.getLogger(JSONUtils.class);
@@ -24,7 +21,7 @@ public final class JSONUtils {
         try {
             is = new FileInputStream(DATA_DIR + path);
         } catch (FileNotFoundException e) {
-            LOGGER.error("File " + path + " not found.", e);
+            LOGGER.error(String.format("File \"%s\" not found.", path), e);
             return new JSONObject();
         }
 
@@ -41,5 +38,37 @@ public final class JSONUtils {
 
     public static JSONObject gsonToJson(JsonObject gson) {
         return new JSONObject(gson.toString());
+    }
+
+    /**
+     * Formats a JSON object nicely into a file output.
+     *
+     * @param jsonObject Object to convert to string and output into file (formatted nicely).
+     * @param filename Target file name (existing or new) for the output.
+     * @return True if it was able to write to the file, false if an IOException occurred.
+     */
+    public static boolean toJsonFile(JSONObject jsonObject, File filename, boolean doFormatting) {
+        String writeString = jsonObject.toString();
+
+        // Creates a new instance of Gson with "pretty printing" enabled.
+        if (doFormatting) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonParser jp = new JsonParser();
+            JsonElement je = jp.parse(writeString);
+            writeString = gson.toJson(je);
+        }
+
+        // Write to output file
+        try {
+            FileWriter file = new FileWriter(filename);
+            file.write(writeString);
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -5,6 +5,8 @@
 
 package com.wewritecode.pan.schedule;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +38,11 @@ public class Lecture extends Session implements ILecture<Section> {
         sections = new ArrayList<>();
     }
 
+    @JsonIgnore
     public int getNumSections() { return sections.size(); }
+    @JsonIgnore
     public Section getSection(int index) { return sections.get(index); }
+    @JsonIgnore
     public void removeSections() { sections.clear(); }
 
     @Override

@@ -3,6 +3,7 @@
  */
 package com.wewritecode.server;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wewritecode.miner.GoldMineCLI;
 import com.wewritecode.miner.GoldMiner;
 import org.apache.log4j.Logger;
@@ -22,7 +23,8 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//         // Get most recent quarter.
+        // TODO: Refactor into some sort of Controller and/or function controlled by a Heroku script.
+         // Get most recent quarter.
 //        GoldMiner miner = new GoldMiner();
 //        String quarter = miner.getQuartersAsList().get(0);
 //        miner.close();
