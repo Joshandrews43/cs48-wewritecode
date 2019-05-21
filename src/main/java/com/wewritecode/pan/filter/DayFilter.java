@@ -1,12 +1,14 @@
 /**
- * @author Grant Clark
+ * @author Alan Roddick
  */
 
 package com.wewritecode.pan.filter;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import com.wewritecode.common.schedule.Lecture;
 import com.wewritecode.common.schedule.Schedule;
+import com.wewritecode.common.schedule.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +16,12 @@ import java.util.List;
 /**
  * Filter Schedules by Day
  *
- * User selects days they wish to OMIT from their schedule.
+ * User selects to minimize or maximize days
  *
  */
 @JsonTypeName("Day")
 public class DayFilter extends AbstractScheduleFilter {
 
-    // Two ways I could see this going. Either user selects a certain day they don't want class or they
-    // want the schedule that has classes on the least number of days. I will implement the latter
 
     // If schedule has classes all 5 days, fitness is 0
     // If schedule has classes on one day, fitness is 1
@@ -30,7 +30,9 @@ public class DayFilter extends AbstractScheduleFilter {
     // Precondition: schedule passed in has only 1 lecture and 1 section per course
     // Postcondition: returns fitness for that schedule
 
-    private static final String[] OPTIONS = {"M", "T", "W", "R", "F"};
+    public static final String OPTION_MINIMIZE = "Minimize Days";
+    public static final String OPTION_MAXIMIZE = "Maximize Days";
+    private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE};
 
     private List<String> days;
 
@@ -42,23 +44,43 @@ public class DayFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
-    public double getFitness(Schedule s) {
+    public double getFitness(Schedule s) throws InvalidFilterOptionException {
+        // Traverse through courses
         for (int i = 0; i < s.getCourses().size(); i++) {
             Lecture courseLecture = s.getCourses().get(i).getLecture(0);
-            for (int j = 0; j < courseLecture.getDays().size(); j++) {
-                String day = s.getCourses().get(i).getLecture(0).getDay(j);
-                if (!days.contains(day)) {
-                    days.add(day);
-                }
-            }
-            for (int j = 0; j < courseLecture.getSection(0).getDays().size(); j++) {
-                String day = s.getCourses().get(i).getLecture(0).getSection(0).getDay(j);
-                if (!days.contains(day)) {
-                    days.add(day);
-                }
-            }
+
+            // Add all the days from lectures
+            addDaysFromSession(courseLecture);
+
+            // Add all the days from sections
+            addDaysFromSession(courseLecture.getSection(0));
 
         }
-        return ((double)(5 - days.size())/ 4);
+
+        // Apply option based on number of days with class
+        return applyOption(days.size());
+
+    }
+
+    private void addDaysFromSession(Session session) {
+
+        for (String day : session.getDays()) {
+            if (!days.contains(day)) {
+                days.add(day);
+            }
+        }
+    }
+
+    private double applyOption(double size) throws InvalidFilterOptionException {
+
+        switch (option) {
+            case OPTION_MINIMIZE:
+                return (5-size)/4;
+            case OPTION_MAXIMIZE:
+                return (size-1)/4;
+            default:
+                String message = String.format("Option: \"%s\" not supported for DayFilter.", option);
+                throw new InvalidFilterOptionException(message);
+        }
     }
 }

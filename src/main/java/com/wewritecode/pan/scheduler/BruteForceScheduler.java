@@ -37,6 +37,10 @@ public class BruteForceScheduler implements Scheduler {
      */
     @Override
     public ScheduleResponse generate(ScheduleRequest request) {
+        mandatoryCourses = new ArrayList<>();
+        optionalCourses = new ArrayList<>();
+        filterOptions = new HashSet<>();
+        fullSchedules = new ArrayList<>();
         parseRequest(request);
         findFullSchedules();
         return createResponse();
