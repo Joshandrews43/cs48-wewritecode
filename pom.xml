@@ -3,11 +3,17 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
+  <groupId>com.wewritecode</groupId>
   <artifactId>gaucho_scheduler</artifactId>
-  <version>1.0</version>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <modules>
+        <module>miner</module>
+        <module>application</module>
+        <module>util</module>
+    </modules>
 
-  <parent>
+    <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>RELEASE</version>
@@ -166,6 +172,9 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+              <mainClass>Application</mainClass>
+          </configuration>
         <executions>
           <execution>
             <goals>

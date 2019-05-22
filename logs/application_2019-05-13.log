@@ -225,8 +225,8 @@
 2019-05-13 23:43:40,582 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped CHEM courses.
 2019-05-13 23:43:40,582 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped CH ST courses.
 2019-05-13 23:43:40,582 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped CHIN courses.
-2019-05-13 23:43:40,583 [restartedMain] ERROR com.wewritecode.server.Application - Exception thrown in main GoldMineCLI Application
-2019-05-13 23:43:40,583 [restartedMain] ERROR com.wewritecode.server.Application - org.json.JSONException: JSONObject["courseID"] not found.
+2019-05-13 23:43:40,583 [restartedMain] ERROR Application - Exception thrown in main GoldMineCLI Application
+2019-05-13 23:43:40,583 [restartedMain] ERROR Application - org.json.JSONException: JSONObject["courseID"] not found.
 2019-05-13 23:43:42,197 [pool-1-thread-4] DEBUG com.wewritecode.miner.GoldMiner - Getting all courses from: Engineering Sciences.
 2019-05-13 23:43:42,228 [pool-1-thread-4] DEBUG com.wewritecode.miner.GoldMiner - Found 13 sessions for subject: Engineering Sciences.
 2019-05-13 23:43:43,010 [pool-1-thread-3] DEBUG com.wewritecode.miner.GoldMiner - Done getting courses for: Education

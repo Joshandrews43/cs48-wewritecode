@@ -1,0 +1,50 @@
+{
+  "courses":
+  {
+    "mandatory": [
+
+      "Mandatory/Must-Have courses here.",
+      {
+        "courseID": "String",
+        "lectures":
+        [
+          {
+            "days": "String",
+            "time":
+            {
+              "start": "String",
+              "end": "String"
+            },
+            "sections":
+            [
+              {
+                "days": "String",
+                "time":
+                {
+                  "start": "String",
+                  "end": "String"
+                }
+              },
+              {
+                "days": "String",
+                "time":
+                {
+                  "start": "String",
+                  "end": "String"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "optional": [
+      "Optional/Additional courses here."
+    ],
+    "filters": {
+      "filter1" : "selected",
+      "filter2" : true,
+      "filter3" : "etc."
+    }
+  }
+}

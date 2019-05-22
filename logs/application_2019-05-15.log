@@ -143,8 +143,8 @@
 2019-05-15 14:59:24,333 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped ANTH courses.
 2019-05-15 14:59:24,333 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped ART courses.
 2019-05-15 14:59:24,334 [restartedMain] DEBUG com.wewritecode.miner.GoldMineController - Scraped ART CS courses.
-2019-05-15 14:59:24,334 [restartedMain] ERROR com.wewritecode.server.Application - Exception thrown in main GoldMineCLI Application
-2019-05-15 14:59:24,334 [restartedMain] ERROR com.wewritecode.server.Application - org.json.JSONException: JSONObject["courseID"] not found.
+2019-05-15 14:59:24,334 [restartedMain] ERROR Application - Exception thrown in main GoldMineCLI Application
+2019-05-15 14:59:24,334 [restartedMain] ERROR Application - org.json.JSONException: JSONObject["courseID"] not found.
 2019-05-15 14:59:27,154 [pool-1-thread-1] DEBUG com.wewritecode.miner.GoldMiner - Getting all courses from: Chicano Studies.
 2019-05-15 14:59:27,214 [pool-1-thread-1] DEBUG com.wewritecode.miner.GoldMiner - Found 37 sessions for subject: Chicano Studies.
 2019-05-15 14:59:29,717 [pool-1-thread-4] DEBUG com.wewritecode.miner.GoldMiner - Done getting courses for: Black Studies
