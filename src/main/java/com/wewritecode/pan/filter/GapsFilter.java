@@ -43,6 +43,9 @@ public class GapsFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
+    public String getType() { return "Gaps"; }
+
+    @Override
     public double getFitness(Schedule o) throws InvalidFilterOptionException {
 
         sortedSessions = new HashMap<>();

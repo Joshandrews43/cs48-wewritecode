@@ -44,6 +44,9 @@ public class DayFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
+    public String getType() { return "Day"; }
+
+    @Override
     public double getFitness(Schedule s) throws InvalidFilterOptionException {
         // Traverse through courses
         for (int i = 0; i < s.getCourses().size(); i++) {

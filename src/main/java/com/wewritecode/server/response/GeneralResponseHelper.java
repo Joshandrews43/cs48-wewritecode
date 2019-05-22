@@ -2,7 +2,7 @@
  * @author Grant Clark
  */
 
-package com.wewritecode.miner;
+package com.wewritecode.server.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wewritecode.common.full.FullQuarter;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class GoldVault {
+public class GeneralResponseHelper {
     private static final String DATA_DIR = System.getProperty("user.dir")+"/data/";
 
     private ObjectMapper mapper = new ObjectMapper();

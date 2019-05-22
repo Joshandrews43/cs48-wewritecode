@@ -32,6 +32,9 @@ public class TimeFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
+    public String getType() { return "Time"; }
+
+    @Override
     public double getFitness(Schedule schedule) throws InvalidFilterOptionException {
         List<Integer> times = new ArrayList<>();
         List<Course> courses = schedule.getCourses();

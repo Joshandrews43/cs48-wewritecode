@@ -16,6 +16,9 @@ public class AvailablityFilter extends AbstractScheduleFilter {
     public String[] getOptions() { return OPTIONS; }
 
     @Override
+    public String getType() { return "Availability"; }
+
+    @Override
     public double getFitness(Schedule schedule) {
         return 0;
     }
