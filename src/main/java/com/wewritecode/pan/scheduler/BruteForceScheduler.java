@@ -110,10 +110,17 @@ public class BruteForceScheduler implements Scheduler {
                 try {
                     if (!isConflicting(scheduleCopy, finalCourse)) {
                         scheduleCopy.addToSchedule(finalCourse);
-                        int beforeSize = schedules.size();
+                        int schedulesSize = schedules.size();
+                        int scheduleSize = scheduleCopy.getCourses().size();
                         findViableSchedules(schedules, index - 1, scheduleCopy, courses);
-                        if (beforeSize != schedules.size())
+                        // Check if a schedule is added to list of schedules
+                        if (schedulesSize != schedules.size()) {
                             scheduleCopy.removeFromSchedule(finalCourse);
+                        }
+                        // Check if a course was added
+                        else if (scheduleSize == scheduleCopy.getCourses().size()) {
+                            scheduleCopy.removeFromSchedule(finalCourse);
+                        }
                     }
                 } catch (InvalidScheduleException e) {
                     // TODO: Do something with this exception. i.e. Make status code or something.
