@@ -30,7 +30,9 @@ public class Lecture extends Session implements ILecture<Section> {
     public Lecture(Lecture l, Section section) {
         super(l.getDays(), l.getTime());
         sections = new ArrayList<>();
-        sections.add(section);
+        if (section != null) {
+            sections.add(section);
+        }
     }
 
     public Lecture(List<String> days, Time time) {

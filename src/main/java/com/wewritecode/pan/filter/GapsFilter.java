@@ -62,7 +62,9 @@ public class GapsFilter extends AbstractScheduleFilter {
     private void populateArray(ArrayList<Course> courses) {
         for (Course course : courses) {
             addByDay(course.getLecture(0));
-            addByDay(course.getLecture(0).getSection(0));
+            if (course.getLecture(0).getNumSections() != 0) {
+                addByDay(course.getLecture(0).getSection(0));
+            }
         }
     }
 

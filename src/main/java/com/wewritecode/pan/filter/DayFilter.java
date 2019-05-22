@@ -53,7 +53,9 @@ public class DayFilter extends AbstractScheduleFilter {
             addDaysFromSession(courseLecture);
 
             // Add all the days from sections
-            addDaysFromSession(courseLecture.getSection(0));
+            if (courseLecture.getNumSections() != 0) {
+                addDaysFromSession(courseLecture.getSection(0));
+            }
 
         }
 
