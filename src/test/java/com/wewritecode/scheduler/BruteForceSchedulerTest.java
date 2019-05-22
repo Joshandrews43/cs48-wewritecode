@@ -63,7 +63,7 @@ public class BruteForceSchedulerTest {
         ScheduleResponse response = scheduler.generate(request);
 
         List<Schedule> schedules = response.getSchedules();
-        assertEquals(1094, schedules.size());
+        assertEquals(5104, schedules.size());
 
         for (Schedule schedule : schedules) {
             assertEquals(6, schedule.getCourses().size());
