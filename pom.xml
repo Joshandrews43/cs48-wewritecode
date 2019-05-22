@@ -78,6 +78,14 @@
           <artifactId>gson</artifactId>
       </dependency>
 
+      <!-- Reflections -->
+
+      <dependency>
+          <groupId>org.reflections</groupId>
+          <artifactId>reflections</artifactId>
+          <version>0.9.11</version>
+      </dependency>
+
       <!-- Log4J (allows for more detailed logging) -->
       <dependency>
           <groupId>log4j</groupId>

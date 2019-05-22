@@ -27,4 +27,5 @@ public abstract class AbstractScheduleFilter implements Filter<Schedule> {
     public String getOption() { return option; }
     public void setOption(String option) { this.option = option; }
     public abstract String[] getOptions();
+    public abstract String getType();
 }

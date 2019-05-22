@@ -58,7 +58,7 @@ public class ScheduleController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse generate50Schedules(@RequestBody ScheduleRequest request) {
         bruteForceScheduler.generate(request);
-        return bruteForceScheduler.createResponse(0, 49);
+        return bruteForceScheduler.createResponse(0, 50);
     }
 
     // Filter Mappings
@@ -73,7 +73,7 @@ public class ScheduleController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse filterSchedules(@RequestBody FilterRequest request) {
         bruteForceScheduler.applyFilters(request);
-        return bruteForceScheduler.createResponse(0, 49);
+        return bruteForceScheduler.createResponse(0, 50);
     }
 
 }

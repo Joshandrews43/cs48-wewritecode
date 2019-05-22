@@ -72,7 +72,12 @@ public class BruteForceScheduler implements Scheduler {
     @Override
     public ScheduleResponse createResponse(int start, int end) {
         ScheduleResponse response = new ScheduleResponse();
-        response.setSchedules(fullSchedules.subList(start, end + 1));
+        List<Schedule> subList;
+        if (fullSchedules.size() > end)
+            subList = fullSchedules.subList(start, end);
+        else
+            subList = fullSchedules.subList(start, fullSchedules.size() - 1);
+        response.setSchedules(subList);
         response.setFilters(filterOptions);
         return response;
     }
