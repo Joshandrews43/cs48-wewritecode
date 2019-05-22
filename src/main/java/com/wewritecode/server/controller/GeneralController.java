@@ -4,7 +4,7 @@
 
 package com.wewritecode.server.controller;
 
-import com.wewritecode.miner.GoldVault;
+import com.wewritecode.server.response.GeneralResponseHelper;
 import com.wewritecode.server.request.GeneralRequest;
 import com.wewritecode.server.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GeneralController {
 
     @Autowired
-    private GoldVault vault;
+    private GeneralResponseHelper vault;
 
     @GetMapping(path = "/api/v1/general", produces = MediaType.APPLICATION_JSON_VALUE)
     public GeneralResponse getGeneralInfo() {
