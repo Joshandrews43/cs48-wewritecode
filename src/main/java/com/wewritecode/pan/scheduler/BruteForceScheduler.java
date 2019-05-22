@@ -105,10 +105,10 @@ public class BruteForceScheduler implements Scheduler {
 
         Course c = courses.get(index);
         for (Lecture lecture : c.getLectures()) {
-            for (Section section : lecture.getSections()) {
-                Course finalCourse = new Course(c, lecture, section);
+            if (lecture.getNumSections() == 0) {
+                Course finalCourse = new Course(c, lecture, null);
                 try {
-                    if (!isConflicting(scheduleCopy, finalCourse)) {
+                    if (!isConflicting(scheduleCopy, lecture)) {
                         scheduleCopy.addToSchedule(finalCourse);
                         int schedulesSize = schedules.size();
                         int scheduleSize = scheduleCopy.getCourses().size();
@@ -125,6 +125,29 @@ public class BruteForceScheduler implements Scheduler {
                 } catch (InvalidScheduleException e) {
                     // TODO: Do something with this exception. i.e. Make status code or something.
                     e.printStackTrace();
+                }
+            } else {
+                for (Section section : lecture.getSections()) {
+                    Course finalCourse = new Course(c, lecture, section);
+                    try {
+                        if (!isConflicting(scheduleCopy, finalCourse)) {
+                            scheduleCopy.addToSchedule(finalCourse);
+                            int schedulesSize = schedules.size();
+                            int scheduleSize = scheduleCopy.getCourses().size();
+                            findViableSchedules(schedules, index - 1, scheduleCopy, courses);
+                            // Check if a schedule is added to list of schedules
+                            if (schedulesSize != schedules.size()) {
+                                scheduleCopy.removeFromSchedule(finalCourse);
+                            }
+                            // Check if a course was added
+                            else if (scheduleSize == scheduleCopy.getCourses().size()) {
+                                scheduleCopy.removeFromSchedule(finalCourse);
+                            }
+                        }
+                    } catch (InvalidScheduleException e) {
+                        // TODO: Do something with this exception. i.e. Make status code or something.
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -186,8 +209,8 @@ public class BruteForceScheduler implements Scheduler {
                 throw new InvalidScheduleException();
             } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), session)) {
                 return true;
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session)) {
-                return true;
+            } else if (schedule.getCourses().get(i).getLecture(0).getNumSections() != 0) {
+                return isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session);
             }
         }
         return false;
