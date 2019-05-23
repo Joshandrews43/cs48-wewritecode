@@ -1,0 +1,20 @@
+{
+  "quarters":
+  [
+    {
+      "quarter": "Spring 2019",
+      "lastUpdated": 10000
+    },
+    {
+      "quarter": "Winter 2019",
+      "lastUpdated": 10000
+    }
+  ],
+  "subjects":
+  [
+    {
+      "symbol": "String",
+      "name": "String"
+    }
+  ]
+}
