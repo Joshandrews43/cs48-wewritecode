@@ -46,8 +46,11 @@ public class Schedule implements ISchedule<Course>, Comparable<Schedule> {
 
     public void calcFitness(Set<Filter> filters) throws InvalidFilterOptionException {
         double sum = 0;
-        for (Filter f : filters)
-            sum += f.getFitness(this);
+        for (Filter f : filters) {
+            if (f.getOption() != null) {
+                sum += f.getFitness(this);
+            }
+        }
         fitness = (sum / filters.size());
     }
 
