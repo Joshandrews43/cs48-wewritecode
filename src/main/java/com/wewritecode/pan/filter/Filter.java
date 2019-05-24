@@ -31,4 +31,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     })
 public interface Filter<T> {
     double getFitness(T o) throws InvalidFilterOptionException;
+    String getOption();
 }
