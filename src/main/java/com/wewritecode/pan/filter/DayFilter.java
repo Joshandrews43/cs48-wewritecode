@@ -48,8 +48,10 @@ public class DayFilter extends AbstractScheduleFilter {
 
     @Override
     public double getFitness(Schedule s) throws InvalidFilterOptionException {
+        days = new ArrayList<>();
         // Traverse through courses
         for (int i = 0; i < s.getCourses().size(); i++) {
+
             Lecture courseLecture = s.getCourses().get(i).getLecture(0);
 
             // Add all the days from lectures
