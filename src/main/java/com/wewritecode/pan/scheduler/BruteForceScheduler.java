@@ -71,6 +71,9 @@ public class BruteForceScheduler implements Scheduler {
 
     @Override
     public ScheduleResponse createResponse(int start, int end) {
+        if (fullSchedules.size() == 0) {
+            return new ScheduleResponse();
+        }
         ScheduleResponse response = new ScheduleResponse();
         List<Schedule> subList;
         if (fullSchedules.size() > end)
@@ -216,8 +219,8 @@ public class BruteForceScheduler implements Scheduler {
                 throw new InvalidScheduleException();
             } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), session)) {
                 return true;
-            } else if (schedule.getCourses().get(i).getLecture(0).getNumSections() != 0) {
-                return isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session);
+            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session)) {
+                return true;
             }
         }
         return false;
