@@ -66,7 +66,7 @@ public class GoldMiner {
         System.setProperty(CHROME_DRIVER_PROPERTY_2, PATH_TO_CHROME_DRIVER);
 
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(true);
+        options.setHeadless(false);
         options.addArguments("--no-sandbox");
 
         driver = new ChromeDriver(options);

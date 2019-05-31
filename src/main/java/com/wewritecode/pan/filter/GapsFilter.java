@@ -21,11 +21,11 @@ import java.util.*;
 @JsonTypeName("Gaps")
 public class GapsFilter extends AbstractScheduleFilter {
 
-    public static final String OPTION_MINIMIZE = "Minimize Gaps";
-    public static final String OPTION_MAXIMIZE = "Maximize Gaps";
+    public static final String OPTION_MINIMIZE = "Minimize";
+    public static final String OPTION_MAXIMIZE = "Maximize";
     private static final double TIME_RANGE = 610;
-    private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE, "1", "2", "3",
-    "4",};
+    private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE, "1 Hour", "2 Hours", "3 Hours",
+    "4 Hours",};
     private HashMap<String, ArrayList<Session>> sortedSessions;
     private HashMap<String, Double> avgDayDifference;
     private ArrayList<Double> dayFitness;
@@ -48,7 +48,7 @@ public class GapsFilter extends AbstractScheduleFilter {
     public String getType() { return "Gaps"; }
 
     @Override
-    public double getFitness(Schedule o) throws InvalidFilterOptionException {
+    public double getFitness(Schedule o) {
 
         sortedSessions = new HashMap<>();
         avgDayDifference = new HashMap<>();
@@ -139,7 +139,7 @@ public class GapsFilter extends AbstractScheduleFilter {
                 return averageDifference / TIME_RANGE;
             default:
                 try {
-                    int hour = Integer.parseInt(option);
+                    int hour = Integer.parseInt("" + option.charAt(0));
                     int minutes = 60 * hour;
                     calculateFitnessForDays(minutes);
                     double fitness = 0.0;
