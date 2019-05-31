@@ -54,9 +54,9 @@ public class GapsFilterTest {
     }
 
     @Test
-    public void dayFilterTestMinimize() throws InvalidFilterOptionException {
-        gapsFilter.setOption("Minimize Gaps");
-        double fitness = 0;
+    public void gapFilterTestMinimize() {
+        gapsFilter.setOption("Minimize");
+        double fitness;
         fitness = gapsFilter.getFitness(schedule);
         String format = String.format("%.3f", fitness);
         assertEquals("0.945", format);
