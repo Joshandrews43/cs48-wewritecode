@@ -28,12 +28,14 @@ public class GapsFilter extends AbstractScheduleFilter {
     "4 Hours",};
     private HashMap<String, ArrayList<Session>> sortedSessions;
     private HashMap<String, Integer> dayDifference;
+    private ArrayList<Integer> gaps;
     private ArrayList<Double> dayFitness;
 
     public GapsFilter() {
         sortedSessions = new HashMap<>();
         dayDifference = new HashMap<>();
         dayFitness = new ArrayList<>();
+        gaps = new ArrayList<>();
         sortedSessions.put("M", new ArrayList<>());
         sortedSessions.put("T", new ArrayList<>());
         sortedSessions.put("W", new ArrayList<>());
@@ -53,6 +55,7 @@ public class GapsFilter extends AbstractScheduleFilter {
         sortedSessions = new HashMap<>();
         dayDifference = new HashMap<>();
         dayFitness = new ArrayList<>();
+        gaps = new ArrayList<>();
         sortedSessions.put("M", new ArrayList<>());
         sortedSessions.put("T", new ArrayList<>());
         sortedSessions.put("W", new ArrayList<>());
@@ -61,9 +64,10 @@ public class GapsFilter extends AbstractScheduleFilter {
         // Arrange classes in arraylist of arraylist of sessions based on day
         populateArray((ArrayList<Course>)o.getCourses());
 
-        for (String day : sortedSessions.keySet()) {
-            calculateDifferenceForDay(day);
-        }
+//        for (String day : sortedSessions.keySet()) {
+//            calculateDifferenceForDay(day);
+//        }
+        calculateGaps();
 
         return applyOption();
 
@@ -128,6 +132,19 @@ public class GapsFilter extends AbstractScheduleFilter {
         }
     }
 
+    private void calculateGaps() {
+        for (String day : sortedSessions.keySet()) {
+            int size = sortedSessions.get(day).size();
+            ArrayList<Session> sessions = sortedSessions.get(day);
+            int difference = 0;
+            if (size > 1) {
+                for (int i = 0; i < sessions.size() - 1; i++) {
+                    gaps.add(calculateDifference(sessions.get(i), sessions.get(i+1)));
+                }
+            }
+        }
+    }
+
     private int calculateDifference(Session s1, Session s2) {
         int difference;
         if (s1.getTime().getStart().compareTo(s2.getTime().getStart()) < 1) {
@@ -182,31 +199,34 @@ public class GapsFilter extends AbstractScheduleFilter {
 //        }
 //    }
     private double applyOption() {
-        double averageDifference = 0.0;
-        ArrayList<Double> averageDayDifference = new ArrayList<>();
-        for (String day : dayDifference.keySet()) {
-            averageDayDifference.add(((double) dayDifference.get(day)) / (sortedSessions.get(day).size()-1));
-        }
-        for (Double difference : averageDayDifference) {
-            averageDifference += difference;
-        }
-        averageDifference /= averageDayDifference.size();
+//        double averageDifference = 0.0;
+//        ArrayList<Double> averageDayDifference = new ArrayList<>();
+//        for (String day : dayDifference.keySet()) {
+//            averageDayDifference.add(((double) dayDifference.get(day)) / (sortedSessions.get(day).size()-1));
+//        }
+//        for (Double difference : averageDayDifference) {
+//            averageDifference += difference;
+//        }
+//        averageDifference /= averageDayDifference.size();
 
         switch(option) {
             case OPTION_MINIMIZE:
-                return (TIME_RANGE - averageDifference) / TIME_RANGE;
+//                return (TIME_RANGE - averageDifference) / TIME_RANGE;
+                return calculateFitnessForGaps(0, gaps);
             case OPTION_MAXIMIZE:
-                return averageDifference / TIME_RANGE;
+//                return averageDifference / TIME_RANGE;
+                return calculateFitnessForGaps(TIME_RANGE, gaps);
             default:
                 try {
                     int hour = Integer.parseInt("" + option.charAt(0));
                     int minutes = 60 * hour;
-                    calculateFitnessForDays(minutes, averageDayDifference);
-                    double fitness = 0.0;
-                    for (Double dayFitness : dayFitness) {
-                        fitness += dayFitness;
-                    }
-                    return fitness / dayFitness.size();
+//                    calculateFitnessForDays(minutes, averageDayDifference);
+//                    double fitness = 0.0;
+//                    for (Double dayFitness : dayFitness) {
+//                        fitness += dayFitness;
+//                    }
+//                    return fitness / dayFitness.size();
+                    return calculateFitnessForGaps(minutes, gaps);
                 } catch (NumberFormatException e) {
                     return 0.0;
                 }
@@ -223,5 +243,15 @@ public class GapsFilter extends AbstractScheduleFilter {
             fitness = (TIME_RANGE - fitness) / TIME_RANGE;
             dayFitness.add(fitness);
         }
+    }
+
+    private double calculateFitnessForGaps(double option, ArrayList<Integer> gaps) {
+        double fitness = 0;
+        for (double gap : gaps) {
+            double difference = (Math.abs(gap - option));
+            fitness += ((TIME_RANGE - difference) / TIME_RANGE);
+        }
+        fitness /= gaps.size();
+        return fitness;
     }
 }
