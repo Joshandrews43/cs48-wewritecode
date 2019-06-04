@@ -120,10 +120,23 @@ public class GapsFilter extends AbstractScheduleFilter {
         } else {
             difference = s1.getTime().getStart().compareTo(s2.getTime().getEnd());
         }
+        difference = round(difference);
         return difference;
     }
     private double avg(int size, double totalDifference, double newDifference) {
         return (totalDifference + newDifference) / size;
+    }
+
+    // Rounds to nearest 60
+    private int round(int n) {
+        // Smaller multiple
+        int a = (n / 60) * 60;
+
+        // Larger multiple
+        int b = a + 60;
+
+        // Return of closest of two
+        return (n - a > b - n)? b : a;
     }
 
     private double applyOption() {
