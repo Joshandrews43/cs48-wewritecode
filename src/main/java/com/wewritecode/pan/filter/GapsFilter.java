@@ -27,12 +27,12 @@ public class GapsFilter extends AbstractScheduleFilter {
     private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE, "1 Hour", "2 Hours", "3 Hours",
     "4 Hours",};
     private HashMap<String, ArrayList<Session>> sortedSessions;
-    private HashMap<String, Double> avgDayDifference;
+    private HashMap<String, Integer> dayDifference;
     private ArrayList<Double> dayFitness;
 
     public GapsFilter() {
         sortedSessions = new HashMap<>();
-        avgDayDifference = new HashMap<>();
+        dayDifference = new HashMap<>();
         dayFitness = new ArrayList<>();
         sortedSessions.put("M", new ArrayList<>());
         sortedSessions.put("T", new ArrayList<>());
@@ -51,7 +51,7 @@ public class GapsFilter extends AbstractScheduleFilter {
     public double getFitness(Schedule o) {
 
         sortedSessions = new HashMap<>();
-        avgDayDifference = new HashMap<>();
+        dayDifference = new HashMap<>();
         dayFitness = new ArrayList<>();
         sortedSessions.put("M", new ArrayList<>());
         sortedSessions.put("T", new ArrayList<>());
@@ -60,6 +60,10 @@ public class GapsFilter extends AbstractScheduleFilter {
         sortedSessions.put("F", new ArrayList<>());
         // Arrange classes in arraylist of arraylist of sessions based on day
         populateArray((ArrayList<Course>)o.getCourses());
+
+        for (String day : sortedSessions.keySet()) {
+            calculateDifferenceForDay(day);
+        }
 
         return applyOption();
 
@@ -77,7 +81,7 @@ public class GapsFilter extends AbstractScheduleFilter {
     private void addByDay(Session session) {
         for (String day : session.getDays()) {
             insertSession(sortedSessions.get(day), session);
-            calculateDifferenceForDay(day);
+//            calculateDifferenceForDay(day);
         }
     }
 
@@ -92,24 +96,35 @@ public class GapsFilter extends AbstractScheduleFilter {
         sessions.add(newSession);
     }
 
+//    private void calculateDifferenceForDay(String day) {
+//        int size = sortedSessions.get(day).size();
+//        ArrayList<Session> sessions = sortedSessions.get(day);
+//        if (size == 1) {
+////            dayDifference.put(day, 0.0);
+//            return;
+//        } else if (size == 2) {
+//            dayDifference.put(day, (double)calculateDifference(sessions.get(0), sessions.get(1)));
+//            return;
+//        } else {
+//
+//            for(int i = 0; i < sessions.size() - 1; i++) {
+//
+//                dayDifference.put(day, avg(size, dayDifference.get(day) * (size - 1),
+//                        calculateDifference(sessions.get(i), sessions.get(i+1))));
+//
+//
+//            }
+//        }
+//    }
     private void calculateDifferenceForDay(String day) {
         int size = sortedSessions.get(day).size();
         ArrayList<Session> sessions = sortedSessions.get(day);
-        if (size == 1) {
-//            avgDayDifference.put(day, 0.0);
-            return;
-        } else if (size == 2) {
-            avgDayDifference.put(day, (double)calculateDifference(sessions.get(0), sessions.get(1)));
-            return;
-        } else {
-
-            for(int i = 0; i < sessions.size() - 1; i++) {
-
-                avgDayDifference.put(day, avg(size, avgDayDifference.get(day) * (size - 1),
-                        calculateDifference(sessions.get(i), sessions.get(i+1))));
-
-
+        int difference = 0;
+        if (size > 1) {
+            for (int i = 0; i < sessions.size() - 1; i++) {
+                difference += calculateDifference(sessions.get(i), sessions.get(i+1));
             }
+            dayDifference.put(day, difference);
         }
     }
 
@@ -139,12 +154,44 @@ public class GapsFilter extends AbstractScheduleFilter {
         return (n - a > b - n)? b : a;
     }
 
+//    private double applyOption() {
+//        double averageDifference = 0.0;
+//        for (Map.Entry mapElement : dayDifference.entrySet()) {
+//            averageDifference += (double)mapElement.getValue();
+//        }
+//        averageDifference /= dayDifference.size();
+//        switch(option) {
+//            case OPTION_MINIMIZE:
+//                return (TIME_RANGE - averageDifference) / TIME_RANGE;
+//            case OPTION_MAXIMIZE:
+//                return averageDifference / TIME_RANGE;
+//            default:
+//                try {
+//                    int hour = Integer.parseInt("" + option.charAt(0));
+//                    int minutes = 60 * hour;
+//                    calculateFitnessForDays(minutes);
+//                    double fitness = 0.0;
+//                    for (Double dayFitness : dayFitness) {
+//                        fitness += dayFitness;
+//                    }
+//                    return fitness / dayFitness.size();
+//                } catch (NumberFormatException e) {
+//                    return 0.0;
+//                }
+//
+//        }
+//    }
     private double applyOption() {
         double averageDifference = 0.0;
-        for (Map.Entry mapElement : avgDayDifference.entrySet()) {
-            averageDifference += (double)mapElement.getValue();
+        ArrayList<Double> averageDayDifference = new ArrayList<>();
+        for (String day : dayDifference.keySet()) {
+            averageDayDifference.add(((double) dayDifference.get(day)) / (sortedSessions.get(day).size()-1));
         }
-        averageDifference /= avgDayDifference.size();
+        for (Double difference : averageDayDifference) {
+            averageDifference += difference;
+        }
+        averageDifference /= averageDayDifference.size();
+
         switch(option) {
             case OPTION_MINIMIZE:
                 return (TIME_RANGE - averageDifference) / TIME_RANGE;
@@ -154,7 +201,7 @@ public class GapsFilter extends AbstractScheduleFilter {
                 try {
                     int hour = Integer.parseInt("" + option.charAt(0));
                     int minutes = 60 * hour;
-                    calculateFitnessForDays(minutes);
+                    calculateFitnessForDays(minutes, averageDayDifference);
                     double fitness = 0.0;
                     for (Double dayFitness : dayFitness) {
                         fitness += dayFitness;
@@ -167,10 +214,12 @@ public class GapsFilter extends AbstractScheduleFilter {
         }
     }
 
-    private void calculateFitnessForDays(double minutes) {
+
+
+    private void calculateFitnessForDays(double minutes, ArrayList<Double> averageDayDifference) {
         double fitness;
-        for (Map.Entry mapElement : avgDayDifference.entrySet()) {
-            fitness = Math.abs((double)mapElement.getValue() - minutes);
+        for (double difference : averageDayDifference) {
+            fitness = Math.abs(difference - minutes);
             fitness = (TIME_RANGE - fitness) / TIME_RANGE;
             dayFitness.add(fitness);
         }
