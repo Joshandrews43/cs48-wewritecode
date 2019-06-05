@@ -58,22 +58,23 @@ public class ScheduleController {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ScheduleResponse generate50Schedules(@RequestBody ScheduleRequest request) {
         bruteForceScheduler.generate(request);
+        bruteForceScheduler.applyFilters(request.getFilters());
         return bruteForceScheduler.createResponse(0, 50);
     }
 
     // Filter Mappings
 
-    @PutMapping(path = "/api/v1/schedule/update/filters",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void applyFilters(@RequestBody FilterRequest request) {
-        bruteForceScheduler.applyFilters(request);
-    }
-
-    @PostMapping(path = "/api/v1/schedule/generate/filter",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ScheduleResponse filterSchedules(@RequestBody FilterRequest request) {
-        bruteForceScheduler.applyFilters(request);
-        return bruteForceScheduler.createResponse(0, 50);
-    }
+//    @PutMapping(path = "/api/v1/schedule/update/filters",
+//            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public void applyFilters(@RequestBody FilterRequest request) {
+//        bruteForceScheduler.applyFilters(request);
+//    }
+//
+//    @PostMapping(path = "/api/v1/schedule/generate/filter",
+//            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ScheduleResponse filterSchedules(@RequestBody FilterRequest request) {
+//        bruteForceScheduler.applyFilters(request);
+//        return bruteForceScheduler.createResponse(0, 50);
+//    }
 
 }

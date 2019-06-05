@@ -47,8 +47,7 @@ public class BruteForceScheduler implements Scheduler {
     }
 
     @Override
-    public void applyFilters(FilterRequest request) {
-        Set<Filter> filters = request.getFilters();
+    public void applyFilters(Set<Filter> filters) {
         filterOptions = (filters != null) ? filters : new HashSet<>();
         BruteForceFilterer.sort(fullSchedules, filterOptions);
     }
