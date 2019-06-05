@@ -112,54 +112,39 @@ public class BruteForceScheduler implements Scheduler {
             schedules.add(scheduleCopy);
             return;
         }
-
         Course c = courses.get(index);
         for (Lecture lecture : c.getLectures()) {
             if (lecture.getNumSections() == 0) {
                 Course finalCourse = new Course(c, lecture, null);
-                try {
-                    if (!isConflicting(scheduleCopy, lecture)) {
-                        scheduleCopy.addToSchedule(finalCourse);
-                        int schedulesSize = schedules.size();
-                        int scheduleSize = scheduleCopy.getCourses().size();
-                        findViableSchedules(schedules, index - 1, scheduleCopy, courses);
-                        // Check if a schedule is added to list of schedules
-                        if (schedulesSize != schedules.size()) {
-                            scheduleCopy.removeFromSchedule(finalCourse);
-                        }
-                        // Check if a course was added
-                        else if (scheduleSize == scheduleCopy.getCourses().size()) {
-                            scheduleCopy.removeFromSchedule(finalCourse);
-                        }
-                    }
-                } catch (InvalidScheduleException e) {
-                    // TODO: Do something with this exception. i.e. Make status code or something.
-                    e.printStackTrace();
-                }
+                tryToAddCourseToSchedule(schedules, index, scheduleCopy, courses, finalCourse);
             } else {
                 for (Section section : lecture.getSections()) {
                     Course finalCourse = new Course(c, lecture, section);
-                    try {
-                        if (!isConflicting(scheduleCopy, finalCourse)) {
-                            scheduleCopy.addToSchedule(finalCourse);
-                            int schedulesSize = schedules.size();
-                            int scheduleSize = scheduleCopy.getCourses().size();
-                            findViableSchedules(schedules, index - 1, scheduleCopy, courses);
-                            // Check if a schedule is added to list of schedules
-                            if (schedulesSize != schedules.size()) {
-                                scheduleCopy.removeFromSchedule(finalCourse);
-                            }
-                            // Check if a course was added
-                            else if (scheduleSize == scheduleCopy.getCourses().size()) {
-                                scheduleCopy.removeFromSchedule(finalCourse);
-                            }
-                        }
-                    } catch (InvalidScheduleException e) {
-                        // TODO: Do something with this exception. i.e. Make status code or something.
-                        e.printStackTrace();
-                    }
+                    tryToAddCourseToSchedule(schedules, index, scheduleCopy, courses, finalCourse);
                 }
             }
+        }
+    }
+
+    private void tryToAddCourseToSchedule(List<Schedule> schedules, int index,
+                                          Schedule schedule, List<Course> courses, Course course) {
+        try {
+            if (!isConflicting(schedule, course.getLecture(0))) {
+                if (course.getLecture(0).getSections().size() > 0
+                        && isConflicting(schedule, course.getLecture(0).getSection(0)))
+                    return;
+                else {
+                    schedule.addToSchedule(course);
+                    int schedulesSize = schedules.size();
+                    int scheduleSize = schedule.getCourses().size();
+                    findViableSchedules(schedules, index - 1, schedule, courses);
+                    // Check if a schedule is added to list of schedules or if a course was added.
+                    if (schedulesSize != schedules.size() || scheduleSize == schedule.getCourses().size())
+                        schedule.removeFromSchedule(course);
+                }
+            }
+        } catch (InvalidScheduleException e) {
+            e.printStackTrace();
         }
     }
 
