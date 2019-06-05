@@ -30,8 +30,8 @@ public class DayFilter extends AbstractScheduleFilter {
     // Precondition: schedule passed in has only 1 lecture and 1 section per course
     // Postcondition: returns fitness for that schedule
 
-    public static final String OPTION_MINIMIZE = "Minimize Days";
-    public static final String OPTION_MAXIMIZE = "Maximize Days";
+    public static final String OPTION_MINIMIZE = "Minimize";
+    public static final String OPTION_MAXIMIZE = "Maximize";
     private static final String[] OPTIONS = {OPTION_MINIMIZE, OPTION_MAXIMIZE};
 
     private List<String> days;

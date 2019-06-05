@@ -43,7 +43,7 @@ public class GapsFilterTest {
         Time lectureCS130ATime = new Time(11, 0, 12, 15);
         List<String> section1CS130ADays = new ArrayList<>();
         section1CS130ADays.add("F");
-        Time section1CS130ATime = new Time(9, 0, 9, 50);
+        Time section1CS130ATime = new Time(10, 0, 10, 50);
         Section section1CS130A = new Section(section1CS130ADays, section1CS130ATime);
         Lecture CS130ALecture = new Lecture(lectureCS130ADays, lectureCS130ATime);
         CS130ALecture.addSection(section1CS130A);
@@ -59,7 +59,7 @@ public class GapsFilterTest {
         double fitness;
         fitness = gapsFilter.getFitness(schedule);
         String format = String.format("%.3f", fitness);
-        assertEquals("0.945", format);
+        assertEquals("1.000", format);
     }
 
 //    @Test
