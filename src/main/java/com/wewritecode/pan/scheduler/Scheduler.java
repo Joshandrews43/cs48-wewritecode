@@ -5,7 +5,6 @@
 package com.wewritecode.pan.scheduler;
 
 import com.wewritecode.pan.filter.Filter;
-import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
 

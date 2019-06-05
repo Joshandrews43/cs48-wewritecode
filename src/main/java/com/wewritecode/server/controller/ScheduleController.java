@@ -6,7 +6,6 @@
 package com.wewritecode.server.controller;
 
 import com.wewritecode.pan.scheduler.Scheduler;
-import com.wewritecode.server.request.FilterRequest;
 import com.wewritecode.server.request.ScheduleRequest;
 import com.wewritecode.server.response.ScheduleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
