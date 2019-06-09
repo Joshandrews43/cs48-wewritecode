@@ -62,7 +62,7 @@ public class DayFilterTest {
 
     @Test
     public void dayFilterTestMinimize() throws InvalidFilterOptionException {
-        dayFilter.setOption("Minimize Days");
+        dayFilter.setOption("Minimize");
         double fitness = 0;
         fitness = dayFilter.getFitness(schedule);
         assertEquals(0.25, fitness);
@@ -70,7 +70,7 @@ public class DayFilterTest {
 
     @Test
     public void dayFilterTestMaximize() throws InvalidFilterOptionException {
-        dayFilter.setOption("Maximize Days");
+        dayFilter.setOption("Maximize");
         double fitness = 0;
         fitness = dayFilter.getFitness(schedule);
         assertEquals(0.75, fitness);
