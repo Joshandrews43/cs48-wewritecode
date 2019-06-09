@@ -76,7 +76,10 @@ public class BruteForceScheduler implements Scheduler {
         List<Schedule> subList;
         if (fullSchedules.size() > end)
             subList = fullSchedules.subList(start, end);
-        else
+        else if (fullSchedules.size() == 1) {
+            subList = new ArrayList<>();
+            subList.add(fullSchedules.get(0));
+        } else
             subList = fullSchedules.subList(start, fullSchedules.size() - 1);
         response.setSchedules(subList);
         response.setFilters(filterOptions);
