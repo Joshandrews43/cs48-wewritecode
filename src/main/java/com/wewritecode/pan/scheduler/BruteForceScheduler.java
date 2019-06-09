@@ -205,7 +205,8 @@ public class BruteForceScheduler implements Scheduler {
                 throw new InvalidScheduleException();
             } else if (isConflicting(schedule.getCourses().get(i).getLecture(0), session)) {
                 return true;
-            } else if (isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session)) {
+            } else if (schedule.getCourses().get(i).getLecture(0).getNumSections() != 0 &&
+                    isConflicting(schedule.getCourses().get(i).getLecture(0).getSection(0), session)) {
                 return true;
             }
         }
